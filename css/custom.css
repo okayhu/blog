@@ -1,0 +1,21 @@
+@font-face {
+  font-family: "SF Mono";
+  src: url("/font/SFMono-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "NotoSans SC", sans-serif;
+  src: url("/font/NotoSansSC-Regular.otf") format("opentype");
+}
+
+html,
+body,
+.markdown-body {
+  font-family: "NotoSans SC", sans-serif;
+  /* font-size: 15px; */
+}
+
+.markdown-body pre {
+  font-family: "SF Mono", monospace;
+  /* font-size: 15px; */
+}
