@@ -19,17 +19,17 @@
     <meta name="description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM 之对象的创建过程和内存布局">
-<meta property="og:url" content="http://okayhu.github.io/blog/2022/07/04/JVM%20%E4%B9%8B%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%92%8C%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:url" content="https://okayhu.github.io/blog/jvm-object-memory/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
 <meta property="og:description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://okayhu.github.io/blog/images/jvm/jvm.png">
-<meta property="article:published_time" content="2022-07-04T15:34:20.000Z">
-<meta property="article:modified_time" content="2022-12-13T12:34:04.358Z">
+<meta property="og:image" content="https://okayhu.github.io/blog/images/jvm/jvm.png">
+<meta property="article:published_time" content="2022-07-04T07:34:20.000Z">
+<meta property="article:modified_time" content="2022-12-13T13:34:30.379Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://okayhu.github.io/blog/images/jvm/jvm.png">
+<meta name="twitter:image" content="https://okayhu.github.io/blog/images/jvm/jvm.png">
   
   
   
@@ -396,7 +396,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>JVM 之对象的创建过程和内存布局</div>
-      <div>http://okayhu.github.io/blog/2022/07/04/JVM 之对象的创建过程和内存布局/</div>
+      <div>https://okayhu.github.io/blog/jvm-object-memory/</div>
     </div>
     <div class="license-meta">
       
@@ -440,7 +440,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2022/07/26/SpringBoot%20%E7%9A%84%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84/" title="Spring Boot 的整洁架构">
+                      <a href="/blog/spring-boot-clean-architecture/" title="Spring Boot 的整洁架构">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">Spring Boot 的整洁架构</span>
                         <span class="visible-mobile">上一篇</span>
@@ -450,7 +450,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2022/06/30/%E4%BD%BF%E7%94%A8%20Firewalld%20%E4%BF%9D%E6%8A%A4%20Docker%20%E5%AE%89%E5%85%A8/" title="使用 Firewalld 保护 Docker 安全">
+                      <a href="/blog/docker-firewalld/" title="使用 Firewalld 保护 Docker 安全">
                         <span class="hidden-mobile">使用 Firewalld 保护 Docker 安全</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -551,7 +551,7 @@
     <div class="footer-inner">
   
     <div class="footer-content">
-      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+      Copyright © 2022 dyhu - <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
     </div>
   
   
