@@ -16,15 +16,15 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="概述Java Virtual Machine（JVM）是一种抽象的计算机，基于堆栈架构，它有自己的指令集和内存管理。它加载 class 文件、分析、解释并执行字节码。基本结构如下：  Java 虚拟机会在执行 Java 程序的过程中把它所管理的内存划分为若干区域。如图：  JVM 内存结构主要分为三大块：堆、栈和方法区。堆是 JVM 中最大的一块区域，由年轻代和老年代组成，而年轻代内存又分成两部分">
+    <meta name="description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM 之内存结构">
-<meta property="og:url" content="http://okayhu.github.io/blog/2022/06/22/JVM%20%E4%B9%8B%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:title" content="JVM 之对象的创建过程和内存布局">
+<meta property="og:url" content="http://okayhu.github.io/blog/2022/07/04/JVM%20%E4%B9%8B%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%92%8C%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="概述Java Virtual Machine（JVM）是一种抽象的计算机，基于堆栈架构，它有自己的指令集和内存管理。它加载 class 文件、分析、解释并执行字节码。基本结构如下：  Java 虚拟机会在执行 Java 程序的过程中把它所管理的内存划分为若干区域。如图：  JVM 内存结构主要分为三大块：堆、栈和方法区。堆是 JVM 中最大的一块区域，由年轻代和老年代组成，而年轻代内存又分成两部分">
+<meta property="og:description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://okayhu.github.io/blog/images/jvm/jvm.png">
-<meta property="article:published_time" content="2022-06-22T21:47:45.000Z">
+<meta property="article:published_time" content="2022-07-04T15:34:20.000Z">
 <meta property="article:modified_time" content="2022-12-13T12:34:04.358Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
@@ -33,7 +33,7 @@
   
   
   
-  <title>JVM 之内存结构 - dyhu&#39;s blog</title>
+  <title>JVM 之对象的创建过程和内存布局 - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JVM 之内存结构"></span>
+            <span id="subtitle" data-typed-text="JVM 之对象的创建过程和内存布局"></span>
           
         </div>
 
@@ -213,8 +213,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-22 21:47" pubdate>
-          2022-06-22 21:47:45
+        <time datetime="2022-07-04 15:34" pubdate>
+          2022-07-04 15:34:20
         </time>
       </span>
     
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.1k 字
+          3.3k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          26 分钟
+          28 分钟
         
       </span>
     
@@ -274,86 +274,82 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JVM 之内存结构</h1>
+            <h1 style="display: none">JVM 之对象的创建过程和内存布局</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Java Virtual Machine（JVM）是一种抽象的计算机，基于堆栈架构，它有自己的指令集和内存管理。它加载 class 文件、分析、解释并执行字节码。基本结构如下：</p>
-<p><img src="/blog/images/jvm/jvm-memory-structure-01.png" srcset="/blog/img/loading.gif" lazyload></p>
-<p>Java 虚拟机会在执行 Java 程序的过程中把它所管理的内存划分为若干区域。如图：</p>
-<p><img src="/blog/images/jvm/jvm-memory-structure-02.png" srcset="/blog/img/loading.gif" lazyload></p>
-<p>JVM 内存结构主要分为三大块：堆、栈和方法区。堆是 JVM 中最大的一块区域，由年轻代和老年代组成，而年轻代内存又分成两部分，Eden 区和 Survivor 区，而 Survivor 区又分为 From 区、To 区，默认情况下年轻代按照 8:1:1 的比例来分配。</p>
-<p>通过一张图来了解如何通过参数来控制各区域的内存大小：</p>
-<p><img src="/blog/images/jvm/jvm-memory-structure-03.png" srcset="/blog/img/loading.gif" lazyload></p>
+                <h2 id="对象的创建过程"><a href="#对象的创建过程" class="headerlink" title="对象的创建过程"></a>对象的创建过程</h2><p><img src="/blog/images/jvm/jvm-object-memory-01.png" srcset="/blog/img/loading.gif" lazyload></p>
+<h3 id="检查加载"><a href="#检查加载" class="headerlink" title="检查加载"></a>检查加载</h3><p>首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。</p>
+<h3 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h3><p>虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。</p>
+<p>分配内存由两种方式：</p>
 <ul>
-<li>_Xms_：设置堆的最小空间大小。</li>
-<li>_Xmx_：设置堆的最大空间大小。</li>
-<li>_XX:NewSize_：设置新生代最小空间大小。</li>
-<li>_XX:MaxNewSize_：设置新生代最大空间大小。</li>
-<li>_XX:PermSize_：设置永久代最小空间大小。</li>
-<li>_XX:MaxPermSize_：设置永久代最大空间大小。</li>
-<li>_Xss_：设置每个线程的堆栈大小。</li>
+<li><strong>指针碰撞</strong>：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器。那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离，这种分配方式称为指针碰撞。</li>
+<li><strong>空闲列表</strong>：如果 Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的。在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为空闲列表。</li>
 </ul>
 <div class="note note-info">
-            <p>没有直接设置老年代的参数，但是可以设置堆空间大小和新生代空间大小两个参数来间接控制。（老年代空间大小 &#x3D; 堆空间大小 - 年轻代空间大小）</p>
+            <p>选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。如果是 Serial、ParNew 等带有压缩的整理的垃圾回收器的话，系统采用的是指针碰撞，既简单又高效。如果是使用 CMS 这种不带压缩整理的垃圾回收器的话，理论上只能采用较复杂的空闲列表。</p>
           </div>
 
-<h2 id="堆（Heap）"><a href="#堆（Heap）" class="headerlink" title="堆（Heap）"></a>堆（Heap）</h2><p>对于大多数应用来说，堆（Heap）是 Java 虚拟机所管理的内存中最大的一块。堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。</p>
-<p>堆是垃圾收集器管理的主要区域。如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，所以堆中还可以细分为：新生代和老年代。当让再细分的话还要，Eden 区、From Survivor 区、To Survivor 区。</p>
-<p>根据 Java 虚拟机规范的规定，堆可以处于物理上不连续的内存空间中，只要逻辑上是连续的即可，就像我们的磁盘空间一样。在实现时，既可以实现成固定大小的，也可以是可扩展的，不过当前主流的虚拟机都是按照可扩展来实现的（通过 <code>-Xmx</code> 和 <code>-Xms</code> 控制）。</p>
-<p>如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将会抛出 OutOfMemoryError 异常。</p>
-<h2 id="方法区（Method-Area）"><a href="#方法区（Method-Area）" class="headerlink" title="方法区（Method Area）"></a>方法区（Method Area）</h2><p>方法区（Method Area）与堆一样，是各个线程共享的内存区域。它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
-<p>对于习惯在 HotSpot 虚拟机上开发和部署程序的开发者来说，很多人愿意把方法区称为 永久代（Permanent Generation），本质上两者并不等价。仅仅是因为 HotSpot 虚拟机的设计团队选择把 GC 分代收集扩展至方法区，或者说使用永久代来实现方法区而已。</p>
-<p>Java 虚拟机规范对这个区域的限制非常宽松，除了和堆一样不需要连续的内存和可以选择固定大小或者可扩展外，还可以选择不实现垃圾收集。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载，一般来说这个区域的回收成绩比较难以令人满意，尤其是类型的卸载，条件相当苛刻，但是这部分区域的回收确实是有必要的。</p>
-<div class="note note-info">
-            <p>相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入了方法区就如永久代的名字一样永久存在了。</p>
-          </div>
-
-<p>根据 Java 虚拟机规范的规定，当方法区无法满足内存分配需求时，将抛出 OutOfMemoryError 异常。</p>
-<h2 id="程序计数器（The-pc-Register）"><a href="#程序计数器（The-pc-Register）" class="headerlink" title="程序计数器（The pc Register）"></a>程序计数器（The pc Register）</h2><p>程序计数器是线程私有的，它可以看作当前线程所执行的字节码的行号指示器。</p>
-<p>在字节码解释器工作的时候就是通过改变程序计数器的值来选取和记录下一条要执行的字节码指令。它是程序控制流的指示器，分支、循环、跳转、异常处理、线程恢复等都要依赖其完成。</p>
+<p>JVM 在分配内存时，还要考虑并发安全问题，解决这个问题有两种方案:</p>
 <ul>
-<li>如果线程正在执行一个 Java 方法，那么程序计数器记录的是正在执行的虚拟机字节码指令的地址。</li>
-<li>如果正在执行的是一个本地（Native）方法，则计数器值为空（Undefined）。</li>
+<li><code>CAS</code>: 对分配内存空间的动作进行同步处理，实际上虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。</li>
+<li><code>TLAB（Thread Local Allocation Buffer, 本地线程分配缓冲）</code>：</li>
+<li><ul>
+<li>概述：是指把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在 Java 堆中预先分配一小块私有内存，也就是本地线程分配缓冲（TLAB）。</li>
+<li>步骤：JVM 在线程初始化时，同时也会申请一块指定大小的内存，只给当前线程使用，这样每个线程都单独拥有一个 Buffer，如果需要分配内存，就在自己的 Buffer 上分配，这样就不存在竞争的情况，可以大大提升分配效率，当 Buffer 容量不够的时候，再重新从 Eden 区域申请一块继续使用。</li>
+<li>参数：<code>JVM options: -XX:+UseTLAB </code> 允许在年轻代空间中使用线程本地分配块（TLAB），默认启用，如果要禁用 TLAB，请指定 <code>-XX:-UseTLAB</code>。</li>
 </ul>
-<div class="note note-info">
-            <p>程序计数器是唯一一个在 Java 虚拟机规范中没有规定任何 OutOfMemoryError 情况的区域。</p>
-          </div>
-
-<h2 id="虚拟机栈（Java-Virtual-Machine-Stacks）"><a href="#虚拟机栈（Java-Virtual-Machine-Stacks）" class="headerlink" title="虚拟机栈（Java Virtual Machine Stacks）"></a>虚拟机栈（Java Virtual Machine Stacks）</h2><p>每个线程都有一个私有 Java 虚拟机栈，与该线程同时创建，同时销毁。它保存局部变量和部分结果，并在方法调用和返回中起作用。Java 虚拟机堆栈的内存不必是连续的。</p>
-<p>Java 虚拟机栈描述的是 Java 方法执行的线程内存模型：每一个方法在执行的同时都会创建一个栈帧（Frames），用于存储 局部变量表、操作数栈、动态链接、方法出口 等信息。每一个方法从调用直至执行完成的过程，就对应着一个栈帧在 Java 虚拟机栈中的入栈到出栈的过程。</p>
+</li>
+</ul>
+<h3 id="内存空间初始化"><a href="#内存空间初始化" class="headerlink" title="内存空间初始化"></a>内存空间初始化</h3><p>注意不是构造方法,内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（如 int 值为 0，boolean 值为 false 等）。这一步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使用，程序能访问到这些字段的数据类型所对应的零值。</p>
+<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>接下来虚拟机要对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息（Java Classes 在 Java hotspot VM 内部表示为类元数据）、对象的哈希码、对象的 GC 分代年龄等信息。这些信息存放在对象的对象头之中。</p>
+<h3 id="对象初始化"><a href="#对象初始化" class="headerlink" title="对象初始化"></a>对象初始化</h3><p>在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从 Java 程序的视角来看，对象创建才刚刚开始，所有的字段都还为零值。所以，一般来说，执行 new 指令之后会接着把对象按照程序员的意愿进行初始化（执行 <code>init</code> 方法），这样一个真正可用的对象才算完全产生出来。</p>
+<h2 id="对象的内存分配策略"><a href="#对象的内存分配策略" class="headerlink" title="对象的内存分配策略"></a>对象的内存分配策略</h2><p>对象的内存分配通常是在 Java 堆上分配，但随着虚拟机优化技术的诞生（_逃逸分析技术_），某些场景下也会在栈上分配。对象主要分配在新生代的 Eden 区，如果启动了本地线程缓冲，将按照线程优先在 TLAB 上分配。少数情况下也会直接在老年代上分配。</p>
+<p>总的来说分配规则不是百分百固定的，其细节取决于哪一种垃圾收集器组合以及虚拟机相关参数有关，但是虚拟机对于内存的分配还是会遵循以下几种普遍的规则：</p>
 <ul>
-<li>每个方法对应一个栈帧</li>
-<li>栈的数据结构是先进后出（FILO）的</li>
+<li><strong>对象优先分配在 Eden 区</strong>，如果 Eden 区没有足够的空间时，虚拟机执行一次 Minor GC。</li>
+<li><strong>大对象直接进入老年代（大对象是指需要大量连续内存空间的对象）</strong>。这样做的目的是避免在 Eden 区和两个 Survivor 区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</li>
+<li><strong>长期存活的对象进入老年代</strong>。虚拟机为每个对象定义了一个年龄计数器，如果对象经过了 1 次 Minor GC，那么对象会进入 Survivor 区，并将对象年龄设为 1。对象在 Survivor 区中每熬过一次 Minor GC，年龄就增加 1，当它的年龄增加到一定程度（<strong>并发的垃圾回收器默认为 15，CMS 是 6</strong>），就会被晋升到老年代中。可以通过 <code>-XX:MaxTenuringThreshold</code> 调整。</li>
+<li><strong>动态判断对象的年龄</strong>。为了能更好地适应不同程序的内存状况，虚拟机并不是永远地要求对象的年龄必须达到了 <code>MaxTenuringThreshold</code> 才能晋升老年代，如果在 Survivor 空间中相同年龄所有对象大小的总和大于 Survivor 空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到 <code>MaxTenuringThreshold</code> 中要求的年龄。</li>
+<li><strong>空间分配担保</strong>。每次进行 Minor GC 之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果这个条件成立，那么 Minor GC 可以确保是安全的。如果不成立，则虚拟机会查看 <code>HandlePromotionFailure</code> 设置值是否允许担保失败。如 <code>HandlePromotionFailure=true</code>，那么会继续检查老年代最大可用连续空间是否大于历次晋升到老年代的对象的平均大小，如果大于，则尝试进行一次 Minor GC，但这次 Minor GC 依然是有风险的；如果小于或者 <code>HandlePromotionFailure=false</code>，则改为进行一次 Full GC。</li>
 </ul>
-<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
-    <span class="hljs-type">Work</span> <span class="hljs-variable">work</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Work</span>();
-    work.a();
-&#125;
-
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">a</span><span class="hljs-params">()</span> &#123;
-    b();
-&#125;
-
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">b</span><span class="hljs-params">()</span> &#123;
-    <span class="hljs-comment">// do something</span>
-&#125;</code></pre></div>
-
-<p>接下来我们来具体分析一下虚拟机栈帧的结构</p>
-<h3 id="局部变量表（Local-Variables-Table）"><a href="#局部变量表（Local-Variables-Table）" class="headerlink" title="局部变量表（Local Variables Table）"></a>局部变量表（Local Variables Table）</h3><p>顾名思义，局部变量表就是用于存放方法参数和方法内定义的局部变量。包括 8 种基本数据类型、对象引用（reference 类型，它并不等同于对象本身，可能是一个指向对象起始地址的引用指针，也可以是指向一个代表对象的句柄或者其他与此对象相关的位置）和 returnAddress 类型（指向一条字节码指令的地址）<strong>。</strong></p>
-<p>局部变量表的容量以变量槽（Variable Slot）为最小单位，一个 32 bit 的数值会占用一个 Solt，而一个 64 bit 的数值则会占用两个连续的 Solt。</p>
-<p>当一个方法被调用时，Java 虚拟机会使用局部变量表来完成参数值到参数变量列表的传递，即从实参到形参的传递。如果执行的是实例方法（非静态），那么局部变量表中第 0 位索引的变量槽默认是用于传递方法所属对象实例的引用（this）</p>
-<p>在 Java 程序编译为 Class 文件时，就在方法的 Code 属性中的 <code>max_locals</code> 数据项中确定了该方法所需分配的局部变量表的最大容量（Slot 数量）。</p>
-<h3 id="操作数栈（Operand-Stacks）"><a href="#操作数栈（Operand-Stacks）" class="headerlink" title="操作数栈（Operand Stacks）"></a>操作数栈（Operand Stacks）</h3><p>操作数栈是一个后入先出栈（LIFO）。当一个方法刚刚开始执行时，其操作数栈是空的。随着方法执行和字节码指令的执行，会从局部变量表或对象实例的字段中复制常量或变量写入到操作数栈，再随着计算的进行将栈中元素出栈到局部变量表或者返回给方法调用者，也就是出栈&#x2F;入栈操作。一个完整的方法执行期间往往包含多个这样出栈&#x2F;入栈的过程。</p>
-<p>每一个操作数栈都会拥有一个明确的栈深度用于存储数值，一个 32 bit 的数值可以用一个单位的栈深度来存储，而 一个 64 bit 的数值则需要 2 个单位的栈深度保存。</p>
-<p>操作数栈的最大深度会在编译的时候写入到方法的 Code 属性的 <code>max_stacks</code> 数据项中。</p>
-<h3 id="动态链接-（Dynamic-Linking）"><a href="#动态链接-（Dynamic-Linking）" class="headerlink" title="动态链接 （Dynamic Linking）"></a>动态链接 （Dynamic Linking）</h3><p>每个栈帧都包含了一个指向运行时常量池中该栈帧所属方法的引用。持有这个引用是为了支持方法间的调用。</p>
-<h3 id="方法出口-（Method-Invocation-Completion）"><a href="#方法出口-（Method-Invocation-Completion）" class="headerlink" title="方法出口 （Method Invocation Completion）"></a>方法出口 （Method Invocation Completion）</h3><p>当一个方法开始执行后，只有两种方式退出这个方法。</p>
-<ul>
-<li>当执行引擎遇到任何一个方法返回的字节码指令时会退出该方法，这种退出称之为：正常调用完成（Normal Method Invocation Completion）。</li>
-<li>如果在方法执行过程中发生了异常，并且在方法体中没有得到处理，则会导致方法退出。这种退出方式称之为：异常调用完成（Abrupt Method Invocation Completion）。</li>
-</ul>
+<h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p><img src="/blog/images/jvm/jvm-object-memory-02.png" srcset="/blog/img/loading.gif" lazyload></p>
+<p>在 HotSpot 虚拟机中，对象在内存中存储的布局可以分为 3 块区域：对象头（Object Header）、实例数据（Instance Data）和对齐填充（Padding）。</p>
+<h3 id="对象头（Object-Header）"><a href="#对象头（Object-Header）" class="headerlink" title="对象头（Object Header）"></a>对象头（Object Header）</h3><p>对象头在 HotSpot 虚拟机中被分为了两部分，一部分称为 Mark Word，另一部分是类型指针。如果对象是一个数组，那在对象头中还有一块用于记录数组长度的数据。</p>
+<table>
+<thead>
+<tr>
+<th align="center">长度</th>
+<th align="center">内容</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">32&#x2F;64bit</td>
+<td align="center">Mark Word</td>
+<td align="center">存储对象的 hashcode 、偏向锁模式、锁信息和 GC 分代年龄</td>
+</tr>
+<tr>
+<td align="center">32&#x2F;64bit</td>
+<td align="center">Class Metadata Address</td>
+<td align="center">存储对象指向它的类元数据的指针</td>
+</tr>
+<tr>
+<td align="center">32&#x2F;64bit</td>
+<td align="center">Array Length</td>
+<td align="center">数组长度（不一定有）</td>
+</tr>
+</tbody></table>
+<h3 id="实例数据（Instance-Data）"><a href="#实例数据（Instance-Data）" class="headerlink" title="实例数据（Instance Data）"></a>实例数据（Instance Data）</h3><p>实例数据是对象真正存储的有效信息，也是在程序代码中所定义的对象的属性等信息。</p>
+<h3 id="对齐填充（Padding）"><a href="#对齐填充（Padding）" class="headerlink" title="对齐填充（Padding）"></a>对齐填充（Padding）</h3><p>并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。由于 HotSpot VM 的自动内存管理系统要求对对象的大小必须是 <strong>8 字节的整数倍</strong>，当对象其他数据部分没有对齐时，就需要通过对齐填充来补全。</p>
+<h2 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h2><p>Java 程序需要通过 JVM 栈上的引用访问堆中的具体对象。对象的访问方式取决于 JVM 虚拟机的实现。目前主流的访问方式有句柄和直接指针两种方式。</p>
+<h3 id="直接指针"><a href="#直接指针" class="headerlink" title="直接指针"></a>直接指针</h3><p>指向对象，代表一个对象在内存中的起始地址。如果使用直接指针访问，引用中存储的直接就是对象地址，那么 Java 堆对象内部的布局中就必须考虑如何放置访问类型数据的相关信息。</p>
+<p><img src="/blog/images/jvm/jvm-object-memory-03.png" srcset="/blog/img/loading.gif" lazyload></p>
+<p>优点：速度快，节省了一次指针定位的时间开销。由于对象的访问在 Java 中非常频繁，因此这类开销积少成多后也是非常可观的执行成本。HotSpot 中采用的就是这种方式。</p>
+<h3 id="句柄"><a href="#句柄" class="headerlink" title="句柄"></a>句柄</h3><p>可以理解为指向指针的指针，维护着对象的指针。句柄不直接指向对象，而是指向对象的指针（句柄不发生变化，指向固定内存地址），再由对象的指针指向对象的真实内存地址。如果使用直接句柄访问，Java 堆中划分出一块内存来作为句柄池，引用中存储对象的句柄地址，而句柄中包含了对象实例数据与对象类型数据各自的具体地址信息。</p>
+<p><img src="/blog/images/jvm/jvm-object-memory-04.png" srcset="/blog/img/loading.gif" lazyload></p>
+<p>优点：引用中存储的是稳定的句柄地址，在对象被移动（垃圾收集时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而引用本身不需要修改。</p>
 
                 
               </div>
@@ -399,8 +395,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>JVM 之内存结构</div>
-      <div>http://okayhu.github.io/blog/2022/06/22/JVM 之内存结构/</div>
+      <div>JVM 之对象的创建过程和内存布局</div>
+      <div>http://okayhu.github.io/blog/2022/07/04/JVM 之对象的创建过程和内存布局/</div>
     </div>
     <div class="license-meta">
       
@@ -412,7 +408,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月22日</div>
+          <div>2022年7月4日</div>
         </div>
       
       
@@ -444,9 +440,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2022/06/27/%E6%9B%B4%E6%8D%A2%20Linux%20%E6%9C%8D%E5%8A%A1%E5%99%A8%20ssh%20%E9%BB%98%E8%AE%A4%E7%AB%AF%E5%8F%A3/" title="更换 Linux 服务器 ssh 默认端口">
+                      <a href="/blog/2022/07/26/SpringBoot%20%E7%9A%84%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84/" title="Spring Boot 的整洁架构">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">更换 Linux 服务器 ssh 默认端口</span>
+                        <span class="hidden-mobile">Spring Boot 的整洁架构</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -454,8 +450,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2021/06/21/%E9%80%9A%E8%BF%87%20Docker%20%E5%AE%89%E8%A3%85%20Nginx/" title="通过 Docker 安装 Nginx">
-                        <span class="hidden-mobile">通过 Docker 安装 Nginx</span>
+                      <a href="/blog/2022/06/30/%E4%BD%BF%E7%94%A8%20Firewalld%20%E4%BF%9D%E6%8A%A4%20Docker%20%E5%AE%89%E5%85%A8/" title="使用 Firewalld 保护 Docker 安全">
+                        <span class="hidden-mobile">使用 Firewalld 保护 Docker 安全</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

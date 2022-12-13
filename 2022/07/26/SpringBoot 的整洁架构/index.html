@@ -1,0 +1,927 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/images/favicon.ico">
+  <link rel="icon" href="/blog/images/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dyhu">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="来源：Clean Architecture with Spring Boot作者：Gilvan Ornelas  概述当我们在开发长期的系统时，我们应该期待一个易变的环境。 一般来说，我们的功能需求、框架、I&#x2F;O 设备，甚至我们的代码设计都可能因为各种原因而改变。考虑到这一点，架构整洁之道（Clean Architecture）是一个高可维护代码的准则，考虑到我们周围所有的不确定性。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot 的整洁架构">
+<meta property="og:url" content="http://okayhu.github.io/blog/2022/07/26/SpringBoot%20%E7%9A%84%E6%95%B4%E6%B4%81%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="dyhu&#39;s blog">
+<meta property="og:description" content="来源：Clean Architecture with Spring Boot作者：Gilvan Ornelas  概述当我们在开发长期的系统时，我们应该期待一个易变的环境。 一般来说，我们的功能需求、框架、I&#x2F;O 设备，甚至我们的代码设计都可能因为各种原因而改变。考虑到这一点，架构整洁之道（Clean Architecture）是一个高可维护代码的准则，考虑到我们周围所有的不确定性。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://okayhu.github.io/blog/images/spring/springboot.png">
+<meta property="article:published_time" content="2022-07-26T20:26:02.000Z">
+<meta property="article:modified_time" content="2022-12-13T12:34:04.358Z">
+<meta property="article:author" content="dyhu">
+<meta property="article:tag" content="spring, springboot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://okayhu.github.io/blog/images/spring/springboot.png">
+  
+  
+  
+  <title>Spring Boot 的整洁架构 - dyhu&#39;s blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/blog/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"okayhu.github.io","root":"/blog/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>dyhu&#39;s blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spring Boot 的整洁架构"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-26 20:26" pubdate>
+          2022-07-26 20:26:02
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring Boot 的整洁架构</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <blockquote>
+<p>来源：<a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-boot-clean-architecture">Clean Architecture with Spring Boot</a><br>作者：<a target="_blank" rel="noopener" href="https://www.baeldung.com/author/gilvanornelas/">Gilvan Ornelas</a></p>
+</blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>当我们在开发长期的系统时，我们应该期待一个易变的环境。</p>
+<p>一般来说，我们的功能需求、框架、I&#x2F;O 设备，甚至我们的代码设计都可能因为各种原因而改变。考虑到这一点，架构整洁之道（Clean Architecture）是一个高可维护代码的准则，考虑到我们周围所有的不确定性。</p>
+<!--truncate-->
+
+<p>在这篇文章中，我们将按照 <a target="_blank" rel="noopener" href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">Robert C. Martin 的架构整洁之道</a> 创建一个用户注册 API 的例子。我们将使用他的原始层-实体、用例、接口适配器和框架&#x2F;驱动。</p>
+<h2 id="整洁架构概述"><a href="#整洁架构概述" class="headerlink" title="整洁架构概述"></a>整洁架构概述</h2><p>整洁架构汇编了许多代码设计和原则，如 <a target="_blank" rel="noopener" href="https://www.baeldung.com/solid-principles">SOLID</a>，<a target="_blank" rel="noopener" href="https://wiki.c2.com/?StableAbstractionsPrinciple">稳定的抽象</a>，以及其他。但是，<strong>核心思想是根据业务价值对系统进行层次划分</strong>。因此，最高级别具有业务规则，每个较低级别都更接近 I&#x2F;O 设备。</p>
+<p>此外，我们还可以将级别转化为层。在这种情况下，情况恰恰相反。内层等同于最高层，以此类推。</p>
+<p><img src="https://www.baeldung.com/wp-content/uploads/2021/01/user-clean-architecture-layers-1.png" srcset="/blog/img/loading.gif" lazyload></p>
+<p>考虑到这一点，<strong>我们可以根据我们的业务需要拥有尽可能多的级别。但是，要始终考虑到依赖性规则：一个较高的级别绝不能取决于一个较低的级别。</strong></p>
+<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>让我们开始为我们的用户注册 API 定义系统规则。首先，业务规则：</p>
+<ul>
+<li>用户的密码必须有五个以上的字符。</li>
+</ul>
+<p>其次，我们有应用规则。它们可以以不同的形式出现，如用例或故事。我们将使用一个讲故事的短语。</p>
+<ul>
+<li>系统收到用户名和密码，验证该用户是否存在，并将新用户和创建时间一起保存下来。</li>
+</ul>
+<p><strong>请注意，这里没有提到任何数据库、用户界面或类似的东西。因为我们的业务并不关心这些细节</strong>，我们的代码也不应该关心。</p>
+<h2 id="实体层"><a href="#实体层" class="headerlink" title="实体层"></a>实体层</h2><p>正如简洁的架构所建议的，让我们从我们的业务规则开始。</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">User</span> &#123;
+    <span class="hljs-type">boolean</span> <span class="hljs-title function_">passwordIsValid</span><span class="hljs-params">()</span>;
+
+    String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span>;
+
+    String <span class="hljs-title function_">getPassword</span><span class="hljs-params">()</span>;
+&#125;</code></pre></div>
+
+<p>此外，还有一个 UserFactory：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserFactory</span> &#123;
+    User <span class="hljs-title function_">create</span><span class="hljs-params">(String name, String password)</span>;
+&#125;</code></pre></div>
+
+<p>我们创建一个用户工厂方法是出于两个原因。为了适应稳定的抽象原则和隔离用户的创建。</p>
+<p>接下来，让我们来实现这两点：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonUser</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">User</span> &#123;
+
+    String name;
+    String password;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">passwordIsValid</span><span class="hljs-params">()</span> &#123;
+        <span class="hljs-keyword">return</span> password != <span class="hljs-literal">null</span> &amp;&amp; password.length() &gt; <span class="hljs-number">5</span>;
+    &#125;
+
+    <span class="hljs-comment">// Constructor and getters</span>
+&#125;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">CommonUserFactory</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UserFactory</span> &#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> User <span class="hljs-title function_">create</span><span class="hljs-params">(String name, String password)</span> &#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CommonUser</span>(name, password);
+    &#125;
+&#125;</code></pre></div>
+
+<p><strong>如果我们有一个复杂的业务，那么我们应该尽可能清晰地构建我们的领域代码</strong>。所以，这一层是应用<a target="_blank" rel="noopener" href="https://www.baeldung.com/design-patterns-series">设计模式</a>的好地方。特别是，**应该考虑到<a target="_blank" rel="noopener" href="https://www.baeldung.com/java-modules-ddd-bounded-contexts">领域驱动的设计</a>**。</p>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>现在，让我们测试一下我们的 CommonUser：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">void</span> <span class="hljs-title function_">given123Password_whenPasswordIsNotValid_thenIsFalse</span><span class="hljs-params">()</span> &#123;
+    <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CommonUser</span>(<span class="hljs-string">&quot;Baeldung&quot;</span>, <span class="hljs-string">&quot;123&quot;</span>);
+
+    assertThat(user.passwordIsValid()).isFalse();
+&#125;</code></pre></div>
+
+<p>我们可以看到，单元测试是非常清晰的。毕竟，没有 mocks 是这一层的一个好信号。<br>一般来说，如果我们在这里开始考虑 mocks，也许我们就把我们的实体和我们的用例混在一起了。</p>
+<h2 id="用例层"><a href="#用例层" class="headerlink" title="用例层"></a>用例层</h2><p>用例是与我们系统的自动化有关的规则。在架构整洁之道中，我们称它们为交互器（Interactors）。</p>
+<h3 id="用户注册交互器-UserRegisterInteractor"><a href="#用户注册交互器-UserRegisterInteractor" class="headerlink" title="用户注册交互器(UserRegisterInteractor)"></a>用户注册交互器(UserRegisterInteractor)</h3><p>首先，我们将建立我们的 UserRegisterInteractor，这样我们就可以知道我们要做的事情。然后，我们将创建并讨论所有使用的部分：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserRegisterInteractor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UserInputBoundary</span> &#123;
+
+    <span class="hljs-keyword">final</span> UserRegisterDsGateway userDsGateway;
+    <span class="hljs-keyword">final</span> UserPresenter userPresenter;
+    <span class="hljs-keyword">final</span> UserFactory userFactory;
+
+    <span class="hljs-comment">// Constructor</span>
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> UserResponseModel <span class="hljs-title function_">create</span><span class="hljs-params">(UserRequestModel requestModel)</span> &#123;
+        <span class="hljs-keyword">if</span> (userDsGateway.existsByName(requestModel.getName())) &#123;
+            <span class="hljs-keyword">return</span> userPresenter.prepareFailView(<span class="hljs-string">&quot;User already exists.&quot;</span>);
+        &#125;
+        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userFactory.create(requestModel.getName(), requestModel.getPassword());
+        <span class="hljs-keyword">if</span> (!user.passwordIsValid()) &#123;
+            <span class="hljs-keyword">return</span> userPresenter.prepareFailView(<span class="hljs-string">&quot;User password must have more than 5 characters.&quot;</span>);
+        &#125;
+        <span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">now</span> <span class="hljs-operator">=</span> LocalDateTime.now();
+        <span class="hljs-type">UserDsRequestModel</span> <span class="hljs-variable">userDsModel</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserDsRequestModel</span>(user.getName(), user.getPassword(), now);
+
+        userDsGateway.save(userDsModel);
+
+        <span class="hljs-type">UserResponseModel</span> <span class="hljs-variable">accountResponseModel</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserResponseModel</span>(user.getName(), now.toString());
+        <span class="hljs-keyword">return</span> userPresenter.prepareSuccessView(accountResponseModel);
+    &#125;
+&#125;</code></pre></div>
+
+<p>正如我们所见，我们正在执行所有用例步骤。另外，这一层还负责控制实体的舞蹈。尽管如此，我们仍然没有对用户界面或数据库的工作方式做出任何假设。但是，我们正在使用 UserDsGateway 和 UserPresenter。那么，我们怎么能不知道它们呢？因为，与 UserInputBoundary 一起，这些是我们的输入和输出边界。</p>
+<h3 id="输入和输出边界"><a href="#输入和输出边界" class="headerlink" title="输入和输出边界"></a>输入和输出边界</h3><p>边界是定义组件如何交互的契约。<strong>输入边界将我们的用例暴露给外层：</strong></p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserInputBoundary</span> &#123;
+    UserResponseModel <span class="hljs-title function_">create</span><span class="hljs-params">(UserRequestModel requestModel)</span>;
+&#125;</code></pre></div>
+
+<p>接下来，我们有我们的输出边界，用于利用外层。首先，让我们定义数据源网关。</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserRegisterDsGateway</span> &#123;
+    <span class="hljs-type">boolean</span> <span class="hljs-title function_">existsByName</span><span class="hljs-params">(String name)</span>;
+
+    <span class="hljs-keyword">void</span> <span class="hljs-title function_">save</span><span class="hljs-params">(UserDsRequestModel requestModel)</span>;
+&#125;</code></pre></div>
+
+<p>其次，视图呈现器：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserPresenter</span> &#123;
+    UserResponseModel <span class="hljs-title function_">prepareSuccessView</span><span class="hljs-params">(UserResponseModel user)</span>;
+
+    UserResponseModel <span class="hljs-title function_">prepareFailView</span><span class="hljs-params">(String error)</span>;
+&#125;</code></pre></div>
+
+<p>注意：<strong>我们正在使用<a target="_blank" rel="noopener" href="https://www.baeldung.com/java-dependency-inversion-principle">依赖性倒置原则</a>，使我们的业务不受数据库和 UI 等细节的影响</strong>。</p>
+<h3 id="解耦模式"><a href="#解耦模式" class="headerlink" title="解耦模式"></a>解耦模式</h3><p>在继续之前，<strong>请注意边界是如何定义系统自然划分的契约</strong>。但我们还必须决定我们的应用程序将如何交付：</p>
+<ul>
+<li>单片 - 可能使用某些包结构进行组织</li>
+<li>通过使用模块</li>
+<li>通过使用服务&#x2F;微服务</li>
+</ul>
+<p>考虑到这一点，<strong>我们可以通过任何解耦模式达到干净的架构目标</strong>。因此，<strong>我们应该准备根据我们当前和未来的业务需求，在这些策略之间进行改变</strong>。在选择了我们的解耦模式后，代码的划分应该根据我们的边界来进行。</p>
+<h3 id="请求和响应模型"><a href="#请求和响应模型" class="headerlink" title="请求和响应模型"></a>请求和响应模型</h3><p>到目前为止，我们已经使用接口创建了跨层的操作。接下来，让我们看看如何跨这些边界传输数据。</p>
+<p>注意我们所有的边界是如何只处理<em>String</em>或<em>Model</em>对象的：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserRequestModel</span> &#123;
+
+    String login;
+    String password;
+
+    <span class="hljs-comment">// Getters, setters, and constructors</span>
+&#125;</code></pre></div>
+
+<p>基本上，<strong>只有简单的数据结构才能跨越边界</strong>。此外，所有模型都只有字段和访问器。另外，数据对象属于内侧。所以，我们可以保持依赖规则。</p>
+<p>但是为什么我们有这么多相似的对象呢？当我们得到重复的代码时，它可能有两种类型：</p>
+<ul>
+<li>错误或意外重复。代码相似性是偶然的，因为每个对象都有不同的更改原因。如果我们试图删除它，我们将面临违反<a target="_blank" rel="noopener" href="https://www.baeldung.com/java-single-responsibility-principle">单一责任原则</a>的风险。</li>
+<li>真正的重复。代码出于同样的原因而改变。因此，我们应该删除它</li>
+</ul>
+<p>由于每个模型都有不同的职责，所以我们得到了这些对象。</p>
+<h3 id="测试用户注册交互器"><a href="#测试用户注册交互器" class="headerlink" title="测试用户注册交互器"></a>测试用户注册交互器</h3><p>现在，让我们创建我们的单元测试：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">void</span> <span class="hljs-title function_">givenBaeldungUserAnd12345Password_whenCreate_thenSaveItAndPrepareSuccessView</span><span class="hljs-params">()</span> &#123;
+    given(userDsGateway.existsByIdentifier(<span class="hljs-string">&quot;identifier&quot;</span>))
+        .willReturn(<span class="hljs-literal">true</span>);
+
+    interactor.create(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserRequestModel</span>(<span class="hljs-string">&quot;baeldung&quot;</span>, <span class="hljs-string">&quot;123&quot;</span>));
+
+    then(userDsGateway).should()
+        .save(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserDsRequestModel</span>(<span class="hljs-string">&quot;baeldung&quot;</span>, <span class="hljs-string">&quot;12345&quot;</span>, now()));
+    then(userPresenter).should()
+        .prepareSuccessView(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UserResponseModel</span>(<span class="hljs-string">&quot;baeldung&quot;</span>, now()));
+&#125;</code></pre></div>
+
+<p>正如我们所见，大多数用例测试都是关于控制实体和边界请求。而且，我们的界面允许我们轻松地模拟细节。</p>
+<h2 id="接口适配器"><a href="#接口适配器" class="headerlink" title="接口适配器"></a>接口适配器</h2><p>至此，我们完成了所有业务。现在，让我们开始插入我们的详细信息。</p>
+<p><strong>我们的业务应该只处理最方便的数据格式</strong>，我们的外部代理（如 DB 或 UI）也应如此。<strong>但是，这种格式通常是不同的</strong>。为此，<strong>接口适配器层负责数据的转换</strong>。</p>
+<h3 id="使用-JPA-的-UserRegisterDsGateway"><a href="#使用-JPA-的-UserRegisterDsGateway" class="headerlink" title="使用 JPA 的 UserRegisterDsGateway"></a>使用 JPA 的 UserRegisterDsGateway</h3><p>首先，让我们使用<a target="_blank" rel="noopener" href="https://www.baeldung.com/the-persistence-layer-with-spring-and-jpa">JPA</a>来映射我们的用户表：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Entity</span>
+<span class="hljs-meta">@Table(name = &quot;user&quot;)</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">UserDataMapper</span> &#123;
+
+    <span class="hljs-meta">@Id</span>
+    String name;
+
+    String password;
+
+    LocalDateTime creationTime;
+
+    <span class="hljs-comment">//Getters, setters, and constructors</span>
+&#125;</code></pre></div>
+
+<p>正如我们所见，Mapper 的目标是将我们的对象映射到数据库格式。</p>
+<p>接下来，使用我们的<a target="_blank" rel="noopener" href="https://www.baeldung.com/jpa-entities">实体的</a>JpaRepository：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Repository</span>
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">JpaUserRepository</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">JpaRepository</span>&lt;UserDataMapper, String&gt; &#123;
+&#125;</code></pre></div>
+
+<p>鉴于我们将使用 spring-boot，那么这就是保存用户所需的全部内容。</p>
+<p>现在，是时候实现我们的 UserRegisterDsGateway 了：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">JpaUser</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UserRegisterDsGateway</span> &#123;
+
+    <span class="hljs-keyword">final</span> JpaUserRepository repository;
+
+    <span class="hljs-comment">// Constructor</span>
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">existsByName</span><span class="hljs-params">(String name)</span> &#123;
+        <span class="hljs-keyword">return</span> repository.existsById(name);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">save</span><span class="hljs-params">(UserDsRequestModel requestModel)</span> &#123;
+        <span class="hljs-type">UserDataMapper</span> <span class="hljs-variable">accountDataMapper</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserDataMapper</span>(requestModel.getName(), requestModel.getPassword(), requestModel.getCreationTime());
+        repository.save(accountDataMapper);
+    &#125;
+&#125;</code></pre></div>
+
+<p>在大多数情况下，代码不言自明。除了我们的方法，请注意 UserRegisterDsGateway 的名称。如果我们选择 UserDsGateway 代替，那么其他用户用例可能会违反<a target="_blank" rel="noopener" href="https://www.baeldung.com/java-interface-segregation">接口隔离原则</a>。</p>
+<h3 id="用户注册-API"><a href="#用户注册-API" class="headerlink" title="用户注册 API"></a>用户注册 API</h3><p>现在，让我们创建我们的 HTTP 适配器：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">UserRegisterController</span> &#123;
+
+    <span class="hljs-keyword">final</span> UserInputBoundary userInput;
+
+    <span class="hljs-comment">// Constructor</span>
+
+    <span class="hljs-meta">@PostMapping(&quot;/user&quot;)</span>
+    UserResponseModel <span class="hljs-title function_">create</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> UserRequestModel requestModel)</span> &#123;
+        <span class="hljs-keyword">return</span> userInput.create(requestModel);
+    &#125;
+&#125;</code></pre></div>
+
+<p>正如我们所看到的，<strong>这里唯一的目标是接收请求并将响应发送</strong>给客户端。</p>
+<h3 id="准备响应"><a href="#准备响应" class="headerlink" title="准备响应"></a>准备响应</h3><p>在回复之前，我们应该格式化我们的回复：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">UserResponseFormatter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">UserPresenter</span> &#123;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> UserResponseModel <span class="hljs-title function_">prepareSuccessView</span><span class="hljs-params">(UserResponseModel response)</span> &#123;
+        <span class="hljs-type">LocalDateTime</span> <span class="hljs-variable">responseTime</span> <span class="hljs-operator">=</span> LocalDateTime.parse(response.getCreationTime());
+        response.setCreationTime(responseTime.format(DateTimeFormatter.ofPattern(<span class="hljs-string">&quot;hh:mm:ss&quot;</span>)));
+        <span class="hljs-keyword">return</span> response;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> UserResponseModel <span class="hljs-title function_">prepareFailView</span><span class="hljs-params">(String error)</span> &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ResponseStatusException</span>(HttpStatus.CONFLICT, error);
+    &#125;
+&#125;</code></pre></div>
+
+<p>我们的 UserRegisterInteractor 专注于创建用户。尽管如此，表示规则只涉及适配器内部。此外，<strong>凡是难以测试的东西，我们都应该把它分为可测试的对象和<a target="_blank" rel="noopener" href="https://martinfowler.com/bliki/HumbleObject.html">不起眼的对象</a>。</strong> 因此，UserResponseFormatter 很容易让我们验证我们的表示规则：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Test</span>
+<span class="hljs-keyword">void</span> <span class="hljs-title function_">givenDateAnd3HourTime_whenPrepareSuccessView_thenReturnOnly3HourTime</span><span class="hljs-params">()</span> &#123;
+    <span class="hljs-type">UserResponseModel</span> <span class="hljs-variable">modelResponse</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UserResponseModel</span>(<span class="hljs-string">&quot;baeldung&quot;</span>, <span class="hljs-string">&quot;2020-12-20T03:00:00.000&quot;</span>);
+    <span class="hljs-type">UserResponseModel</span> <span class="hljs-variable">formattedResponse</span> <span class="hljs-operator">=</span> userResponseFormatter.prepareSuccessView(modelResponse);
+
+    assertThat(formattedResponse.getCreationTime()).isEqualTo(<span class="hljs-string">&quot;03:00:00&quot;</span>);
+&#125;</code></pre></div>
+
+<p>正如我们所见，我们在将其发送到视图之前测试了所有逻辑。因此，<strong>只有不起眼的对象在不太可测试的部分</strong>。</p>
+<h2 id="驱动程序和框架"><a href="#驱动程序和框架" class="headerlink" title="驱动程序和框架"></a>驱动程序和框架</h2><p>事实上，我们通常不在这里编码。那是因为这一层<strong>代表了与外部代理的最低级别的连接</strong>。例如，用于连接数据库或 web 框架的 H2 驱动程序。在这种情况下，<strong>我们将使用<a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-boot">spring-boot</a>作为<a target="_blank" rel="noopener" href="https://www.baeldung.com/bootstraping-a-web-application-with-spring-and-java-based-configuration">web</a>和<a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-dependency-injection">依赖注入</a>框架</strong>。所以，我们需要它的启动点：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootApplication</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CleanArchitectureApplication</span> &#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
+      SpringApplication.run(CleanArchitectureApplication.class);
+    &#125;
+&#125;</code></pre></div>
+
+<p>到目前为止，<strong>我们的业务中还没有使用任何</strong> <strong><a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-bean-annotations">Spring 注解</a><strong>。除了 spring-specifics 适配器之外，作为我们的 UserRegisterController。</strong>这是因为我们应该将 spring-boot 视为任何其他细节</strong>。</p>
+<h2 id="可怕的主类"><a href="#可怕的主类" class="headerlink" title="可怕的主类"></a>可怕的主类</h2><p>终于，最后一块了！</p>
+<p>到目前为止，我们遵循了<a target="_blank" rel="noopener" href="https://wiki.c2.com/?StableAbstractionsPrinciple">稳定抽象原则</a>。此外，我们通过<a target="_blank" rel="noopener" href="https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring">控制反转</a>保护我们的内层免受外部代理的影响。最后，我们将所有对象的创建与使用分开。此时，由我们来<strong>创建剩余的依赖项并将它们注入到我们的项目中</strong>：</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span>
+BeanFactoryPostProcessor <span class="hljs-title function_">beanFactoryPostProcessor</span><span class="hljs-params">(ApplicationContext beanRegistry)</span> &#123;
+    <span class="hljs-keyword">return</span> beanFactory -&gt; &#123;
+        genericApplicationContext(
+          (BeanDefinitionRegistry) ((AnnotationConfigServletWebServerApplicationContext) beanRegistry)
+            .getBeanFactory());
+    &#125;;
+&#125;
+
+<span class="hljs-keyword">void</span> <span class="hljs-title function_">genericApplicationContext</span><span class="hljs-params">(BeanDefinitionRegistry beanRegistry)</span> &#123;
+    <span class="hljs-type">ClassPathBeanDefinitionScanner</span> <span class="hljs-variable">beanDefinitionScanner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ClassPathBeanDefinitionScanner</span>(beanRegistry);
+    beanDefinitionScanner.addIncludeFilter(removeModelAndEntitiesFilter());
+    beanDefinitionScanner.scan(<span class="hljs-string">&quot;com.baeldung.pattern.cleanarchitecture&quot;</span>);
+&#125;
+
+<span class="hljs-keyword">static</span> TypeFilter <span class="hljs-title function_">removeModelAndEntitiesFilter</span><span class="hljs-params">()</span> &#123;
+    <span class="hljs-keyword">return</span> (MetadataReader mr, MetadataReaderFactory mrf) -&gt; !mr.getClassMetadata()
+      .getClassName()
+      .endsWith(<span class="hljs-string">&quot;Model&quot;</span>);
+&#125;</code></pre></div>
+
+<p>在我们的例子中，我们使用 spring-boot <a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-dependency-injection">依赖注入</a>来创建我们所有的实例。由于我们没有使用<a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-bean-annotations#component">@Component</a>，我们正在扫描我们的根包并仅忽略 Model objects 。</p>
+<p>尽管这种策略看起来可能更复杂，但它使我们的业务与 DI 框架分离。另一方面，<strong>主类控制了我们所有的系统</strong>。这就是为什么干净的架构将它视为一个包含所有其他层的特殊层：</p>
+<p><img src="https://www.baeldung.com/wp-content/uploads/2021/01/user-clean-architecture-layers.png" srcset="/blog/img/loading.gif" lazyload></p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>在本文中，我们了解了 Bob 大叔的 <strong>整洁架构是如何建立在许多设计模式和原则之上的</strong>。此外，我们创建了一个使用 Spring Boot 应用它的用例。</p>
+<p>尽管如此，我们还是把一些原则放在一边。但是，他们都朝着同一个方向前进。我们可以通过引用它的创建者来总结它：“一个好的架构师<strong>必须最大化未做出的决定的数量</strong>。”我们通过<strong>使用边界保护我们的业务代码免受细节</strong>影响来做到这一点。</p>
+<p>像往常一样，完整的代码可以 <a target="_blank" rel="noopener" href="https://github.com/eugenp/tutorials/tree/master/patterns/clean-architecture">在 GitHub 上找到</a>。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/Spring/" class="category-chain-item">Spring</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/spring-springboot/">#spring, springboot</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring Boot 的整洁架构</div>
+      <div>http://okayhu.github.io/blog/2022/07/26/SpringBoot 的整洁架构/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dyhu</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月26日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2022/12/12/IDEA%EF%BC%9A%E9%80%9A%E8%BF%87%20Groovy%20%E8%84%9A%E6%9C%AC%E7%94%9F%E6%88%90%20Entity/" title="IDEA：通过 Groovy 脚本生成 Entity">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">IDEA：通过 Groovy 脚本生成 Entity</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2022/07/04/JVM%20%E4%B9%8B%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%E5%92%8C%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80/" title="JVM 之对象的创建过程和内存布局">
+                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
