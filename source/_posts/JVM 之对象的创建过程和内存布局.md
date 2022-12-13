@@ -1,5 +1,6 @@
 ---
 title: JVM 之对象的创建过程和内存布局
+permalink: jvm-object-memory/
 date: 2022-07-04 15:34:20
 categories: Java
 tags: jvm

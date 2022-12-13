@@ -1,5 +1,6 @@
 ---
 title: JVM 之内存结构
+permalink: jvm-memory-structure/
 date: 2022-06-22 21:47:45
 categories: Java
 tags: jvm

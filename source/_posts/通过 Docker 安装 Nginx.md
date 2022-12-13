@@ -1,5 +1,6 @@
 ---
 title: 通过 Docker 安装 Nginx
+permalink: nginx-docker-install/
 date: 2021-06-21 21:28:22
 categories: Devops
 tags: nginx, docker

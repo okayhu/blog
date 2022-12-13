@@ -1,21 +1,22 @@
 @font-face {
-  font-family: "SF Mono";
-  src: url("/font/SFMono-Light.otf") format("opentype");
+  font-family: "NotoSans SC";
+  src: url("../font/NotoSansSC-Regular.otf") format("opentype");
 }
 
 @font-face {
-  font-family: "NotoSans SC", sans-serif;
-  src: url("/font/NotoSansSC-Regular.otf") format("opentype");
+  font-family: "mononoki";
+  src: url("../font/mononoki-Regular.ttf") format("truetype");
 }
 
 html,
 body,
 .markdown-body {
-  font-family: "NotoSans SC", sans-serif;
+  font-family: "NotoSans SC", sans-serif !important;
   /* font-size: 15px; */
 }
 
+.markdown-body code,
 .markdown-body pre {
-  font-family: "SF Mono", monospace;
+  font-family: "mononoki", monospace !important;
   /* font-size: 15px; */
 }
