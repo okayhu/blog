@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "NotoSans SC";
-  src: url("../font/NotoSansSC-Regular.otf") format("opentype");
+  font-family: "NotoSans";
+  src: url("../font/NotoSans-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
 html,
 body,
 .markdown-body {
-  font-family: "NotoSans SC", sans-serif !important;
+  font-family: "NotoSans", sans-serif;
   /* font-size: 15px; */
 }
 
