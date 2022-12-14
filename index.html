@@ -84,7 +84,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 100vh;">
+<div class="header-inner" style="height: 60vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/blog/">
@@ -182,7 +182,7 @@
 
   
 
-<div id="banner" class="banner" parallax=true
+<div id="banner" class="banner" false
      style="background: url('/blog/images/index.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -197,10 +197,6 @@
       </div>
 
       
-        <div class="scroll-down-bar">
-          <i class="iconfont icon-arrowdown"></i>
-        </div>
-      
     </div>
   </div>
 </div>
@@ -213,7 +209,7 @@
     
       <div class="container nopadding-x-md">
         <div id="board"
-          style="margin-top: 0">
+          >
           
           <div class="container">
             <div class="row">
@@ -280,7 +276,78 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/idea-groovy/">#idea, groovy</a>
+              <a href="/blog/tags/idea/">#idea</a>
+            
+              <a href="/blog/tags/groovy/">#groovy</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/blog/spring-jpa-custom-repository/" target="_self">
+          <img src="/blog/images/spring/spring-date-jpa.png" srcset="/blog/img/loading.gif" lazyload alt="Spring-Data-JPA 之自定义 Repository">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/spring-jpa-custom-repository/" target="_self">
+          Spring-Data-JPA 之自定义 Repository
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/blog/spring-jpa-custom-repository/" target="_self">
+        <div>
+          Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？ 基类首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法 @No
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-26 22:16" pubdate>
+              2022-08-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/Spring/" class="category-chain-item">Spring</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/spring/">#spring</a>
+            
+              <a href="/blog/tags/jpa/">#jpa</a>
             
           </div>
         
@@ -347,7 +414,145 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/spring-springboot/">#spring, springboot</a>
+              <a href="/blog/tags/spring/">#spring</a>
+            
+              <a href="/blog/tags/springboot/">#springboot</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/blog/jvm-object-gc/" target="_self">
+          <img src="/blog/images/jvm/jvm.png" srcset="/blog/img/loading.gif" lazyload alt="JVM 之 对象引用与垃圾回收算法">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/jvm-object-gc/" target="_self">
+          JVM 之 对象引用与垃圾回收算法
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/blog/jvm-object-gc/" target="_self">
+        <div>
+          引用的分类强引用：我们平时 new 了一个对象就是强引用，例如 Object obj = new Object()。即使在内存不足的情况下，JVM 宁愿抛出 OutOfMemory 错误也不会回收这种对象。   软引用：如果一个对象只具有软引用，则内存空间足够，垃圾回收器不会回收它，如果内存不足，则在发生内存溢出之前被回收。 SoftReference&lt;String&gt; softRef
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-18 22:08" pubdate>
+              2022-07-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/jvm/">#jvm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/blog/mapstrcut-style/" target="_self">
+          <img src="/blog/images/tool/mapstruct.png" srcset="/blog/img/loading.gif" lazyload alt="MapStruct 的使用姿势">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/blog/mapstrcut-style/" target="_self">
+          MapStruct 的使用姿势
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt " href="/blog/mapstrcut-style/" target="_self">
+        <div>
+          在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &#123;      private Long id;     private String username;
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-07-14 22:03" pubdate>
+              2022-07-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/Tool/" class="category-chain-item">Tool</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/blog/tags/tool/">#tool</a>
+            
+              <a href="/blog/tags/mapstruct/">#mapstruct</a>
             
           </div>
         
@@ -481,7 +686,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/docker-firewalld/">#docker, firewalld</a>
+              <a href="/blog/tags/docker/">#docker</a>
+            
+              <a href="/blog/tags/firewalld/">#firewalld</a>
             
           </div>
         
@@ -548,7 +755,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/linux-ssh/">#linux, ssh</a>
+              <a href="/blog/tags/linux/">#linux</a>
+            
+              <a href="/blog/tags/ssh/">#ssh</a>
             
           </div>
         
@@ -651,8 +860,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-06-21 21:28" pubdate>
-              2021-06-21
+            <time datetime="2022-06-21 21:28" pubdate>
+              2022-06-21
             </time>
           </div>
         
@@ -682,7 +891,9 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/blog/tags/nginx-docker/">#nginx, docker</a>
+              <a href="/blog/tags/docker/">#docker</a>
+            
+              <a href="/blog/tags/nginx/">#nginx</a>
             
           </div>
         

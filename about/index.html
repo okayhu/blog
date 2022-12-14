@@ -16,25 +16,29 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="这里写关于页的正文，支持 Markdown, HTML">
-<meta property="og:type" content="website">
-<meta property="og:title" content="about">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="关于">
 <meta property="og:url" content="https://okayhu.github.io/blog/about/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="这里写关于页的正文，支持 Markdown, HTML">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-12T12:51:45.000Z">
-<meta property="article:modified_time" content="2022-12-13T14:14:35.746Z">
+<meta property="article:modified_time" content="2022-12-14T14:25:46.235Z">
 <meta property="article:author" content="dyhu">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>about - dyhu&#39;s blog</title>
+  <title>关于 - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
@@ -186,14 +190,14 @@
 
   
 
-<div id="banner" class="banner" parallax=true
+<div id="banner" class="banner" false
      style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="about"></span>
+            <span id="subtitle" data-typed-text="关于"></span>
           
         </div>
 
@@ -215,18 +219,80 @@
         <div id="board"
           >
           
+            <div class="about-avatar">
+              <img src="/blog/images/avatar.png" srcset="/blog/img/loading.gif" lazyload class="img-fluid" alt="avatar">
+            </div>
+          
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<article class="page-content">
-  <p>这里写关于页的正文，支持 Markdown, HTML</p>
+<div class="text-center">
+  <div class="about-info">
+    <div class="about-name">dyhu</div>
+    <div class="about-intro">后端开发 & 代码洁癖 & 向上管理</div>
+    <div class="about-icons">
+      
+        
+        
+        
+        <a href=https://github.com/okayhu/ class="
+           hint--bottom hint--rounded"
+           aria-label=GitHub
+           target="_blank"
+        >
+          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
+          
+        </a>
+      
+        
+        
+        
+        <a href=mailto:okayhu66@gmail.com class="
+           hint--bottom hint--rounded"
+           aria-label=Email
+           target="_blank"
+        >
+          <i class="iconfont icon-mail" aria-hidden="true"></i>
+          
+        </a>
+      
+    </div>
+  </div>
+</div>
+
+<article class="about-content page-content mt-5">
+  <div class="markdown-body">
+    
+  </div>
+
+  
+</article>
+
+
+
 
 
   
 
-</article>
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
 
 
 
@@ -328,6 +394,59 @@
 
 
 
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/blog/js/local-search.js" ></script>
 

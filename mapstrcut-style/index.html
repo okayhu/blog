@@ -16,24 +16,25 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
+    <meta name="description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM 之对象的创建过程和内存布局">
-<meta property="og:url" content="https://okayhu.github.io/blog/jvm-object-memory/index.html">
+<meta property="og:title" content="MapStruct 的使用姿势">
+<meta property="og:url" content="https://okayhu.github.io/blog/mapstrcut-style/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
+<meta property="og:description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://okayhu.github.io/blog/images/jvm/jvm.png">
-<meta property="article:published_time" content="2022-07-04T07:34:20.000Z">
+<meta property="og:image" content="https://okayhu.github.io/blog/images/tool/mapstruct.png">
+<meta property="article:published_time" content="2022-07-14T14:03:31.000Z">
 <meta property="article:modified_time" content="2022-12-14T14:25:46.235Z">
 <meta property="article:author" content="dyhu">
-<meta property="article:tag" content="jvm">
+<meta property="article:tag" content="tool">
+<meta property="article:tag" content="mapstruct">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://okayhu.github.io/blog/images/jvm/jvm.png">
+<meta name="twitter:image" content="https://okayhu.github.io/blog/images/tool/mapstruct.png">
   
   
   
-  <title>JVM 之对象的创建过程和内存布局 - dyhu&#39;s blog</title>
+  <title>MapStruct 的使用姿势 - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -202,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JVM 之对象的创建过程和内存布局"></span>
+            <span id="subtitle" data-typed-text="MapStruct 的使用姿势"></span>
           
         </div>
 
@@ -213,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-04 15:34" pubdate>
-          2022-07-04
+        <time datetime="2022-07-14 22:03" pubdate>
+          2022-07-14
         </time>
       </span>
     
@@ -225,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          1.1k 字
         
       </span>
     
@@ -236,7 +237,7 @@
         
         
         
-          28 分钟
+          10 分钟
         
       </span>
     
@@ -274,82 +275,62 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JVM 之对象的创建过程和内存布局</h1>
+            <h1 style="display: none">MapStruct 的使用姿势</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="对象的创建过程"><a href="#对象的创建过程" class="headerlink" title="对象的创建过程"></a>对象的创建过程</h2><p><img src="/blog/images/jvm/jvm-object-memory-01.png" srcset="/blog/img/loading.gif" lazyload></p>
-<h3 id="检查加载"><a href="#检查加载" class="headerlink" title="检查加载"></a>检查加载</h3><p>首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。</p>
-<h3 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h3><p>虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。</p>
-<p>分配内存由两种方式：</p>
-<ul>
-<li><strong>指针碰撞</strong>：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器。那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离，这种分配方式称为指针碰撞。</li>
-<li><strong>空闲列表</strong>：如果 Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的。在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为空闲列表。</li>
-</ul>
-<div class="note note-info">
-            <p>选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。如果是 Serial、ParNew 等带有压缩的整理的垃圾回收器的话，系统采用的是指针碰撞，既简单又高效。如果是使用 CMS 这种不带压缩整理的垃圾回收器的话，理论上只能采用较复杂的空闲列表。</p>
-          </div>
+                <p>在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。<br>但是 MapStruct 虽好，也存在着一些使用误区。</p>
+<h3 id="不要改变源-pojo-的属性"><a href="#不要改变源-pojo-的属性" class="headerlink" title="不要改变源 pojo 的属性"></a>不要改变源 pojo 的属性</h3><p>e.g. 将 UserDTO 对象转换为 UserVO</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserDTO</span> &#123;
 
-<p>JVM 在分配内存时，还要考虑并发安全问题，解决这个问题有两种方案:</p>
+    <span class="hljs-keyword">private</span> Long id;
+    <span class="hljs-keyword">private</span> String username;
+    <span class="hljs-keyword">private</span> Integer age;
+&#125;
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserVO</span> &#123;
+
+    <span class="hljs-keyword">private</span> Long id;
+    <span class="hljs-keyword">private</span> String username;
+    <span class="hljs-keyword">private</span> Integer age;
+    <span class="hljs-keyword">private</span> List&lt;RoleVO&gt; roles;
+    <span class="hljs-keyword">private</span> List&lt;GroupVO&gt; groups;
+    <span class="hljs-keyword">private</span> List&lt;String&gt; authorityCodes;
+&#125;
+
+<span class="hljs-meta">@Mapper</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;
+
+    UserVO <span class="hljs-title function_">dtoToVo</span><span class="hljs-params">(UserDTO userDto)</span>;
+
+    <span class="hljs-meta">@BeforeMapping</span>
+    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterDtoToVo</span><span class="hljs-params">(UserDTO userDto)</span> &#123;
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;Administrator&quot;</span>.equals(userDto.getUsername())) &#123;
+            userDto.setId(<span class="hljs-number">0L</span>);
+            userDto.setAge(<span class="hljs-literal">null</span>);
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+
+<p>问题：对于方法的调用者来说，会造成预期之外的异常。</p>
+<h3 id="在-Mapper-中不要包含大量的业务逻辑"><a href="#在-Mapper-中不要包含大量的业务逻辑" class="headerlink" title="在 Mapper 中不要包含大量的业务逻辑"></a>在 Mapper 中不要包含大量的业务逻辑</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;
+
+    UserVO <span class="hljs-title function_">dtoToVo</span><span class="hljs-params">(UserDTO userDto)</span>;
+
+    <span class="hljs-meta">@AfterMapping</span>
+    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterDtoToVo</span><span class="hljs-params">(<span class="hljs-meta">@MappingTarget</span> UserVO userVo)</span> &#123;
+        <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> SpringContextUtil.getBean(UserService.class);
+        userVo.setAuthorityCodes(userService.getAllAuthorityCodes(userVo.getId()));
+    &#125;
+&#125;</code></pre></div>
+
+<p>问题：</p>
 <ul>
-<li><code>CAS</code>: 对分配内存空间的动作进行同步处理，实际上虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。</li>
-<li><code>TLAB（Thread Local Allocation Buffer, 本地线程分配缓冲）</code>：</li>
-<li><ul>
-<li>概述：是指把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在 Java 堆中预先分配一小块私有内存，也就是本地线程分配缓冲（TLAB）。</li>
-<li>步骤：JVM 在线程初始化时，同时也会申请一块指定大小的内存，只给当前线程使用，这样每个线程都单独拥有一个 Buffer，如果需要分配内存，就在自己的 Buffer 上分配，这样就不存在竞争的情况，可以大大提升分配效率，当 Buffer 容量不够的时候，再重新从 Eden 区域申请一块继续使用。</li>
-<li>参数：<code>JVM options: -XX:+UseTLAB </code> 允许在年轻代空间中使用线程本地分配块（TLAB），默认启用，如果要禁用 TLAB，请指定 <code>-XX:-UseTLAB</code>。</li>
+<li>Mapper 中的方法，很大程度会被多次调用，应用在不同的领域，所以编写者需要确保方法的预期是通用的、可信任的。而在上述写法中，转换后的 UserVO 不包含 roles、groups 包含 authorityCodes，但是这对于方法调用者来说不一定是符合预期的。</li>
+<li>一旦修改 Mapper 中的业务逻辑，可能会对多处造成不好的影响。</li>
 </ul>
-</li>
-</ul>
-<h3 id="内存空间初始化"><a href="#内存空间初始化" class="headerlink" title="内存空间初始化"></a>内存空间初始化</h3><p>注意不是构造方法,内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（如 int 值为 0，boolean 值为 false 等）。这一步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使用，程序能访问到这些字段的数据类型所对应的零值。</p>
-<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>接下来虚拟机要对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息（Java Classes 在 Java hotspot VM 内部表示为类元数据）、对象的哈希码、对象的 GC 分代年龄等信息。这些信息存放在对象的对象头之中。</p>
-<h3 id="对象初始化"><a href="#对象初始化" class="headerlink" title="对象初始化"></a>对象初始化</h3><p>在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从 Java 程序的视角来看，对象创建才刚刚开始，所有的字段都还为零值。所以，一般来说，执行 new 指令之后会接着把对象按照程序员的意愿进行初始化（执行 <code>init</code> 方法），这样一个真正可用的对象才算完全产生出来。</p>
-<h2 id="对象的内存分配策略"><a href="#对象的内存分配策略" class="headerlink" title="对象的内存分配策略"></a>对象的内存分配策略</h2><p>对象的内存分配通常是在 Java 堆上分配，但随着虚拟机优化技术的诞生（_逃逸分析技术_），某些场景下也会在栈上分配。对象主要分配在新生代的 Eden 区，如果启动了本地线程缓冲，将按照线程优先在 TLAB 上分配。少数情况下也会直接在老年代上分配。</p>
-<p>总的来说分配规则不是百分百固定的，其细节取决于哪一种垃圾收集器组合以及虚拟机相关参数有关，但是虚拟机对于内存的分配还是会遵循以下几种普遍的规则：</p>
-<ul>
-<li><strong>对象优先分配在 Eden 区</strong>，如果 Eden 区没有足够的空间时，虚拟机执行一次 Minor GC。</li>
-<li><strong>大对象直接进入老年代（大对象是指需要大量连续内存空间的对象）</strong>。这样做的目的是避免在 Eden 区和两个 Survivor 区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</li>
-<li><strong>长期存活的对象进入老年代</strong>。虚拟机为每个对象定义了一个年龄计数器，如果对象经过了 1 次 Minor GC，那么对象会进入 Survivor 区，并将对象年龄设为 1。对象在 Survivor 区中每熬过一次 Minor GC，年龄就增加 1，当它的年龄增加到一定程度（<strong>并发的垃圾回收器默认为 15，CMS 是 6</strong>），就会被晋升到老年代中。可以通过 <code>-XX:MaxTenuringThreshold</code> 调整。</li>
-<li><strong>动态判断对象的年龄</strong>。为了能更好地适应不同程序的内存状况，虚拟机并不是永远地要求对象的年龄必须达到了 <code>MaxTenuringThreshold</code> 才能晋升老年代，如果在 Survivor 空间中相同年龄所有对象大小的总和大于 Survivor 空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到 <code>MaxTenuringThreshold</code> 中要求的年龄。</li>
-<li><strong>空间分配担保</strong>。每次进行 Minor GC 之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果这个条件成立，那么 Minor GC 可以确保是安全的。如果不成立，则虚拟机会查看 <code>HandlePromotionFailure</code> 设置值是否允许担保失败。如 <code>HandlePromotionFailure=true</code>，那么会继续检查老年代最大可用连续空间是否大于历次晋升到老年代的对象的平均大小，如果大于，则尝试进行一次 Minor GC，但这次 Minor GC 依然是有风险的；如果小于或者 <code>HandlePromotionFailure=false</code>，则改为进行一次 Full GC。</li>
-</ul>
-<h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p><img src="/blog/images/jvm/jvm-object-memory-02.png" srcset="/blog/img/loading.gif" lazyload></p>
-<p>在 HotSpot 虚拟机中，对象在内存中存储的布局可以分为 3 块区域：对象头（Object Header）、实例数据（Instance Data）和对齐填充（Padding）。</p>
-<h3 id="对象头（Object-Header）"><a href="#对象头（Object-Header）" class="headerlink" title="对象头（Object Header）"></a>对象头（Object Header）</h3><p>对象头在 HotSpot 虚拟机中被分为了两部分，一部分称为 Mark Word，另一部分是类型指针。如果对象是一个数组，那在对象头中还有一块用于记录数组长度的数据。</p>
-<table>
-<thead>
-<tr>
-<th align="center">长度</th>
-<th align="center">内容</th>
-<th align="center">描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">32&#x2F;64bit</td>
-<td align="center">Mark Word</td>
-<td align="center">存储对象的 hashcode 、偏向锁模式、锁信息和 GC 分代年龄</td>
-</tr>
-<tr>
-<td align="center">32&#x2F;64bit</td>
-<td align="center">Class Metadata Address</td>
-<td align="center">存储对象指向它的类元数据的指针</td>
-</tr>
-<tr>
-<td align="center">32&#x2F;64bit</td>
-<td align="center">Array Length</td>
-<td align="center">数组长度（不一定有）</td>
-</tr>
-</tbody></table>
-<h3 id="实例数据（Instance-Data）"><a href="#实例数据（Instance-Data）" class="headerlink" title="实例数据（Instance Data）"></a>实例数据（Instance Data）</h3><p>实例数据是对象真正存储的有效信息，也是在程序代码中所定义的对象的属性等信息。</p>
-<h3 id="对齐填充（Padding）"><a href="#对齐填充（Padding）" class="headerlink" title="对齐填充（Padding）"></a>对齐填充（Padding）</h3><p>并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。由于 HotSpot VM 的自动内存管理系统要求对对象的大小必须是 <strong>8 字节的整数倍</strong>，当对象其他数据部分没有对齐时，就需要通过对齐填充来补全。</p>
-<h2 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h2><p>Java 程序需要通过 JVM 栈上的引用访问堆中的具体对象。对象的访问方式取决于 JVM 虚拟机的实现。目前主流的访问方式有句柄和直接指针两种方式。</p>
-<h3 id="直接指针"><a href="#直接指针" class="headerlink" title="直接指针"></a>直接指针</h3><p>指向对象，代表一个对象在内存中的起始地址。如果使用直接指针访问，引用中存储的直接就是对象地址，那么 Java 堆对象内部的布局中就必须考虑如何放置访问类型数据的相关信息。</p>
-<p><img src="/blog/images/jvm/jvm-object-memory-03.png" srcset="/blog/img/loading.gif" lazyload></p>
-<p>优点：速度快，节省了一次指针定位的时间开销。由于对象的访问在 Java 中非常频繁，因此这类开销积少成多后也是非常可观的执行成本。HotSpot 中采用的就是这种方式。</p>
-<h3 id="句柄"><a href="#句柄" class="headerlink" title="句柄"></a>句柄</h3><p>可以理解为指向指针的指针，维护着对象的指针。句柄不直接指向对象，而是指向对象的指针（句柄不发生变化，指向固定内存地址），再由对象的指针指向对象的真实内存地址。如果使用直接句柄访问，Java 堆中划分出一块内存来作为句柄池，引用中存储对象的句柄地址，而句柄中包含了对象实例数据与对象类型数据各自的具体地址信息。</p>
-<p><img src="/blog/images/jvm/jvm-object-memory-04.png" srcset="/blog/img/loading.gif" lazyload></p>
-<p>优点：引用中存储的是稳定的句柄地址，在对象被移动（垃圾收集时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而引用本身不需要修改。</p>
 
                 
               </div>
@@ -368,7 +349,7 @@
     
       <span class="category-chain">
         
-  <a href="/blog/categories/Java/" class="category-chain-item">Java</a>
+  <a href="/blog/categories/Tool/" class="category-chain-item">Tool</a>
   
   
 
@@ -383,7 +364,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/jvm/">#jvm</a>
+        <a href="/blog/tags/tool/">#tool</a>
+      
+        <a href="/blog/tags/mapstruct/">#mapstruct</a>
       
     </div>
   
@@ -395,8 +378,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>JVM 之对象的创建过程和内存布局</div>
-      <div>https://okayhu.github.io/blog/jvm-object-memory/</div>
+      <div>MapStruct 的使用姿势</div>
+      <div>https://okayhu.github.io/blog/mapstrcut-style/</div>
     </div>
     <div class="license-meta">
       
@@ -408,7 +391,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月4日</div>
+          <div>2022年7月14日</div>
         </div>
       
       
@@ -440,9 +423,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/mapstrcut-style/" title="MapStruct 的使用姿势">
+                      <a href="/blog/jvm-object-gc/" title="JVM 之 对象引用与垃圾回收算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MapStruct 的使用姿势</span>
+                        <span class="hidden-mobile">JVM 之 对象引用与垃圾回收算法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -450,8 +433,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/docker-firewalld/" title="使用 Firewalld 保护 Docker 安全">
-                        <span class="hidden-mobile">使用 Firewalld 保护 Docker 安全</span>
+                      <a href="/blog/jvm-object-memory/" title="JVM 之对象的创建过程和内存布局">
+                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

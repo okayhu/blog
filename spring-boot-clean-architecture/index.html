@@ -25,9 +25,10 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://okayhu.github.io/blog/images/spring/springboot.png">
 <meta property="article:published_time" content="2022-07-26T12:26:02.000Z">
-<meta property="article:modified_time" content="2022-12-13T14:14:35.742Z">
+<meta property="article:modified_time" content="2022-12-14T14:25:46.235Z">
 <meta property="article:author" content="dyhu">
-<meta property="article:tag" content="spring, springboot">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="springboot">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://okayhu.github.io/blog/images/spring/springboot.png">
   
@@ -195,7 +196,7 @@
 
   
 
-<div id="banner" class="banner" parallax=true
+<div id="banner" class="banner" false
      style="background: url('/blog/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -214,7 +215,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2022-07-26 20:26" pubdate>
-          2022-07-26 20:26:02
+          2022-07-26
         </time>
       </span>
     
@@ -284,8 +285,6 @@
 </blockquote>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>当我们在开发长期的系统时，我们应该期待一个易变的环境。</p>
 <p>一般来说，我们的功能需求、框架、I&#x2F;O 设备，甚至我们的代码设计都可能因为各种原因而改变。考虑到这一点，架构整洁之道（Clean Architecture）是一个高可维护代码的准则，考虑到我们周围所有的不确定性。</p>
-<!--truncate-->
-
 <p>在这篇文章中，我们将按照 <a target="_blank" rel="noopener" href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">Robert C. Martin 的架构整洁之道</a> 创建一个用户注册 API 的例子。我们将使用他的原始层-实体、用例、接口适配器和框架&#x2F;驱动。</p>
 <h2 id="整洁架构概述"><a href="#整洁架构概述" class="headerlink" title="整洁架构概述"></a>整洁架构概述</h2><p>整洁架构汇编了许多代码设计和原则，如 <a target="_blank" rel="noopener" href="https://www.baeldung.com/solid-principles">SOLID</a>，<a target="_blank" rel="noopener" href="https://wiki.c2.com/?StableAbstractionsPrinciple">稳定的抽象</a>，以及其他。但是，<strong>核心思想是根据业务价值对系统进行层次划分</strong>。因此，最高级别具有业务规则，每个较低级别都更接近 I&#x2F;O 设备。</p>
 <p>此外，我们还可以将级别转化为层。在这种情况下，情况恰恰相反。内层等同于最高层，以此类推。</p>
@@ -336,7 +335,7 @@
     &#125;
 &#125;</code></pre></div>
 
-<p><strong>如果我们有一个复杂的业务，那么我们应该尽可能清晰地构建我们的领域代码</strong>。所以，这一层是应用<a target="_blank" rel="noopener" href="https://www.baeldung.com/design-patterns-series">设计模式</a>的好地方。特别是，**应该考虑到<a target="_blank" rel="noopener" href="https://www.baeldung.com/java-modules-ddd-bounded-contexts">领域驱动的设计</a>**。</p>
+<p><strong>如果我们有一个复杂的业务，那么我们应该尽可能清晰地构建我们的领域代码</strong>。所以，这一层是应用<a target="_blank" rel="noopener" href="https://www.baeldung.com/design-patterns-series">设计模式</a>的好地方。特别是，应该考虑到<a target="_blank" rel="noopener" href="https://www.baeldung.com/java-modules-ddd-bounded-contexts">领域驱动的设计</a>。</p>
 <h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>现在，让我们测试一下我们的 CommonUser：</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Test</span>
 <span class="hljs-keyword">void</span> <span class="hljs-title function_">given123Password_whenPasswordIsNotValid_thenIsFalse</span><span class="hljs-params">()</span> &#123;
@@ -591,7 +590,9 @@ BeanFactoryPostProcessor <span class="hljs-title function_">beanFactoryPostProce
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/spring-springboot/">#spring, springboot</a>
+        <a href="/blog/tags/spring/">#spring</a>
+      
+        <a href="/blog/tags/springboot/">#springboot</a>
       
     </div>
   
@@ -648,9 +649,9 @@ BeanFactoryPostProcessor <span class="hljs-title function_">beanFactoryPostProce
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/idea-database-groovy/" title="IDEA：通过 Groovy 脚本生成 Entity">
+                      <a href="/blog/spring-jpa-custom-repository/" title="Spring-Data-JPA 之自定义 Repository">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">IDEA：通过 Groovy 脚本生成 Entity</span>
+                        <span class="hidden-mobile">Spring-Data-JPA 之自定义 Repository</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -658,8 +659,8 @@ BeanFactoryPostProcessor <span class="hljs-title function_">beanFactoryPostProce
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/jvm-object-memory/" title="JVM 之对象的创建过程和内存布局">
-                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
+                      <a href="/blog/jvm-object-gc/" title="JVM 之 对象引用与垃圾回收算法">
+                        <span class="hidden-mobile">JVM 之 对象引用与垃圾回收算法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
