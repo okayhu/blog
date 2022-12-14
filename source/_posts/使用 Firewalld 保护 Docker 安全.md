@@ -3,7 +3,7 @@ title: 使用 Firewalld 保护 Docker 安全
 permalink: docker-firewalld/
 date: 2022-6-30 19:47:12
 categories: Devops
-tags: docker, firewalld
+tags: [docker, firewalld]
 index_img: /images/devops/docker.png
 ---
 

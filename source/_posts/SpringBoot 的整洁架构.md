@@ -3,7 +3,7 @@ title: Spring Boot 的整洁架构
 permalink: spring-boot-clean-architecture/
 date: 2022-07-26 20:26:02
 categories: Spring
-tags: spring, springboot
+tags: [spring, springboot]
 index_img: /images/spring/springboot.png
 ---
 
@@ -15,8 +15,6 @@ index_img: /images/spring/springboot.png
 当我们在开发长期的系统时，我们应该期待一个易变的环境。
 
 一般来说，我们的功能需求、框架、I/O 设备，甚至我们的代码设计都可能因为各种原因而改变。考虑到这一点，架构整洁之道（Clean Architecture）是一个高可维护代码的准则，考虑到我们周围所有的不确定性。
-
-<!--truncate-->
 
 在这篇文章中，我们将按照 [Robert C. Martin 的架构整洁之道](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) 创建一个用户注册 API 的例子。我们将使用他的原始层-实体、用例、接口适配器和框架/驱动。
 
@@ -90,7 +88,7 @@ class CommonUserFactory implements UserFactory {
 }
 ```
 
-**如果我们有一个复杂的业务，那么我们应该尽可能清晰地构建我们的领域代码**。所以，这一层是应用[设计模式](https://www.baeldung.com/design-patterns-series)的好地方。特别是，**应该考虑到[领域驱动的设计](https://www.baeldung.com/java-modules-ddd-bounded-contexts)**。
+**如果我们有一个复杂的业务，那么我们应该尽可能清晰地构建我们的领域代码**。所以，这一层是应用[设计模式](https://www.baeldung.com/design-patterns-series)的好地方。特别是，应该考虑到[领域驱动的设计](https://www.baeldung.com/java-modules-ddd-bounded-contexts)。
 
 ### 单元测试
 

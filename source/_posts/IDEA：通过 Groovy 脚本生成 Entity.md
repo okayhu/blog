@@ -3,7 +3,7 @@ title: IDEA：通过 Groovy 脚本生成 Entity
 permalink: idea-database-groovy/
 date: 2022-12-12 22:14:07
 categories: IDEA
-tags: idea, groovy
+tags: [idea, groovy]
 index_img: /images/idea/idea.png
 ---
 
