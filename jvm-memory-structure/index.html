@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://okayhu.github.io/blog/images/jvm/jvm.png">
 <meta property="article:published_time" content="2022-06-22T13:47:45.000Z">
-<meta property="article:modified_time" content="2022-12-14T14:25:46.235Z">
+<meta property="article:modified_time" content="2022-12-16T12:33:26.101Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary_large_image">
@@ -287,13 +287,13 @@
 <p>通过一张图来了解如何通过参数来控制各区域的内存大小：</p>
 <p><img src="/blog/images/jvm/jvm-memory-structure-03.png" srcset="/blog/img/loading.gif" lazyload></p>
 <ul>
-<li>_Xms_：设置堆的最小空间大小。</li>
-<li>_Xmx_：设置堆的最大空间大小。</li>
-<li>_XX:NewSize_：设置新生代最小空间大小。</li>
-<li>_XX:MaxNewSize_：设置新生代最大空间大小。</li>
-<li>_XX:PermSize_：设置永久代最小空间大小。</li>
-<li>_XX:MaxPermSize_：设置永久代最大空间大小。</li>
-<li>_Xss_：设置每个线程的堆栈大小。</li>
+<li><code>Xms</code>：设置堆的最小空间大小。</li>
+<li><code>Xmx</code>：设置堆的最大空间大小。</li>
+<li><code>XX:NewSize</code>：设置新生代最小空间大小。</li>
+<li><code>XX:MaxNewSize</code>：设置新生代最大空间大小。</li>
+<li><code>XX:PermSize</code>：设置永久代最小空间大小。</li>
+<li><code>XX:MaxPermSize</code>：设置永久代最大空间大小。</li>
+<li><code>Xss</code>：设置每个线程的堆栈大小。</li>
 </ul>
 <div class="note note-info">
             <p>没有直接设置老年代的参数，但是可以设置堆空间大小和新生代空间大小两个参数来间接控制。（老年代空间大小 &#x3D; 堆空间大小 - 年轻代空间大小）</p>
