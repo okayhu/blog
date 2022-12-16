@@ -1,11 +1,25 @@
 @font-face {
   font-family: "NotoSans";
-  src: url("../font/NotoSans-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("NotoSans"), url("../font/NotoSans-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "mononoki";
-  src: url("../font/mononoki-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("mononoki"), url("../font/mononoki-Regular.ttf") format("truetype");
+}
+
+:root {
+  --inlinecode-bg-color: #e7e9f8;
+}
+
+[data-user-color-scheme="dark"] {
+  --inlinecode-bg-color: rgba(99, 110, 123, 0.4);
 }
 
 html,
