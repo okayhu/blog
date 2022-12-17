@@ -1,10 +1,10 @@
 ---
 title: MapStruct 的使用姿势
 permalink: mapstrcut-style/
+index_img: /images/tool/mapstruct.png
 date: 2022-07-14 22:03:31
 categories: Tool
 tags: [tool, mapstruct]
-index_img: /images/tool/mapstruct.png
 ---
 
 在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。

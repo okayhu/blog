@@ -1,10 +1,10 @@
 ---
 title: JVM 之内存结构
 permalink: jvm-memory-structure/
+index_img: /images/jvm/jvm.png
 date: 2022-06-22 21:47:45
 categories: Java
 tags: jvm
-index_img: /images/jvm/jvm.png
 ---
 
 ## 概述

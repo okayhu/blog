@@ -1,10 +1,10 @@
 ---
 title: JVM 之对象的创建过程和内存布局
 permalink: jvm-object-memory/
+index_img: /images/jvm/jvm.png
 date: 2022-07-04 15:34:20
 categories: Java
 tags: jvm
-index_img: /images/jvm/jvm.png
 ---
 
 ## 对象的创建过程

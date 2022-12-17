@@ -1,10 +1,10 @@
 ---
 title: Spring-Data-JPA 之自定义 Repository
 permalink: spring-jpa-custom-repository/
+index_img: /images/spring/spring-date-jpa.png
 date: 2022-08-26 22:16:41
 categories: Spring
 tags: [spring, jpa]
-index_img: /images/spring/spring-date-jpa.png
 ---
 
 Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？

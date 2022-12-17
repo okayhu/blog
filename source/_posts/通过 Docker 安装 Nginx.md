@@ -1,10 +1,10 @@
 ---
 title: 通过 Docker 安装 Nginx
 permalink: nginx-docker-install/
+index_img: /images/devops/nginx_docker.png
 date: 2022-06-21 21:28:22
 categories: Devops
 tags: [nginx, docker]
-index_img: /images/devops/nginx_docker.png
 ---
 
 > 环境：CentOS 7
