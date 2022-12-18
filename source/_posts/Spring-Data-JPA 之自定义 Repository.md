@@ -1,6 +1,6 @@
 ---
 title: Spring-Data-JPA 之自定义 Repository
-permalink: spring-jpa-custom-repository/
+sub_title: spring-jpa-custom-repository
 index_img: /images/spring/spring-date-jpa.png
 date: 2022-08-26 22:16:41
 categories: Spring

@@ -1,6 +1,6 @@
 ---
 title: JVM 之 对象引用与垃圾回收算法
-permalink: jvm-object-gc/
+sub_title: jvm-object-gc
 index_img: /images/jvm/jvm.png
 date: 2022-07-18 22:08:11
 categories: Java

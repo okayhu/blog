@@ -1,6 +1,6 @@
 ---
 title: IDEA 必备设置
-permalink: idea-settings/
+sub_title: idea-settings
 index_img: /images/idea/idea.png
 date: 2022-12-17 20:25:15
 categories: IDEA

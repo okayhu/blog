@@ -1,6 +1,6 @@
 ---
 title: MapStruct 的使用姿势
-permalink: mapstrcut-style/
+sub_title: mapstrcut-style
 index_img: /images/tool/mapstruct.png
 date: 2022-07-14 22:03:31
 categories: Tool
