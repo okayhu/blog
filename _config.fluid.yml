@@ -301,7 +301,7 @@ lazyload:
 
   # 加载时的占位图片
   # The placeholder image when loading
-  loading_img: /img/loading.gif
+  loading_img: /images/loading.gif
 
   # 开启后懒加载仅在文章页生效，如果自定义页面需要使用，可以在 Front-matter 里指定 `lazyload: true`
   # If true, only enable lazyload on the post page. For custom pages, you can set 'lazyload: true' in front-matter
@@ -528,7 +528,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 70
   banner_mask_alpha: 0.3
 
@@ -881,7 +881,7 @@ giscus:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -891,7 +891,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -919,7 +919,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 80
   banner_mask_alpha: 0.3
   tagcloud:
@@ -935,7 +935,7 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   avatar: /images/avatar.png
@@ -970,7 +970,7 @@ about:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -980,7 +980,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 85
   banner_mask_alpha: 0.3
   # 重定向到首页的延迟(毫秒)
@@ -993,7 +993,7 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: /img/default.png
+  banner_img: /images/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   # 友链的成员项
