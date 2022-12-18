@@ -954,6 +954,7 @@ about:
         link: "mailto:okayhu66@gmail.com",
         tip: "Email",
       }
+    - { class: "iconfont icon-rss", link: "/atom.xml", tip: "RSS" }
     # - {
     #     class: "iconfont icon-douban-fill",
     #     link: "https://douban.com",
