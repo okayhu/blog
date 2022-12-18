@@ -1,3 +1,8 @@
+https://okayhu.github.io/blog/google0d6166798972af88.html
+https://okayhu.github.io/blog/idea-settings/
+https://okayhu.github.io/blog/idea-database-groovy/
+https://okayhu.github.io/blog/jvm-memory-structure/
+https://okayhu.github.io/blog/jvm-object-gc/
 https://okayhu.github.io/blog/jvm-object-memory/
 https://okayhu.github.io/blog/mapstrcut-style/
 https://okayhu.github.io/blog/spring-jpa-custom-repository/
@@ -6,10 +11,6 @@ https://okayhu.github.io/blog/docker-firewalld/
 https://okayhu.github.io/blog/linux-ssh-port-update/
 https://okayhu.github.io/blog/nginx-docker-install/
 https://okayhu.github.io/blog/about/index.html
-https://okayhu.github.io/blog/idea-settings/
-https://okayhu.github.io/blog/idea-database-groovy/
-https://okayhu.github.io/blog/jvm-memory-structure/
-https://okayhu.github.io/blog/jvm-object-gc/
 https://okayhu.github.io/blog
 https://okayhu.github.io/blog/tags/idea/
 https://okayhu.github.io/blog/tags/groovy/
