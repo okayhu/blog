@@ -16,25 +16,25 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
+    <meta name="description" content="Docker 防火墙使用的是底层的 iptables，firewalld 默认不生效。 如果想要使用 firewalld，需要做以下调整： 重新构建 DOCKER-USER chain即使 DOCKER-USER 已存在，也需要删除后重建 firewall-cmd --permanent --direct --remove-chain ipv4 filter DOCKER-USER firewal">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapStruct 的使用姿势">
-<meta property="og:url" content="https://okayhu.github.io/blog/mapstrcut-style/index.html">
+<meta property="og:title" content="使用 Firewalld 保护 Docker 安全">
+<meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/docker-firewalld/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
+<meta property="og:description" content="Docker 防火墙使用的是底层的 iptables，firewalld 默认不生效。 如果想要使用 firewalld，需要做以下调整： 重新构建 DOCKER-USER chain即使 DOCKER-USER 已存在，也需要删除后重建 firewall-cmd --permanent --direct --remove-chain ipv4 filter DOCKER-USER firewal">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://okayhu.github.io/blog/images/tool/mapstruct.png">
-<meta property="article:published_time" content="2022-07-14T14:03:31.000Z">
-<meta property="article:modified_time" content="2022-12-18T01:52:37.656Z">
+<meta property="og:image" content="https://okayhu.github.io/blog/images/devops/docker.png">
+<meta property="article:published_time" content="2022-06-30T11:47:12.000Z">
+<meta property="article:modified_time" content="2022-12-18T03:17:41.097Z">
 <meta property="article:author" content="dyhu">
-<meta property="article:tag" content="tool">
-<meta property="article:tag" content="mapstruct">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="firewalld">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://okayhu.github.io/blog/images/tool/mapstruct.png">
+<meta name="twitter:image" content="https://okayhu.github.io/blog/images/devops/docker.png">
   
   
   
-  <title>MapStruct 的使用姿势 - dyhu&#39;s blog</title>
+  <title>使用 Firewalld 保护 Docker 安全 - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="MapStruct 的使用姿势"></span>
+            <span id="subtitle" data-typed-text="使用 Firewalld 保护 Docker 安全"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-14 22:03" pubdate>
-          2022-07-14
+        <time datetime="2022-06-30 19:47" pubdate>
+          2022-06-30
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.5k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          10 分钟
+          13 分钟
         
       </span>
     
@@ -276,61 +276,42 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">MapStruct 的使用姿势</h1>
+            <h1 style="display: none">使用 Firewalld 保护 Docker 安全</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。<br>但是 MapStruct 虽好，也存在着一些使用误区。</p>
-<h3 id="不要改变源-pojo-的属性"><a href="#不要改变源-pojo-的属性" class="headerlink" title="不要改变源 pojo 的属性"></a>不要改变源 pojo 的属性</h3><p>e.g. 将 UserDTO 对象转换为 UserVO</p>
-<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserDTO</span> &#123;
+                <p>Docker 防火墙使用的是底层的 iptables，firewalld 默认不生效。</p>
+<p>如果想要使用 firewalld，需要做以下调整：</p>
+<h3 id="重新构建-DOCKER-USER-chain"><a href="#重新构建-DOCKER-USER-chain" class="headerlink" title="重新构建 DOCKER-USER chain"></a>重新构建 <code>DOCKER-USER chain</code></h3><p>即使 DOCKER-USER 已存在，也需要删除后重建</p>
+<div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --permanent --direct --remove-chain ipv4 filter DOCKER-USER
+firewall-cmd --permanent --direct --remove-rules ipv4 filter DOCKER-USER
+firewall-cmd --permanent --direct --add-chain ipv4 filter DOCKER-USER</code></pre></div>
 
-    <span class="hljs-keyword">private</span> Long id;
-    <span class="hljs-keyword">private</span> String username;
-    <span class="hljs-keyword">private</span> Integer age;
-&#125;
+<h3 id="添加-iptables-规则"><a href="#添加-iptables-规则" class="headerlink" title="添加 iptables 规则"></a>添加 iptables 规则</h3><div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -i docker0 -j ACCEPT -m comment --comment <span class="hljs-string">&quot;allows incoming from docker&quot;</span>
 
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserVO</span> &#123;
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -i docker0 -o eth0 -j ACCEPT -m comment --comment <span class="hljs-string">&quot;allows docker to eth0&quot;</span>
 
-    <span class="hljs-keyword">private</span> Long id;
-    <span class="hljs-keyword">private</span> String username;
-    <span class="hljs-keyword">private</span> Integer age;
-    <span class="hljs-keyword">private</span> List&lt;RoleVO&gt; roles;
-    <span class="hljs-keyword">private</span> List&lt;GroupVO&gt; groups;
-    <span class="hljs-keyword">private</span> List&lt;String&gt; authorityCodes;
-&#125;
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT -m comment --comment <span class="hljs-string">&quot;allows docker containers to connect to the outside world&quot;</span>
 
-<span class="hljs-meta">@Mapper</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -j RETURN -s 172.17.0.0/16 -m comment --comment <span class="hljs-string">&quot;allow internal docker communication&quot;</span></code></pre></div>
 
-    UserVO <span class="hljs-title function_">dtoToVo</span><span class="hljs-params">(UserDTO userDto)</span>;
+<h3 id="添加自定义的规则"><a href="#添加自定义的规则" class="headerlink" title="添加自定义的规则"></a>添加自定义的规则</h3><div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 允许指定 ip 流量通过, 将 1.1.1.1 替换成你需要通过的 ip</span>
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -s 1.1.1.1/32 -j ACCEPT
 
-    <span class="hljs-meta">@BeforeMapping</span>
-    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterDtoToVo</span><span class="hljs-params">(UserDTO userDto)</span> &#123;
-        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;Administrator&quot;</span>.equals(userDto.getUsername())) &#123;
-            userDto.setId(<span class="hljs-number">0L</span>);
-            userDto.setAge(<span class="hljs-literal">null</span>);
-        &#125;
-    &#125;
-&#125;</code></pre></div>
+<span class="hljs-comment"># 允许指定 ip 访问指定的端口（示例）</span>
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -p tcp -m multiport --dports 80,443 -s 1.1.1.1/32 -j ACCEPT <span class="hljs-comment"># 你也可以指定端口，這裡僅為示例</span>
 
-<p>问题：对于方法的调用者来说，会造成预期之外的异常。</p>
-<h3 id="在-Mapper-中不要包含大量的业务逻辑"><a href="#在-Mapper-中不要包含大量的业务逻辑" class="headerlink" title="在 Mapper 中不要包含大量的业务逻辑"></a>在 Mapper 中不要包含大量的业务逻辑</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;
+<span class="hljs-comment"># 拒绝其他流量</span>
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJECT --reject-with icmp-host-unreachable -m comment --comment <span class="hljs-string">&quot;reject all other traffic&quot;</span></code></pre></div>
 
-    UserVO <span class="hljs-title function_">dtoToVo</span><span class="hljs-params">(UserDTO userDto)</span>;
+<div class="note note-warn">
+            <ul><li><code>REJECT</code>规则要在最后执行</li><li>同一条规则不要写多个 IP 地址</li><li>如果在 Docker 运行时重启 firewalld，那么 firewalld 将删除 DOCKER-USER</li></ul>
+          </div>
 
-    <span class="hljs-meta">@AfterMapping</span>
-    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterDtoToVo</span><span class="hljs-params">(<span class="hljs-meta">@MappingTarget</span> UserVO userVo)</span> &#123;
-        <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> SpringContextUtil.getBean(UserService.class);
-        userVo.setAuthorityCodes(userService.getAllAuthorityCodes(userVo.getId()));
-    &#125;
-&#125;</code></pre></div>
-
-<p>问题：</p>
-<ul>
-<li>Mapper 中的方法，很大程度会被多次调用，应用在不同的领域，所以编写者需要确保方法的预期是通用的、可信任的。而在上述写法中，转换后的 UserVO 不包含 roles、groups 包含 authorityCodes，但是这对于方法调用者来说不一定是符合预期的。</li>
-<li>一旦修改 Mapper 中的业务逻辑，可能会对多处造成不好的影响。</li>
+<h3 id="重新加载配置并验证"><a href="#重新加载配置并验证" class="headerlink" title="重新加载配置并验证"></a>重新加载配置并验证</h3><ul>
+<li>重新加载配置：<code>firewall-cmd --reload</code></li>
+<li>验证：<code>iptables -L</code> 查看 DOCKER-USER 的配置，或者通过 <code>cat /etc/firewalld/direct.xml</code> 查看 direct 的配置。</li>
 </ul>
 
                 
@@ -350,7 +331,7 @@
     
       <span class="category-chain">
         
-  <a href="/blog/categories/Tool/" class="category-chain-item">Tool</a>
+  <a href="/blog/categories/Devops/" class="category-chain-item">Devops</a>
   
   
 
@@ -365,9 +346,9 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/tool/">#tool</a>
+        <a href="/blog/tags/docker/">#docker</a>
       
-        <a href="/blog/tags/mapstruct/">#mapstruct</a>
+        <a href="/blog/tags/firewalld/">#firewalld</a>
       
     </div>
   
@@ -379,8 +360,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MapStruct 的使用姿势</div>
-      <div>https://okayhu.github.io/blog/mapstrcut-style/</div>
+      <div>使用 Firewalld 保护 Docker 安全</div>
+      <div>https://okayhu.github.io/blog/posts/2022/docker-firewalld/</div>
     </div>
     <div class="license-meta">
       
@@ -392,7 +373,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月14日</div>
+          <div>2022年6月30日</div>
         </div>
       
       
@@ -424,9 +405,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/jvm-object-gc/" title="JVM 之 对象引用与垃圾回收算法">
+                      <a href="/blog/posts/2022/jvm-object-memory/" title="JVM 之对象的创建过程和内存布局">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JVM 之 对象引用与垃圾回收算法</span>
+                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -434,8 +415,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/jvm-object-memory/" title="JVM 之对象的创建过程和内存布局">
-                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
+                      <a href="/blog/posts/2022/linux-ssh-port-update/" title="更换 Linux 服务器 ssh 默认端口">
+                        <span class="hidden-mobile">更换 Linux 服务器 ssh 默认端口</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

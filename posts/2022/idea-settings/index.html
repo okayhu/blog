@@ -16,25 +16,24 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？ 基类首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法 @No">
+    <meta name="description" content="IDEA 2022.3  取消更新检查Settings ⇒ Appearance &amp; Behavior ⇒ System Settings ⇒ Updates 取消选中 Check IDE update for:。 启动时不自动打开项目Settings ⇒ Appearance &amp; Behavior ⇒ System Settings 取消选中 Project 下的 Reopen">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-Data-JPA 之自定义 Repository">
-<meta property="og:url" content="https://okayhu.github.io/blog/spring-jpa-custom-repository/index.html">
+<meta property="og:title" content="IDEA 必备设置">
+<meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/idea-settings/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？ 基类首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法 @No">
+<meta property="og:description" content="IDEA 2022.3  取消更新检查Settings ⇒ Appearance &amp; Behavior ⇒ System Settings ⇒ Updates 取消选中 Check IDE update for:。 启动时不自动打开项目Settings ⇒ Appearance &amp; Behavior ⇒ System Settings 取消选中 Project 下的 Reopen">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://okayhu.github.io/blog/images/spring/spring-date-jpa.png">
-<meta property="article:published_time" content="2022-08-26T14:16:41.000Z">
-<meta property="article:modified_time" content="2022-12-18T01:52:37.656Z">
+<meta property="og:image" content="https://okayhu.github.io/blog/images/idea/idea.png">
+<meta property="article:published_time" content="2022-12-17T12:25:15.000Z">
+<meta property="article:modified_time" content="2022-12-18T03:17:41.097Z">
 <meta property="article:author" content="dyhu">
-<meta property="article:tag" content="spring">
-<meta property="article:tag" content="jpa">
+<meta property="article:tag" content="idea">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://okayhu.github.io/blog/images/spring/spring-date-jpa.png">
+<meta name="twitter:image" content="https://okayhu.github.io/blog/images/idea/idea.png">
   
   
   
-  <title>Spring-Data-JPA 之自定义 Repository - dyhu&#39;s blog</title>
+  <title>IDEA 必备设置 - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Spring-Data-JPA 之自定义 Repository"></span>
+            <span id="subtitle" data-typed-text="IDEA 必备设置"></span>
           
         </div>
 
@@ -215,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-26 22:16" pubdate>
-          2022-08-26
+        <time datetime="2022-12-17 20:25" pubdate>
+          2022-12-17
         </time>
       </span>
     
@@ -227,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          1.2k 字
         
       </span>
     
@@ -238,7 +237,7 @@
         
         
         
-          25 分钟
+          11 分钟
         
       </span>
     
@@ -276,104 +275,45 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Spring-Data-JPA 之自定义 Repository</h1>
+            <h1 style="display: none">IDEA 必备设置</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？</p>
-<h2 id="基类"><a href="#基类" class="headerlink" title="基类"></a>基类</h2><p>首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法</p>
-<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@NoRepositoryBean</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">BaseRepository</span>&lt;T, ID&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">JpaRepository</span>&lt;T, ID&gt; &#123;
-
-    List&lt;T&gt; <span class="hljs-title function_">findByIdIn</span><span class="hljs-params">(Iterable&lt;ID&gt; ids)</span>;
-
-    <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteByIdIn</span><span class="hljs-params">(Iterable&lt;ID&gt; ids)</span>;
-&#125;</code></pre></div>
-
-<p>@NoRepositoryBean 的作用是通知 Spring 容器不要实例化 BaseRepository，因为 BaseRepository 是作为一个中间接口来派生具体的 Repository 接口。</p>
-<p>接下来创建 BaseRepository 的实现类，实现扩展的方法</p>
-<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BaseRepositoryImpl</span>&lt;T, ID&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">SimpleJpaRepository</span>&lt;T, ID&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">BaseRepository</span>&lt;T, ID&gt; &#123;
-
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> EntityManager em;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> JpaEntityInformation&lt;T, ?&gt; entityInformation;
-
-    <span class="hljs-keyword">public</span> <span class="hljs-title function_">BaseRepositoryImpl</span><span class="hljs-params">(JpaEntityInformation&lt;T, ?&gt; entityInformation, EntityManager entityManager)</span> &#123;
-        <span class="hljs-built_in">super</span>(entityInformation, entityManager);
-        <span class="hljs-built_in">this</span>.em = entityManager;
-        <span class="hljs-built_in">this</span>.entityInformation = entityInformation;
-    &#125;
-
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> List&lt;T&gt; <span class="hljs-title function_">findByIdIn</span><span class="hljs-params">(Iterable&lt;ID&gt; ids)</span> &#123;
-        <span class="hljs-keyword">return</span> findAllById(ids);
-    &#125;
-
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteById</span><span class="hljs-params">(ID id)</span> &#123;
-        Assert.notNull(id, <span class="hljs-string">&quot;Id must not be null!&quot;</span>);
-
-        <span class="hljs-type">CriteriaBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> em.getCriteriaBuilder();
-        CriteriaDelete&lt;T&gt; delete = builder.createCriteriaDelete(getDomainClass());
-        Root&lt;T&gt; root = delete.from(getDomainClass());
-        delete.where(builder.equal(root.get(entityInformation.getIdAttribute()), id));
-        em.createQuery(delete).executeUpdate();
-    &#125;
-
-    <span class="hljs-meta">@Transactional</span>
-    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteByIdIn</span><span class="hljs-params">(Iterable&lt;ID&gt; ids)</span> &#123;
-        Assert.notNull(ids, <span class="hljs-string">&quot;Ids must not be null!&quot;</span>);
-
-        <span class="hljs-keyword">if</span> (ids.iterator().hasNext()) &#123;
-            <span class="hljs-type">CriteriaBuilder</span> <span class="hljs-variable">builder</span> <span class="hljs-operator">=</span> em.getCriteriaBuilder();
-            CriteriaDelete&lt;T&gt; delete = builder.createCriteriaDelete(getDomainClass());
-            Root&lt;T&gt; root = delete.from(getDomainClass());
-            delete.where(getIdsPredicate(builder, root, ids));
-            em.createQuery(delete).executeUpdate();
-        &#125;
-    &#125;
-
-    <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span>
-    <span class="hljs-keyword">protected</span> Predicate <span class="hljs-title function_">getIdsPredicate</span><span class="hljs-params">(CriteriaBuilder builder, Root&lt;T&gt; root, Iterable&lt;ID&gt; ids)</span> &#123;
-        Path&lt;ID&gt; path = (Path&lt;ID&gt;) root.get(entityInformation.getIdAttribute());
-        CriteriaBuilder.In&lt;ID&gt; inPredicate = builder.in(path);
-        ids.forEach(inPredicate::value);
-        <span class="hljs-keyword">return</span> inPredicate;
-    &#125;
-&#125;</code></pre></div>
-
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>最后我们可以通过 <code>@EnableJpaRepositories</code> 在主类上指定新的 repositoryBaseClass</p>
-<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)</span>
-<span class="hljs-meta">@SpringBootApplication</span>
-<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JpaExamplesApplication</span> &#123;
-
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;
-        SpringApplication.run(JpaExamplesApplication.class, args);
-    &#125;
-&#125;</code></pre></div>
-
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>我们的 Repository 接口就不再继承 JpaRepository 了，而是继承 BaseRepository</p>
-<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserRepository</span>&lt;User, Long&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseRepository</span>&lt;User, Long&gt; &#123;
-&#125;</code></pre></div>
-
-<p>接下来测试下我们自定义的方法</p>
-<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">BaseRepositoryTests</span> &#123;
-
-    <span class="hljs-meta">@Autowired</span>
-    <span class="hljs-keyword">private</span> UserRepository userRepository;
-
-    <span class="hljs-meta">@Test</span>
-    <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteByIdIn_test</span><span class="hljs-params">()</span> &#123;
-		userRepository.deleteByIdIn(Arrays.asList(<span class="hljs-number">1L</span>, <span class="hljs-number">2L</span>));
-    &#125;
-&#125;</code></pre></div>
-
-<p>开启 SQL 打印</p>
-<div class="code-wrapper"><pre><code class="hljs properties"><span class="hljs-attr">spring.jpa.show-sql</span>=<span class="hljs-string">true</span></code></pre></div>
-
-<p>控制台成功输出：<code>Hibernate: delete from user where id in (1 , 2)</code></p>
+                <blockquote>
+<p>IDEA 2022.3</p>
+</blockquote>
+<h3 id="取消更新检查"><a href="#取消更新检查" class="headerlink" title="取消更新检查"></a>取消更新检查</h3><p>Settings ⇒ Appearance &amp; Behavior ⇒ System Settings ⇒ Updates</p>
+<p>取消选中 <code>Check IDE update for:</code>。</p>
+<h3 id="启动时不自动打开项目"><a href="#启动时不自动打开项目" class="headerlink" title="启动时不自动打开项目"></a>启动时不自动打开项目</h3><p>Settings ⇒ Appearance &amp; Behavior ⇒ System Settings</p>
+<p>取消选中 Project 下的 <code>Reopen projects on startup</code>。</p>
+<h3 id="Tab-多行展示"><a href="#Tab-多行展示" class="headerlink" title="Tab 多行展示"></a>Tab 多行展示</h3><p>Settings ⇒ Editor ⇒ General ⇒ Editor Tabs</p>
+<p>取消选中 <code>Show tabs in one row</code>。</p>
+<h3 id="增大-Tab-展示数量"><a href="#增大-Tab-展示数量" class="headerlink" title="增大 Tab 展示数量"></a>增大 Tab 展示数量</h3><p>默认情况， Tab 最多展示 10 个</p>
+<p>Settings ⇒ Editor ⇒ General ⇒ Editor Tabs</p>
+<p>修改 Closing Policy 下的 <code>Tab limit</code></p>
+<h3 id="关闭当前-Tab-打开最近的-Tab"><a href="#关闭当前-Tab-打开最近的-Tab" class="headerlink" title="关闭当前 Tab 打开最近的 Tab"></a>关闭当前 Tab 打开最近的 Tab</h3><p>默认情况，关闭当期 Tab 后会打开左侧的 Tab。可以选择将其更改为打开最近的 Tab。</p>
+<p>Settings ⇒ Editor ⇒ General ⇒ Editor Tabs</p>
+<p>选中 Closing Policy 下 When the current tab is closed，activate: 的 <code>Most recently opened tab</code> 选项。</p>
+<h3 id="代码提示不区分大小写"><a href="#代码提示不区分大小写" class="headerlink" title="代码提示不区分大小写"></a>代码提示不区分大小写</h3><p>Settings ⇒ Editor ⇒ General ⇒ Code Completion</p>
+<p>选中 <code>Match case</code>。</p>
+<h2 id="设置文件换行符为-LF"><a href="#设置文件换行符为-LF" class="headerlink" title="设置文件换行符为 LF"></a>设置文件换行符为 LF</h2><p>Settings ⇒ Editor ⇒ Code style</p>
+<p>设置 General 下的 Line separator 为 <code>Unix and macOS (\n)</code>。</p>
+<h3 id="设置文件编码格式为-UTF-8"><a href="#设置文件编码格式为-UTF-8" class="headerlink" title="设置文件编码格式为 UTF -8"></a>设置文件编码格式为 UTF -8</h3><p>Settings ⇒ Editor ⇒ File Encodings</p>
+<p><img src="/blog/images/idea/idea-file-encodings.png" srcset="/blog/img/loading.gif" lazyload alt="idea-file-encodings.png"></p>
+<h3 id="自动导包优化"><a href="#自动导包优化" class="headerlink" title="自动导包优化"></a>自动导包优化</h3><p>Settings ⇒ Editor ⇒ General ⇒ Auto Import</p>
+<p>选中 Java 下的 <code>Add unambigouts imports on the fly</code>，在编辑代码时，如果只有一个具有匹配名称的可导入声明，则自动添加导入。<br>选中 Java 下的 <code>Optimize import on the fly</code>，删除未使用的导入并根据代码样式设置重新排序导入。</p>
+<h3 id="展示方法间的分割线"><a href="#展示方法间的分割线" class="headerlink" title="展示方法间的分割线"></a>展示方法间的分割线</h3><p>Settings ⇒ Editor ⇒ General ⇒ Appearance</p>
+<p>选中 <code>Show method separators</code>。</p>
+<h3 id="注释缩进"><a href="#注释缩进" class="headerlink" title="注释缩进"></a>注释缩进</h3><p>默认情况，所有使用 <code>ctrl +/</code> 快捷键的注释都是从行首开始的，没有缩进。</p>
+<p><strong>Java</strong></p>
+<p>Settings ⇒ Editor ⇒ Code Style ⇒ Java ⇒ Code Generation</p>
+<p>取消选中 <code>Line Comment at first column</code>，行注释从首行开始<br>选中 <code>Add a space at line comment start</code>，在注释前加一个空格<br>取消选中 <code>Block comment at first column</code>，快注释从首行开始</p>
+<p><img src="/blog/images/idea/idea-codestyle-java-comment.png" srcset="/blog/img/loading.gif" lazyload alt="idea-codestyle-java-comment.png"></p>
+<p><strong>XML</strong></p>
+<p>Settings ⇒ Editor ⇒ Code Style ⇒ XML ⇒ Code Generation</p>
+<p>取消选中 <code>Line Comment at first column</code>，行注释从首行开始<br>取消选中 <code>Block comment at first column</code>，快注释从首行开始</p>
+<p><img src="/blog/images/idea/idea-codestyle-xml-comment.png" srcset="/blog/img/loading.gif" lazyload alt="idea-codestyle-xml-comment.png"></p>
 
                 
               </div>
@@ -392,7 +332,7 @@
     
       <span class="category-chain">
         
-  <a href="/blog/categories/Spring/" class="category-chain-item">Spring</a>
+  <a href="/blog/categories/IDEA/" class="category-chain-item">IDEA</a>
   
   
 
@@ -407,9 +347,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/spring/">#spring</a>
-      
-        <a href="/blog/tags/jpa/">#jpa</a>
+        <a href="/blog/tags/idea/">#idea</a>
       
     </div>
   
@@ -421,8 +359,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Spring-Data-JPA 之自定义 Repository</div>
-      <div>https://okayhu.github.io/blog/spring-jpa-custom-repository/</div>
+      <div>IDEA 必备设置</div>
+      <div>https://okayhu.github.io/blog/posts/2022/idea-settings/</div>
     </div>
     <div class="license-meta">
       
@@ -434,7 +372,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月26日</div>
+          <div>2022年12月17日</div>
         </div>
       
       
@@ -466,18 +404,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/idea-database-groovy/" title="IDEA：通过 Groovy 脚本生成 Entity">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">IDEA：通过 Groovy 脚本生成 Entity</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/spring-boot-clean-architecture/" title="Spring Boot 的整洁架构">
-                        <span class="hidden-mobile">Spring Boot 的整洁架构</span>
+                      <a href="/blog/posts/2022/idea-database-groovy/" title="IDEA：通过 Groovy 脚本生成 Entity">
+                        <span class="hidden-mobile">IDEA：通过 Groovy 脚本生成 Entity</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

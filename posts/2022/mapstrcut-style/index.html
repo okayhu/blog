@@ -16,25 +16,25 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="IDEA 连接数据库IDEA 内置了 DataGrip 的大部分功能用于管理数据库，可在侧边栏找到，连接到数据库。  定位 Groovy 脚本目录IDEA 已经内置了几个用于生成模型类的脚本，我们可以根据自己需求创建自己的脚本。 在任意表中右键选择脚本扩展 - 转到脚本目录。  点击 Go To Scripts Directory 然后就可以看到内置的脚本文件，双击就可以编辑，也可以新增。  编写">
+    <meta name="description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IDEA：通过 Groovy 脚本生成 Entity">
-<meta property="og:url" content="https://okayhu.github.io/blog/idea-database-groovy/index.html">
+<meta property="og:title" content="MapStruct 的使用姿势">
+<meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/mapstrcut-style/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="IDEA 连接数据库IDEA 内置了 DataGrip 的大部分功能用于管理数据库，可在侧边栏找到，连接到数据库。  定位 Groovy 脚本目录IDEA 已经内置了几个用于生成模型类的脚本，我们可以根据自己需求创建自己的脚本。 在任意表中右键选择脚本扩展 - 转到脚本目录。  点击 Go To Scripts Directory 然后就可以看到内置的脚本文件，双击就可以编辑，也可以新增。  编写">
+<meta property="og:description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://okayhu.github.io/blog/images/idea/idea.png">
-<meta property="article:published_time" content="2022-11-12T14:14:07.000Z">
-<meta property="article:modified_time" content="2022-12-18T01:52:37.656Z">
+<meta property="og:image" content="https://okayhu.github.io/blog/images/tool/mapstruct.png">
+<meta property="article:published_time" content="2022-07-14T14:03:31.000Z">
+<meta property="article:modified_time" content="2022-12-18T03:17:41.097Z">
 <meta property="article:author" content="dyhu">
-<meta property="article:tag" content="idea">
-<meta property="article:tag" content="groovy">
+<meta property="article:tag" content="tool">
+<meta property="article:tag" content="mapstruct">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://okayhu.github.io/blog/images/idea/idea.png">
+<meta name="twitter:image" content="https://okayhu.github.io/blog/images/tool/mapstruct.png">
   
   
   
-  <title>IDEA：通过 Groovy 脚本生成 Entity - dyhu&#39;s blog</title>
+  <title>MapStruct 的使用姿势 - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="IDEA：通过 Groovy 脚本生成 Entity"></span>
+            <span id="subtitle" data-typed-text="MapStruct 的使用姿势"></span>
           
         </div>
 
@@ -215,8 +215,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-11-12 22:14" pubdate>
-          2022-11-12
+        <time datetime="2022-07-14 22:03" pubdate>
+          2022-07-14
         </time>
       </span>
     
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          1.1k 字
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          39 分钟
+          10 分钟
         
       </span>
     
@@ -276,164 +276,62 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">IDEA：通过 Groovy 脚本生成 Entity</h1>
+            <h1 style="display: none">MapStruct 的使用姿势</h1>
             
             
               <div class="markdown-body">
                 
-                <h3 id="IDEA-连接数据库"><a href="#IDEA-连接数据库" class="headerlink" title="IDEA 连接数据库"></a>IDEA 连接数据库</h3><p>IDEA 内置了 DataGrip 的大部分功能用于管理数据库，可在侧边栏找到，连接到数据库。</p>
-<p><img src="/blog/images/idea/idea-database-groovy-01.png" srcset="/blog/img/loading.gif" lazyload></p>
-<h3 id="定位-Groovy-脚本目录"><a href="#定位-Groovy-脚本目录" class="headerlink" title="定位 Groovy 脚本目录"></a>定位 Groovy 脚本目录</h3><p>IDEA 已经内置了几个用于生成模型类的脚本，我们可以根据自己需求创建自己的脚本。</p>
-<p>在任意表中右键选择脚本扩展 - 转到脚本目录。</p>
-<p><img src="/blog/images/idea/idea-database-groovy-02.png" srcset="/blog/img/loading.gif" lazyload></p>
-<p>点击 <code>Go To Scripts Directory</code> 然后就可以看到内置的脚本文件，双击就可以编辑，也可以新增。</p>
-<p><img src="/blog/images/idea/idea-database-groovy-03.png" srcset="/blog/img/loading.gif" lazyload></p>
-<h3 id="编写-Groovy-脚本文件"><a href="#编写-Groovy-脚本文件" class="headerlink" title="编写 Groovy 脚本文件"></a>编写 Groovy 脚本文件</h3><p>下面这个脚本是基于 <code>MyBatis-Plus + Lombok</code> 的：</p>
-<div class="code-wrapper"><pre><code class="hljs groovy"><span class="hljs-keyword">import</span> com.intellij.database.model.DasTable
-<span class="hljs-keyword">import</span> com.intellij.database.util.Case
-<span class="hljs-keyword">import</span> com.intellij.database.util.DasUtil
+                <p>在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。<br>但是 MapStruct 虽好，也存在着一些使用误区。</p>
+<h3 id="不要改变源-pojo-的属性"><a href="#不要改变源-pojo-的属性" class="headerlink" title="不要改变源 pojo 的属性"></a>不要改变源 pojo 的属性</h3><p>e.g. 将 UserDTO 对象转换为 UserVO</p>
+<div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserDTO</span> &#123;
 
-<span class="hljs-comment">/*</span>
-<span class="hljs-comment"> * Available context bindings:</span>
-<span class="hljs-comment"> *   SELECTION   Iterable&lt;DasObject&gt;</span>
-<span class="hljs-comment"> *   PROJECT     project</span>
-<span class="hljs-comment"> *   FILES       files helper</span>
-<span class="hljs-comment"> *</span>
-<span class="hljs-comment"> * Tips: the script does  not support the composite primary key</span>
-<span class="hljs-comment"> */</span>
-packageName = <span class="hljs-string">&quot;&quot;</span>
-existsPrimaryKey = <span class="hljs-literal">false</span>;
-primaryKeyAutoGenerated = <span class="hljs-literal">false</span>;
-
-typeMapping = [
-        (<span class="hljs-regexp">~/(?i)tinyint|bool|boolean|bit/</span>)        : <span class="hljs-string">&quot;Boolean&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)bigint/</span>)                          : <span class="hljs-string">&quot;Long&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)smallint|mediumint|int|integer/</span>)  : <span class="hljs-string">&quot;Integer&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)float/</span>)                           : <span class="hljs-string">&quot;Float&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)double/</span>)                          : <span class="hljs-string">&quot;Double&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)decimal/</span>)                         : <span class="hljs-string">&quot;BigDecimal&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)date|datetime|timestamp|time/</span>)    : <span class="hljs-string">&quot;Date&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)char|varchar|text|json/</span>)          : <span class="hljs-string">&quot;String&quot;</span>,
-        (<span class="hljs-regexp">~/(?i)blob|binary|bfile|clob|raw|image/</span>): <span class="hljs-string">&quot;InputStream&quot;</span>,
-        (<span class="hljs-regexp">~/^(?i)/</span>)                               : <span class="hljs-string">&quot;String&quot;</span>
-]
-
-FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&quot;</span>, <span class="hljs-string">&quot;Choose where to store generated files&quot;</span>) &#123; dir -&gt;
-    SELECTION.filter &#123; it <span class="hljs-keyword">instanceof</span> DasTable &#125;.each &#123; generate(it, dir) &#125;
+    <span class="hljs-keyword">private</span> Long id;
+    <span class="hljs-keyword">private</span> String username;
+    <span class="hljs-keyword">private</span> Integer age;
 &#125;
 
-<span class="hljs-keyword">def</span> generate(table, dir) &#123;
-    <span class="hljs-keyword">def</span> className = javaName(table.getName(), <span class="hljs-literal">true</span>)
-    <span class="hljs-keyword">def</span> fields = calcFields(table)
-    packageName = getPackageName(dir)
-    <span class="hljs-keyword">new</span> File(dir, className + <span class="hljs-string">&quot;.java&quot;</span>).withPrintWriter(<span class="hljs-string">&quot;UTF-8&quot;</span>) &#123; out -&gt; generate(out, className, fields, table) &#125;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserVO</span> &#123;
+
+    <span class="hljs-keyword">private</span> Long id;
+    <span class="hljs-keyword">private</span> String username;
+    <span class="hljs-keyword">private</span> Integer age;
+    <span class="hljs-keyword">private</span> List&lt;RoleVO&gt; roles;
+    <span class="hljs-keyword">private</span> List&lt;GroupVO&gt; groups;
+    <span class="hljs-keyword">private</span> List&lt;String&gt; authorityCodes;
 &#125;
 
-<span class="hljs-keyword">def</span> generate(out, className, fields, table) &#123;
-    out.println <span class="hljs-string">&quot;package $packageName&quot;</span>
-    out.println <span class="hljs-string">&quot;&quot;</span>
+<span class="hljs-meta">@Mapper</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;
 
-    Set types = <span class="hljs-keyword">new</span> HashSet()
+    UserVO <span class="hljs-title function_">dtoToVo</span><span class="hljs-params">(UserDTO userDto)</span>;
 
-    fields.each() &#123;
-        types.add(it.type)
-    &#125;
-
-    <span class="hljs-comment">// In the order of IDEA formatting</span>
-    <span class="hljs-keyword">if</span> (primaryKeyAutoGenerated) &#123;
-        out.println <span class="hljs-string">&quot;import com.baomidou.mybatisplus.annotation.IdType;&quot;</span>
-    &#125;
-    out.println <span class="hljs-string">&quot;import com.baomidou.mybatisplus.annotation.TableField;&quot;</span>
-    <span class="hljs-keyword">if</span> (existsPrimaryKey) &#123;
-        out.println <span class="hljs-string">&quot;import com.baomidou.mybatisplus.annotation.TableId;&quot;</span>
-    &#125;
-    out.println <span class="hljs-string">&quot;import com.baomidou.mybatisplus.annotation.TableName;&quot;</span>
-    <span class="hljs-keyword">if</span> (types.contains(<span class="hljs-string">&quot;InputStream&quot;</span>)) &#123;
-        out.println <span class="hljs-string">&quot;import java.io.InputStream;&quot;</span>
-    &#125;
-    <span class="hljs-keyword">if</span> (types.contains(<span class="hljs-string">&quot;BigDecimal&quot;</span>)) &#123;
-        out.println <span class="hljs-string">&quot;import java.math.BigDecimal;&quot;</span>
-    &#125;
-    <span class="hljs-keyword">if</span> (types.contains(<span class="hljs-string">&quot;Date&quot;</span>)) &#123;
-        out.println <span class="hljs-string">&quot;import java.util.Date;&quot;</span>
-    &#125;
-    out.println <span class="hljs-string">&quot;import lombok.Getter;&quot;</span>
-    out.println <span class="hljs-string">&quot;import lombok.Setter;&quot;</span>
-    out.println <span class="hljs-string">&quot;import lombok.ToString;&quot;</span>
-
-    out.println <span class="hljs-string">&quot;&quot;</span>
-    out.println <span class="hljs-string">&quot;@Getter&quot;</span>
-    out.println <span class="hljs-string">&quot;@Setter&quot;</span>
-    out.println <span class="hljs-string">&quot;@ToString&quot;</span>
-    out.println <span class="hljs-string">&quot;@TableName(\&quot;&quot;</span> + table.getName() + <span class="hljs-string">&quot;\&quot;)&quot;</span>
-    out.print <span class="hljs-string">&quot;public class $className &#123;&quot;</span>
-    out.println <span class="hljs-string">&quot;&quot;</span>
-    fields.each &#123; it -&gt;
-
-        out.println <span class="hljs-string">&quot;&quot;</span>
-        <span class="hljs-comment">// Print comments</span>
-        <span class="hljs-keyword">if</span> (isNotEmpty(it.comment)) &#123;
-            out.println <span class="hljs-string">&quot;    /**&quot;</span>
-            out.println <span class="hljs-string">&quot;     * $&#123;it.comment.toString()&#125;&quot;</span>
-            out.println <span class="hljs-string">&quot;     */&quot;</span>
+    <span class="hljs-meta">@BeforeMapping</span>
+    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterDtoToVo</span><span class="hljs-params">(UserDTO userDto)</span> &#123;
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;Administrator&quot;</span>.equals(userDto.getUsername())) &#123;
+            userDto.setId(<span class="hljs-number">0L</span>);
+            userDto.setAge(<span class="hljs-literal">null</span>);
         &#125;
-
-        <span class="hljs-comment">// Print annotations</span>
-        it.annos.each &#123; anno -&gt;
-            out.println <span class="hljs-string">&quot;    $&#123;anno&#125;&quot;</span>
-        &#125;
-
-        out.println <span class="hljs-string">&quot;    private $&#123;it.type&#125; $&#123;it.name&#125;;&quot;</span>
     &#125;
-    out.println <span class="hljs-string">&quot;&#125;&quot;</span>
-&#125;
-
-<span class="hljs-keyword">def</span> calcFields(table) &#123;
-    DasUtil.getColumns(table).reduce([]) &#123; fields, col -&gt;
-        <span class="hljs-keyword">def</span> spec = Case.LOWER.apply(col.getDataType().getSpecification())
-        <span class="hljs-keyword">def</span> typeStr = typeMapping.find &#123; p, t -&gt; p.matcher(spec).find() &#125;.value
-        <span class="hljs-keyword">def</span> annos = []
-        <span class="hljs-keyword">if</span> (DasUtil.isPrimary(col)) &#123;
-            existsPrimaryKey = <span class="hljs-literal">true</span>
-
-            <span class="hljs-keyword">if</span> (DasUtil.isAutoGenerated(col)) &#123;
-                primaryKeyAutoGenerated = <span class="hljs-literal">true</span>
-
-                annos += [<span class="hljs-string">&quot;@TableId(value = \&quot;&quot;</span> + col.getName() + <span class="hljs-string">&quot;\&quot;, type = IdType.AUTO)&quot;</span>]
-            &#125; <span class="hljs-keyword">else</span> &#123;
-                annos += [<span class="hljs-string">&quot;@TableId(\&quot;&quot;</span> + col.getName() + <span class="hljs-string">&quot;\&quot;)&quot;</span>]
-            &#125;
-        &#125; <span class="hljs-keyword">else</span> &#123;
-            annos += [<span class="hljs-string">&quot;@TableField(\&quot;&quot;</span> + col.getName() + <span class="hljs-string">&quot;\&quot;)&quot;</span>]
-        &#125;
-        fields += [[
-                           <span class="hljs-attr">name   :</span> javaName(col.getName(), <span class="hljs-literal">false</span>),
-                           <span class="hljs-attr">type   :</span> typeStr,
-                           <span class="hljs-attr">annos  :</span> annos,
-                           <span class="hljs-symbol">comment:</span> col.getComment()
-                   ]]
-    &#125;
-&#125;
-
-<span class="hljs-keyword">def</span> javaName(str, capitalize) &#123;
-    str = str.startsWith(<span class="hljs-string">&quot;is_&quot;</span>) ? str.substring(<span class="hljs-number">3</span>) : str
-    <span class="hljs-keyword">def</span> s = com.intellij.psi.codeStyle.NameUtil.splitNameIntoWords(str)
-            .collect &#123; Case.LOWER.apply(it).capitalize() &#125;
-            .join(<span class="hljs-string">&quot;&quot;</span>)
-            .replaceAll(<span class="hljs-regexp">/[^\p&#123;javaJavaIdentifierPart&#125;[_]]/</span>, <span class="hljs-string">&quot;_&quot;</span>)
-    capitalize || s.length() == <span class="hljs-number">1</span> ? s : Case.LOWER.apply(s[<span class="hljs-number">0</span>]) + s[<span class="hljs-number">1.</span>.<span class="hljs-number">-1</span>]
-&#125;
-
-<span class="hljs-keyword">static</span> <span class="hljs-keyword">def</span> getPackageName(dir) &#123;
-    <span class="hljs-keyword">return</span> dir.toString()
-            .replaceAll(<span class="hljs-string">&quot;\\\\&quot;</span>, <span class="hljs-string">&quot;.&quot;</span>)
-            .replaceAll(<span class="hljs-string">&quot;/&quot;</span>, <span class="hljs-string">&quot;.&quot;</span>)
-            .replaceAll(<span class="hljs-string">&quot;^.*src(\\.main\\.java\\.)?&quot;</span>, <span class="hljs-string">&quot;&quot;</span>) + <span class="hljs-string">&quot;;&quot;</span>
-&#125;
-
-<span class="hljs-keyword">static</span> <span class="hljs-keyword">def</span> isNotEmpty(content) &#123;
-    <span class="hljs-keyword">return</span> content != <span class="hljs-literal">null</span> &amp;&amp; content.toString().trim().length() &gt; <span class="hljs-number">0</span>
 &#125;</code></pre></div>
+
+<p>问题：对于方法的调用者来说，会造成预期之外的异常。</p>
+<h3 id="在-Mapper-中不要包含大量的业务逻辑"><a href="#在-Mapper-中不要包含大量的业务逻辑" class="headerlink" title="在 Mapper 中不要包含大量的业务逻辑"></a>在 Mapper 中不要包含大量的业务逻辑</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;
+
+    UserVO <span class="hljs-title function_">dtoToVo</span><span class="hljs-params">(UserDTO userDto)</span>;
+
+    <span class="hljs-meta">@AfterMapping</span>
+    <span class="hljs-keyword">default</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">afterDtoToVo</span><span class="hljs-params">(<span class="hljs-meta">@MappingTarget</span> UserVO userVo)</span> &#123;
+        <span class="hljs-type">UserService</span> <span class="hljs-variable">userService</span> <span class="hljs-operator">=</span> SpringContextUtil.getBean(UserService.class);
+        userVo.setAuthorityCodes(userService.getAllAuthorityCodes(userVo.getId()));
+    &#125;
+&#125;</code></pre></div>
+
+<p>问题：</p>
+<ul>
+<li>Mapper 中的方法，很大程度会被多次调用，应用在不同的领域，所以编写者需要确保方法的预期是通用的、可信任的。而在上述写法中，转换后的 UserVO 不包含 roles、groups 包含 authorityCodes，但是这对于方法调用者来说不一定是符合预期的。</li>
+<li>一旦修改 Mapper 中的业务逻辑，可能会对多处造成不好的影响。</li>
+</ul>
 
                 
               </div>
@@ -452,7 +350,7 @@ FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&qu
     
       <span class="category-chain">
         
-  <a href="/blog/categories/IDEA/" class="category-chain-item">IDEA</a>
+  <a href="/blog/categories/Tool/" class="category-chain-item">Tool</a>
   
   
 
@@ -467,9 +365,9 @@ FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&qu
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/idea/">#idea</a>
+        <a href="/blog/tags/tool/">#tool</a>
       
-        <a href="/blog/tags/groovy/">#groovy</a>
+        <a href="/blog/tags/mapstruct/">#mapstruct</a>
       
     </div>
   
@@ -481,8 +379,8 @@ FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&qu
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>IDEA：通过 Groovy 脚本生成 Entity</div>
-      <div>https://okayhu.github.io/blog/idea-database-groovy/</div>
+      <div>MapStruct 的使用姿势</div>
+      <div>https://okayhu.github.io/blog/posts/2022/mapstrcut-style/</div>
     </div>
     <div class="license-meta">
       
@@ -494,7 +392,7 @@ FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&qu
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年11月12日</div>
+          <div>2022年7月14日</div>
         </div>
       
       
@@ -526,9 +424,9 @@ FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&qu
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/idea-settings/" title="IDEA 必备设置">
+                      <a href="/blog/posts/2022/jvm-object-gc/" title="JVM 之 对象引用与垃圾回收算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">IDEA 必备设置</span>
+                        <span class="hidden-mobile">JVM 之 对象引用与垃圾回收算法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -536,8 +434,8 @@ FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&qu
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/spring-jpa-custom-repository/" title="Spring-Data-JPA 之自定义 Repository">
-                        <span class="hidden-mobile">Spring-Data-JPA 之自定义 Repository</span>
+                      <a href="/blog/posts/2022/jvm-object-memory/" title="JVM 之对象的创建过程和内存布局">
+                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
