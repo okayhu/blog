@@ -720,11 +720,11 @@ post:
   # 评论插件
   # Comment plugin
   comments:
-    enable: false
+    enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
-    type: disqus
+    type: gitalk
 
 #---------------------------
 # 评论插件
@@ -762,11 +762,11 @@ disqus:
 # Based on GitHub Issues
 # See: https://github.com/gitalk/gitalk#options
 gitalk:
-  clientID:
-  clientSecret:
-  repo:
-  owner:
-  admin: ["name"]
+  clientID: 6e18bec708b45d48f000
+  clientSecret: 6520b7d1ab0e86706c6816b61d5f3215dffd24c2
+  repo: blog
+  owner: okayhu
+  admin: ["okayhu"]
   language: zh-CN
   labels: ["Gitalk"]
   perPage: 10
@@ -777,8 +777,8 @@ gitalk:
   # The default proxy may be invalid, refer to the links for solutions
   # https://github.com/gitalk/gitalk/issues/429
   # https://github.com/Zibri/cloudflare-cors-anywhere
-  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
-
+  # https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
+  proxy: https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token
 # Valine
 # 基于 LeanCloud
 # Based on LeanCloud
