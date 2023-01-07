@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://uposs.justokay.cn/images/idea/idea.png">
 <meta property="article:published_time" content="2022-11-12T14:14:07.000Z">
-<meta property="article:modified_time" content="2023-01-07T13:06:22.721Z">
+<meta property="article:modified_time" content="2023-01-07T13:44:24.975Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="idea">
 <meta property="article:tag" content="groovy">
@@ -548,6 +548,30 @@ FILES.chooseDirectoryAndSave(<span class="hljs-string">&quot;Choose directory&qu
             </div>
 
             
+  <article id="comments" lazyload>
+    
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/blog/css/gitalk.css')
+      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://shielded-brushlands-08810.herokuapp.com/https://github.com/login/oauth/access_token"},
+          {
+            id: 'd7fe73768167b51b4417199f4711dd0e'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
           </article>
         </div>
       </div>
