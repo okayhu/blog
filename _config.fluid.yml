@@ -768,6 +768,7 @@ gitalk:
   owner: okayhu
   admin: ["okayhu"]
   language: zh-CN
+  id: location.pathname
   labels: ["Gitalk"]
   perPage: 10
   pagerDirection: last
