@@ -21,6 +21,12 @@ Settings ⇒ Appearance & Behavior ⇒ System Settings
 
 取消选中 Project 下的 `Reopen projects on startup`。
 
+### 代理设置
+
+Settings ⇒ Appearance & Behavior ⇒ System Settings ⇒ Http Proxy
+
+![](https://uposs.justokay.cn/images/idea/idea-http-proxy.png)
+
 ### Tab 多行展示
 
 Settings ⇒ Editor ⇒ General ⇒ Editor Tabs
@@ -49,7 +55,7 @@ Settings ⇒ Editor ⇒ General ⇒ Code Completion
 
 选中 `Match case`。
 
-## 设置文件换行符为 LF
+### 设置文件换行符为 LF
 
 Settings ⇒ Editor ⇒ Code style
 
@@ -59,7 +65,7 @@ Settings ⇒ Editor ⇒ Code style
 
 Settings ⇒ Editor ⇒ File Encodings
 
-![idea-file-encodings.png](https://uposs.justokay.cn/images/idea/idea-file-encodings.png)
+![](https://uposs.justokay.cn/images/idea/idea-file-encodings.png)
 
 ### 自动导包优化
 
@@ -86,7 +92,7 @@ Settings ⇒ Editor ⇒ Code Style ⇒ Java ⇒ Code Generation
 选中 `Add a space at line comment start`，在注释前加一个空格
 取消选中 `Block comment at first column`，快注释从首行开始
 
-![idea-codestyle-java-comment.png](https://uposs.justokay.cn/images/idea/idea-codestyle-java-comment.png)
+![](https://uposs.justokay.cn/images/idea/idea-codestyle-java-comment.png)
 
 **XML**
 
@@ -95,4 +101,4 @@ Settings ⇒ Editor ⇒ Code Style ⇒ XML ⇒ Code Generation
 取消选中 `Line Comment at first column`，行注释从首行开始
 取消选中 `Block comment at first column`，快注释从首行开始
 
-![idea-codestyle-xml-comment.png](https://uposs.justokay.cn/images/idea/idea-codestyle-xml-comment.png)
+![](https://uposs.justokay.cn/images/idea/idea-codestyle-xml-comment.png)
