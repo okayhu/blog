@@ -25,7 +25,7 @@ https://okayhu.github.io/blog/tags/docker/
 https://okayhu.github.io/blog/tags/firewalld/
 https://okayhu.github.io/blog/tags/linux/
 https://okayhu.github.io/blog/tags/ssh/
-https://okayhu.github.io/blog/tags/spring-springmvc/
+https://okayhu.github.io/blog/tags/springmvc/
 https://okayhu.github.io/blog/tags/nginx/
 https://okayhu.github.io/blog/categories/IDEA/
 https://okayhu.github.io/blog/categories/Java/
