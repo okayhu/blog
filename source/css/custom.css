@@ -3,7 +3,9 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("NotoSans"), url("../font/NotoSans-Regular.ttf") format("truetype");
+  src: local("NotoSans"),
+    url("https://uposs.justokay.cn/font/NotoSans-Regular.ttf"),
+    url("../font/NotoSans-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -11,7 +13,9 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("mononoki"), url("../font/mononoki-Regular.ttf") format("truetype");
+  src: local("mononoki"),
+    url("https://uposs.justokay.cn/font/NotoSans-Regular.ttf"),
+    url("../font/mononoki-Regular.ttf") format("truetype");
 }
 
 :root {
