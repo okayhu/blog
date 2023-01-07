@@ -1,7 +1,7 @@
 ---
 title: Spring Boot 的整洁架构
 sub_title: spring-boot-clean-architecture
-index_img: /images/spring/springboot.png
+index_img: https://uposs.justokay.cn/images/spring/springboot.png
 date: 2022-07-26 20:26:02
 categories: Spring
 tags: [spring, springboot]

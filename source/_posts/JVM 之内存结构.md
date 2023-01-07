@@ -1,7 +1,7 @@
 ---
 title: JVM 之内存结构
 sub_title: jvm-memory-structure
-index_img: /images/jvm/jvm.png
+index_img: https://uposs.justokay.cn/images/jvm/jvm.png
 date: 2022-06-22 21:47:45
 categories: Java
 tags: jvm
@@ -11,17 +11,17 @@ tags: jvm
 
 Java Virtual Machine（JVM）是一种抽象的计算机，基于堆栈架构，它有自己的指令集和内存管理。它加载 class 文件、分析、解释并执行字节码。基本结构如下：
 
-![](/images/jvm/jvm-memory-structure-01.png)
+![](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-01.png)
 
 Java 虚拟机会在执行 Java 程序的过程中把它所管理的内存划分为若干区域。如图：
 
-![](/images/jvm/jvm-memory-structure-02.png)
+![](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-02.png)
 
 JVM 内存结构主要分为三大块：堆、栈和方法区。堆是 JVM 中最大的一块区域，由年轻代和老年代组成，而年轻代内存又分成两部分，Eden 区和 Survivor 区，而 Survivor 区又分为 From 区、To 区，默认情况下年轻代按照 8:1:1 的比例来分配。
 
 通过一张图来了解如何通过参数来控制各区域的内存大小：
 
-![](/images/jvm/jvm-memory-structure-03.png)
+![](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-03.png)
 
 - `Xms`：设置堆的最小空间大小。
 - `Xmx`：设置堆的最大空间大小。

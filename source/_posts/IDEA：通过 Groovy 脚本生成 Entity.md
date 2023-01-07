@@ -1,7 +1,7 @@
 ---
 title: IDEA：通过 Groovy 脚本生成 Entity
 sub_title: idea-database-groovy
-index_img: /images/idea/idea.png
+index_img: https://uposs.justokay.cn/images/idea/idea.png
 date: 2022-11-12 22:14:07
 categories: IDEA
 tags: [idea, groovy]
@@ -11,7 +11,7 @@ tags: [idea, groovy]
 
 IDEA 内置了 DataGrip 的大部分功能用于管理数据库，可在侧边栏找到，连接到数据库。
 
-![](/images/idea/idea-database-groovy-01.png)
+![](https://uposs.justokay.cn/images/idea/idea-database-groovy-01.png)
 
 ### 定位 Groovy 脚本目录
 
@@ -19,11 +19,11 @@ IDEA 已经内置了几个用于生成模型类的脚本，我们可以根据自
 
 在任意表中右键选择脚本扩展 - 转到脚本目录。
 
-![](/images/idea/idea-database-groovy-02.png)
+![](https://uposs.justokay.cn/images/idea/idea-database-groovy-02.png)
 
 点击 `Go To Scripts Directory` 然后就可以看到内置的脚本文件，双击就可以编辑，也可以新增。
 
-![](/images/idea/idea-database-groovy-03.png)
+![](https://uposs.justokay.cn/images/idea/idea-database-groovy-03.png)
 
 ### 编写 Groovy 脚本文件
 

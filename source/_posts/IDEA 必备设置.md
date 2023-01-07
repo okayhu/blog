@@ -1,7 +1,7 @@
 ---
 title: IDEA 必备设置
 sub_title: idea-settings
-index_img: /images/idea/idea.png
+index_img: https://uposs.justokay.cn/images/idea/idea.png
 date: 2022-12-17 20:25:15
 categories: IDEA
 tags: idea
@@ -59,7 +59,7 @@ Settings ⇒ Editor ⇒ Code style
 
 Settings ⇒ Editor ⇒ File Encodings
 
-![idea-file-encodings.png](/images/idea/idea-file-encodings.png)
+![idea-file-encodings.png](https://uposs.justokay.cn/images/idea/idea-file-encodings.png)
 
 ### 自动导包优化
 
@@ -86,7 +86,7 @@ Settings ⇒ Editor ⇒ Code Style ⇒ Java ⇒ Code Generation
 选中 `Add a space at line comment start`，在注释前加一个空格
 取消选中 `Block comment at first column`，快注释从首行开始
 
-![idea-codestyle-java-comment.png](/images/idea/idea-codestyle-java-comment.png)
+![idea-codestyle-java-comment.png](https://uposs.justokay.cn/images/idea/idea-codestyle-java-comment.png)
 
 **XML**
 
@@ -95,4 +95,4 @@ Settings ⇒ Editor ⇒ Code Style ⇒ XML ⇒ Code Generation
 取消选中 `Line Comment at first column`，行注释从首行开始
 取消选中 `Block comment at first column`，快注释从首行开始
 
-![idea-codestyle-xml-comment.png](/images/idea/idea-codestyle-xml-comment.png)
+![idea-codestyle-xml-comment.png](https://uposs.justokay.cn/images/idea/idea-codestyle-xml-comment.png)

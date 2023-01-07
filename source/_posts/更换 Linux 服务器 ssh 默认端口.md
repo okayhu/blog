@@ -1,7 +1,7 @@
 ---
 title: 更换 Linux 服务器 ssh 默认端口
 sub_title: linux-ssh-port-update
-index_img: /images/devops/linux.png
+index_img: https://uposs.justokay.cn/images/devops/linux.png
 date: 2022-6-27 09:54:58
 categories: Devops
 tags: [linux, ssh]

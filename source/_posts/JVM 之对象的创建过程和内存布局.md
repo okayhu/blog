@@ -1,7 +1,7 @@
 ---
 title: JVM 之对象的创建过程和内存布局
 sub_title: jvm-object-memory
-index_img: /images/jvm/jvm.png
+index_img: https://uposs.justokay.cn/images/jvm/jvm.png
 date: 2022-07-04 15:34:20
 categories: Java
 tags: jvm
@@ -9,7 +9,7 @@ tags: jvm
 
 ## 对象的创建过程
 
-![](/images/jvm/jvm-object-memory-01.png)
+![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-01.png)
 
 ### 检查加载
 
@@ -62,7 +62,7 @@ JVM 在分配内存时，还要考虑并发安全问题，解决这个问题有�
 
 ## 对象的内存布局
 
-![](/images/jvm/jvm-object-memory-02.png)
+![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-02.png)
 
 在 HotSpot 虚拟机中，对象在内存中存储的布局可以分为 3 块区域：对象头（Object Header）、实例数据（Instance Data）和对齐填充（Padding）。
 
@@ -92,7 +92,7 @@ Java 程序需要通过 JVM 栈上的引用访问堆中的具体对象。对象�
 
 指向对象，代表一个对象在内存中的起始地址。如果使用直接指针访问，引用中存储的直接就是对象地址，那么 Java 堆对象内部的布局中就必须考虑如何放置访问类型数据的相关信息。
 
-![](/images/jvm/jvm-object-memory-03.png)
+![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-03.png)
 
 优点：速度快，节省了一次指针定位的时间开销。由于对象的访问在 Java 中非常频繁，因此这类开销积少成多后也是非常可观的执行成本。HotSpot 中采用的就是这种方式。
 
@@ -100,6 +100,6 @@ Java 程序需要通过 JVM 栈上的引用访问堆中的具体对象。对象�
 
 可以理解为指向指针的指针，维护着对象的指针。句柄不直接指向对象，而是指向对象的指针（句柄不发生变化，指向固定内存地址），再由对象的指针指向对象的真实内存地址。如果使用直接句柄访问，Java 堆中划分出一块内存来作为句柄池，引用中存储对象的句柄地址，而句柄中包含了对象实例数据与对象类型数据各自的具体地址信息。
 
-![](/images/jvm/jvm-object-memory-04.png)
+![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-04.png)
 
 优点：引用中存储的是稳定的句柄地址，在对象被移动（垃圾收集时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而引用本身不需要修改。

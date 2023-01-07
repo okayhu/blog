@@ -1,10 +1,10 @@
 ---
 title: 绑定 Spring MVC 命令对象时如何自定义参数名
 sub_title: spring-mvc-binding-object
-index_img: /images/spring/spring-mvc.png
+index_img: https://uposs.justokay.cn/images/spring/spring-mvc.png
 date: 2022-12-30 18:56:05
 categories: spring
-tags: spring, springmvc
+tags: [spring, springmvc]
 ---
 
 ## 来源

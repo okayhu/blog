@@ -1,7 +1,7 @@
 ---
 title: MapStruct 的使用姿势
 sub_title: mapstrcut-style
-index_img: /images/tool/mapstruct.png
+index_img: https://uposs.justokay.cn/images/tool/mapstruct.png
 date: 2022-07-14 22:03:31
 categories: Tool
 tags: [tool, mapstruct]

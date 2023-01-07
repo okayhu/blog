@@ -1,7 +1,7 @@
 ---
 title: 使用 Firewalld 保护 Docker 安全
 sub_title: docker-firewalld
-index_img: /images/devops/docker.png
+index_img: https://uposs.justokay.cn/images/devops/docker.png
 date: 2022-6-30 19:47:12
 categories: Devops
 tags: [docker, firewalld]
