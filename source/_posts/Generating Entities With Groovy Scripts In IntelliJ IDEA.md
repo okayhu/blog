@@ -1,33 +1,33 @@
 ---
-title: IDEA：通过 Groovy 脚本生成 Entity
+title: Generating Entities With Groovy Scripts In IntelliJ IDEA
 sub_title: idea-database-groovy
 index_img: https://uposs.justokay.cn/images/idea/idea.png
 date: 2022-11-12 22:14:07
-categories: IDEA
+categories: IntelliJ IDEA
 tags: [idea, groovy]
 ---
 
-### IDEA 连接数据库
+### Connecting to Databases
 
-IDEA 内置了 DataGrip 的大部分功能用于管理数据库，可在侧边栏找到，连接到数据库。
+IntelliJ IDEA has most of the features of DataGrip built-in for managing databases, which can be found in the sidebar, Connect to Database.
 
 ![](https://uposs.justokay.cn/images/idea/idea-database-groovy-01.png)
 
-### 定位 Groovy 脚本目录
+### Locating Groovy script directories
 
-IDEA 已经内置了几个用于生成模型类的脚本，我们可以根据自己需求创建自己的脚本。
+IntelliJ IDEA already has several built-in scripts for generating model classes, we can create our own scripts according to our needs.
 
-在任意表中右键选择脚本扩展 - 转到脚本目录。
+Right-click on any table and select Script Extensions - go to Scripts directory.
 
 ![](https://uposs.justokay.cn/images/idea/idea-database-groovy-02.png)
 
-点击 `Go To Scripts Directory` 然后就可以看到内置的脚本文件，双击就可以编辑，也可以新增。
+Click on `Go To Scripts Directory` and you will see the built-in scripts, double click on them to edit or add them.
 
 ![](https://uposs.justokay.cn/images/idea/idea-database-groovy-03.png)
 
-### 编写 Groovy 脚本文件
+### Writing Groovy script files
 
-下面这个脚本是基于 `MyBatis-Plus + Lombok` 的：
+The following script is based on `MyBatis-Plus + Lombok`:
 
 ```groovy
 import com.intellij.database.model.DasTable

@@ -1,5 +1,5 @@
 ---
-title: 使用 Firewalld 保护 Docker 安全
+title: Securing Docker with Firewalld
 sub_title: docker-firewalld
 index_img: https://uposs.justokay.cn/images/devops/docker.png
 date: 2022-6-30 19:47:12
@@ -7,13 +7,13 @@ categories: Devops
 tags: [docker, firewalld]
 ---
 
-Docker 防火墙使用的是底层的 iptables，firewalld 默认不生效。
+Docker firewall uses the underlying iptables, firewalld does not work by default.
 
-如果想要使用 firewalld，需要做以下调整：
+If you want to use firewalld, you need to make the following adjustments.
 
-### 重新构建 `DOCKER-USER chain`
+### Rebuild `DOCKER-USER chain`
 
-即使 DOCKER-USER 已存在，也需要删除后重建
+Even if `DOCKER-USER` already exists, you need to delete and rebuild
 
 ```bash
 firewall-cmd --permanent --direct --remove-chain ipv4 filter DOCKER-USER
@@ -21,7 +21,7 @@ firewall-cmd --permanent --direct --remove-rules ipv4 filter DOCKER-USER
 firewall-cmd --permanent --direct --add-chain ipv4 filter DOCKER-USER
 ```
 
-### 添加 iptables 规则
+### Add iptables rule
 
 ```bash
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -i docker0 -j ACCEPT -m comment --comment "allows incoming from docker"
@@ -36,24 +36,23 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -j RETURN
 ### 添加自定义的规则
 
 ```bash
-# 允许指定 ip 流量通过, 将 1.1.1.1 替换成你需要通过的 ip
+# Allow the specified ip traffic to pass, replace 1.1.1.1 with the ip you need to pass
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -s 1.1.1.1/32 -j ACCEPT
 
-# 允许指定 ip 访问指定的端口（示例）
-firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -p tcp -m multiport --dports 80,443 -s 1.1.1.1/32 -j ACCEPT # 你也可以指定端口，這裡僅為示例
+# Allow the specified ip to access the specified port 
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -p tcp -m multiport --dports 80,443 -s 1.1.1.1/32 -j ACCEPT
 
-# 拒绝其他流量
+# Reject other traffic
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJECT --reject-with icmp-host-unreachable -m comment --comment "reject all other traffic"
 ```
 
 {% note warn %}
+- `REJECT` rule should be executed at the end
+- Do not write multiple IP addresses for the same rule
+- If you restart firewalld while Docker is running, then firewalld will remove the DOCKER-USER
+{% endnote %}
 
-- `REJECT`规则要在最后执行
-- 同一条规则不要写多个 IP 地址
-- 如果在 Docker 运行时重启 firewalld，那么 firewalld 将删除 DOCKER-USER
-  {% endnote %}
+### Reload the configuration and verify
 
-### 重新加载配置并验证
-
-- 重新加载配置：`firewall-cmd --reload`
-- 验证：`iptables -L` 查看 DOCKER-USER 的配置，或者通过 `cat /etc/firewalld/direct.xml` 查看 direct 的配置。
+- Reload the configuration: `firewall-cmd --reload`
+- Verify: `iptables -L` for DOCKER-USER, or `cat /etc/firewalld/direct.xml` for direct.

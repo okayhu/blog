@@ -1,5 +1,5 @@
 ---
-title: MapStruct 的使用姿势
+title: Useful Tips For MapStruct
 sub_title: mapstrcut-style
 index_img: https://uposs.justokay.cn/images/tool/mapstruct.png
 date: 2022-07-14 22:03:31
@@ -7,12 +7,12 @@ categories: Tool
 tags: [tool, mapstruct]
 ---
 
-在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。
-但是 MapStruct 虽好，也存在着一些使用误区。
+MapStruct is a powerful and convenient pojo conversion tool in our project development process.
+Although MapStruct is good, there are some problems about its use.
 
-### 不要改变源 pojo 的属性
+### Do not change to the source object
 
-e.g. 将 UserDTO 对象转换为 UserVO
+e.g. Convert `UserDTO` to `UserVO`
 
 ```java
 public class UserDTO {
@@ -47,9 +47,9 @@ public interface UserMapper {
 }
 ```
 
-问题：对于方法的调用者来说，会造成预期之外的异常。
+Problem: Creates an unintended exception for the caller of the method.
 
-### 在 Mapper 中不要包含大量的业务逻辑
+### Do not include a lot of business code
 
 ```java
 @Mapper
@@ -65,7 +65,7 @@ public interface UserMapper {
 }
 ```
 
-问题：
+Problem:
 
-- Mapper 中的方法，很大程度会被多次调用，应用在不同的领域，所以编写者需要确保方法的预期是通用的、可信任的。而在上述写法中，转换后的 UserVO 不包含 roles、groups 包含 authorityCodes，但是这对于方法调用者来说不一定是符合预期的。
-- 一旦修改 Mapper 中的业务逻辑，可能会对多处造成不好的影响。
+- Methods in Mapper, to a large extent, will be called multiple times and applied in different domains, so the writer needs to make sure that the expectations of the methods are generic and trusted. In the above example, the converted `UserVO` does not contain `roles`、 `groups`、`authorityCodes`, but this is not necessarily what is expected for the method caller.
+- Once the business logic in the Mapper is modified, it may have a bad impact on multiple locations.

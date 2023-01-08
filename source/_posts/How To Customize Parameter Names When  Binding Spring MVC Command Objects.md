@@ -1,5 +1,5 @@
 ---
-title: 绑定 Spring MVC 命令对象时如何自定义参数名
+title: How To Customize Parameter Names When  Binding Spring MVC Command Objects
 sub_title: spring-mvc-binding-object
 index_img: https://uposs.justokay.cn/images/spring/spring-mvc.png
 date: 2022-12-30 18:56:05
@@ -7,9 +7,9 @@ categories: spring
 tags: [spring, springmvc]
 ---
 
-## 来源
+## Question
 
-Spring 提供 `@RequestParam` 来绑定 Query 参数，并且能绑定不同名称的参数。
+Spring provides `@RequestParam` to bind Query parameters, and can bind parameters with different names.
 
 ```java
 @GetMapping("/page")
@@ -19,9 +19,9 @@ pulic Page page(@RequestParam("current_page") Integer pageNum,
 }
 ```
 
-然而当用对象来接收 Query 参数时，该如何绑定不同名称的参数呢？
+However, when using objects to receive Query parameters, how do you bind parameters with different names?
 
-这是用来绑定的分页查询对象：
+This is the paging query object used to bind:
 
 ```java
 public class PageQuery {
@@ -30,7 +30,7 @@ public class PageQuery {
 }
 ```
 
-对应的 Spring MVC 方法
+Corresponding Spring MVC methods:
 
 ```java
 @GetMapping("/page")
@@ -39,15 +39,15 @@ pulic Page page(PageQuery pageQuery) {
 }
 ```
 
-它适用于`http://example.com/page?pageNum=1&pageSize=10`，却不适用于以下网址：
+It applies to `http://example.com/page?pageNum=1&pageSize=10`, but not to the following URLs:
 
 `http://example.com/page?current_page=1&page_size=10`
 
-## 解决
+## Solution
 
-为了解决上面这个问题，我们需要扩展 `HandlerMethodArgumentResolver`，并将其添加到 Spring MVC 的 ArgumentResolvers
+To solve this problem above, we need to customize `HandlerMethodArgumentResolver` and add it to Spring MVC ArgumentResolvers
 
-### 自定义 DataBinder
+### Customized DataBinder
 
 ```java
 public class RequestParamNameDataBinder extends ServletRequestDataBinder {
@@ -73,7 +73,7 @@ public class RequestParamNameDataBinder extends ServletRequestDataBinder {
 }
 ```
 
-### 自定义参数处理器
+### Customized parameter processor
 
 ```java
 public class RequestParamNameMethodProcessor extends ServletModelAttributeMethodProcessor
@@ -133,7 +133,7 @@ public class RequestParamNameMethodProcessor extends ServletModelAttributeMethod
 }
 ```
 
-### 对应的注解
+### Corresponding annotation
 
 ```java
 @Target(ElementType.FIELD)
@@ -148,7 +148,7 @@ public @interface RequestParamName {
 }
 ```
 
-### 配置 Spring MVC 的 ArgumentResolver
+### Configuring the Spring MVC ArgumentResolver
 
 ```java
 @Configuration
@@ -166,7 +166,7 @@ public class WebConfiguration implements WebMvcConfigurer {
 }
 ```
 
-### 用法
+### Usage
 
 ```java
 public class PageQuery {

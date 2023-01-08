@@ -1,5 +1,5 @@
 ---
-title: Spring-Data-JPA 之自定义 Repository
+title: Spring Data JPA Custom Repository Example
 sub_title: spring-jpa-custom-repository
 index_img: https://uposs.justokay.cn/images/spring/spring-date-jpa.png
 date: 2022-08-26 22:16:41
@@ -7,11 +7,11 @@ categories: Spring
 tags: [spring, jpa]
 ---
 
-Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？
+Spring-Data-JPA provides many common Repository interfaces, such as CrudRepository, PagingAndSortingRepository, JpaRepository and so on. In practical development we often have some custom methods, so how should we extend the Repository interface?
 
-## 基类
+## Base class
 
-首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法
+First define a BaseRepository that inherits from JpaRepository and write the methods we want to extend
 
 ```java
 @NoRepositoryBean
@@ -23,9 +23,9 @@ public interface BaseRepository<T, ID> extends JpaRepository<T, ID> {
 }
 ```
 
-@NoRepositoryBean 的作用是通知 Spring 容器不要实例化 BaseRepository，因为 BaseRepository 是作为一个中间接口来派生具体的 Repository 接口。
+The `@NoRepositoryBean` is used to inform the Spring container not to instantiate the BaseRepository, since the BaseRepository is used as an intermediate interface to derive the concrete Repository interface.
 
-接下来创建 BaseRepository 的实现类，实现扩展的方法
+Next, create an implementation class of the BaseRepository that implements the extended methods
 
 ```java
 public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implements BaseRepository<T, ID> {
@@ -79,9 +79,9 @@ public class BaseRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID> implem
 }
 ```
 
-## 配置
+## Configuration
 
-最后我们可以通过 `@EnableJpaRepositories` 在主类上指定新的 repositoryBaseClass
+Finally we can specify the new repositoryBaseClass on the main class with `@EnableJpaRepositories`
 
 ```java
 @EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)
@@ -94,16 +94,16 @@ public class JpaExamplesApplication {
 }
 ```
 
-## 使用
+## Usage
 
-我们的 Repository 接口就不再继承 JpaRepository 了，而是继承 BaseRepository
+Instead of inheriting from JpaRepository, our Repository interface inherits from BaseRepository
 
 ```java
 public interface UserRepository<User, Long> extends BaseRepository<User, Long> {
 }
 ```
 
-接下来测试下我们自定义的方法
+Next, we test our custom method
 
 ```java
 @SpringBootTest
@@ -119,10 +119,10 @@ class BaseRepositoryTests {
 }
 ```
 
-开启 SQL 打印
+Turn on SQL printing:
 
 ```properties
 spring.jpa.show-sql=true
 ```
 
-控制台成功输出：`Hibernate: delete from user where id in (1 , 2)`
+Console output successfully: `Hibernate: delete from user where id in (1 , 2)`

@@ -1,35 +1,36 @@
 ---
-title: 更换 Linux 服务器 ssh 默认端口
+title: Modify The Linux Server SSH Port
 sub_title: linux-ssh-port-update
 index_img: https://uposs.justokay.cn/images/devops/linux.png
 date: 2022-6-27 09:54:58
 categories: Devops
 tags: [linux, ssh]
 ---
+{% note success %}
+Environment: Centos 7
+{% endnote %}
 
-> 环境 centos 7
-
-### 备份 ssh 配置文件
+### Back up the ssh configuration file
 
 ```bash
 cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 ```
 
-### 修改默认端口
+### Modify the default port
 
 ```bash
 vi etc/ssh/sshd_config
 ```
 
-修改 `#Port 22` 为 `Port 2233`，则 ssh 端口分改为 2233
+Change `#Port 22` to `Port 2233`, so that the ssh port is changed to 2233
 
-### 重启 sshd 服务
+### Restart sshd service
 
 ```bash
 systemctl restart sshd
 ```
 
-## 放行新的端口
+## Release the new port
 
 ```bash
 firewall-cmd --premanent --add-port=2233/tcp

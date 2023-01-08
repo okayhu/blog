@@ -724,7 +724,7 @@ post:
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
-    type: gitalk
+    type: disqus
 
 #---------------------------
 # 评论插件
@@ -750,7 +750,7 @@ utterances:
 # Based on third-party service
 # See: https://disqus.com
 disqus:
-  shortname:
+  shortname: dyhu-blog
   # 以下为 Disqusjs 支持, 国内用户如果想使用 Disqus 建议配合使用
   # The following are Disqusjs configurations, please ignore if DisqusJS is not required
   # See: https://github.com/SukkaW/DisqusJS
@@ -940,7 +940,7 @@ about:
   banner_mask_alpha: 0.3
   avatar: https://uposs.justokay.cn/images/avatar.png
   name: "dyhu"
-  intro: "后端开发 & 代码洁癖 & 向上管理"
+  intro: "Backend Development & Code Cleanliness & Managing Upward"
   # 更多图标可从 https://hexo.fluid-dev.com/docs/icon/ 查找，`class` 代表图标的 css class，添加 `qrcode` 后，图标不再是链接而是悬浮二维码
   # More icons can be found from https://hexo.fluid-dev.com/docs/en/icon/  `class` is the css class of the icon. If adding `qrcode`, The icon is no longer a link, but a hovering QR code
   icons:
