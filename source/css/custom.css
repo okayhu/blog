@@ -3,9 +3,19 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("NotoSans"),
+  src: local("NotoSans-Regular"),
     url("https://uposs.justokay.cn/font/NotoSans-Regular.ttf"),
     url("../font/NotoSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Merriweather";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Merriweather"),
+    url("https://uposs.justokay.cn/font/Merriweather-Regular.ttf"),
+    url("../font/Merriweather-Regular.ttf") format("truetype");
 }
 
 @font-face {
@@ -13,13 +23,15 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("mononoki"),
-    url("https://uposs.justokay.cn/font/NotoSans-Regular.ttf"),
+  src: local("mononoki-Regular"),
+    url("https://uposs.justokay.cn/font/mononoki-Regular.ttf"),
     url("../font/mononoki-Regular.ttf") format("truetype");
 }
 
 :root {
   --inlinecode-bg-color: #e7e9f8;
+  --text-color: #525c6c;
+  --post-heading-color: #455166;
 }
 
 [data-user-color-scheme="dark"] {
@@ -29,12 +41,12 @@
 html,
 body,
 .markdown-body {
-  font-family: "NotoSans", sans-serif;
-  /* font-size: 15px; */
+  font-family: Merriweather, NotoSans, sans-serif;
+  font-size: 16px;
 }
 
 .markdown-body code,
 .markdown-body pre {
-  font-family: "mononoki", monospace !important;
+  font-family: mononoki, SFMono-Regular, monospace;
   /* font-size: 15px; */
 }
