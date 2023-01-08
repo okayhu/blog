@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,16 +16,16 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Docker 防火墙使用的是底层的 iptables，firewalld 默认不生效。 如果想要使用 firewalld，需要做以下调整： 重新构建 DOCKER-USER chain即使 DOCKER-USER 已存在，也需要删除后重建 firewall-cmd --permanent --direct --remove-chain ipv4 filter DOCKER-USER firewal">
+    <meta name="description" content="Docker firewall uses the underlying iptables, firewalld does not work by default. If you want to use firewalld, you need to make the following adjustments. Rebuild DOCKER-USER chainEven if DOCKER-USER">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 Firewalld 保护 Docker 安全">
+<meta property="og:title" content="Securing Docker with Firewalld">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/docker-firewalld/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="Docker 防火墙使用的是底层的 iptables，firewalld 默认不生效。 如果想要使用 firewalld，需要做以下调整： 重新构建 DOCKER-USER chain即使 DOCKER-USER 已存在，也需要删除后重建 firewall-cmd --permanent --direct --remove-chain ipv4 filter DOCKER-USER firewal">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Docker firewall uses the underlying iptables, firewalld does not work by default. If you want to use firewalld, you need to make the following adjustments. Rebuild DOCKER-USER chainEven if DOCKER-USER">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/devops/docker.png">
 <meta property="article:published_time" content="2022-06-30T11:47:12.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="firewalld">
@@ -34,7 +34,7 @@
   
   
   
-  <title>使用 Firewalld 保护 Docker 安全 - dyhu&#39;s blog</title>
+  <title>Securing Docker with Firewalld - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -159,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -171,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="使用 Firewalld 保护 Docker 安全"></span>
+            <span id="subtitle" data-typed-text="Securing Docker with Firewalld"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.8k words
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          13 分钟
+          16 mins
         
       </span>
     
@@ -276,19 +276,19 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">使用 Firewalld 保护 Docker 安全</h1>
+            <h1 style="display: none">Securing Docker with Firewalld</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Docker 防火墙使用的是底层的 iptables，firewalld 默认不生效。</p>
-<p>如果想要使用 firewalld，需要做以下调整：</p>
-<h3 id="重新构建-DOCKER-USER-chain"><a href="#重新构建-DOCKER-USER-chain" class="headerlink" title="重新构建 DOCKER-USER chain"></a>重新构建 <code>DOCKER-USER chain</code></h3><p>即使 DOCKER-USER 已存在，也需要删除后重建</p>
+                <p>Docker firewall uses the underlying iptables, firewalld does not work by default.</p>
+<p>If you want to use firewalld, you need to make the following adjustments.</p>
+<h3 id="Rebuild-DOCKER-USER-chain"><a href="#Rebuild-DOCKER-USER-chain" class="headerlink" title="Rebuild DOCKER-USER chain"></a>Rebuild <code>DOCKER-USER chain</code></h3><p>Even if <code>DOCKER-USER</code> already exists, you need to delete and rebuild</p>
 <div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --permanent --direct --remove-chain ipv4 filter DOCKER-USER
 firewall-cmd --permanent --direct --remove-rules ipv4 filter DOCKER-USER
 firewall-cmd --permanent --direct --add-chain ipv4 filter DOCKER-USER</code></pre></div>
 
-<h3 id="添加-iptables-规则"><a href="#添加-iptables-规则" class="headerlink" title="添加 iptables 规则"></a>添加 iptables 规则</h3><div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -i docker0 -j ACCEPT -m comment --comment <span class="hljs-string">&quot;allows incoming from docker&quot;</span>
+<h3 id="Add-iptables-rule"><a href="#Add-iptables-rule" class="headerlink" title="Add iptables rule"></a>Add iptables rule</h3><div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -i docker0 -j ACCEPT -m comment --comment <span class="hljs-string">&quot;allows incoming from docker&quot;</span>
 
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -i docker0 -o eth0 -j ACCEPT -m comment --comment <span class="hljs-string">&quot;allows docker to eth0&quot;</span>
 
@@ -296,22 +296,22 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -m conntr
 
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -j RETURN -s 172.17.0.0/16 -m comment --comment <span class="hljs-string">&quot;allow internal docker communication&quot;</span></code></pre></div>
 
-<h3 id="添加自定义的规则"><a href="#添加自定义的规则" class="headerlink" title="添加自定义的规则"></a>添加自定义的规则</h3><div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 允许指定 ip 流量通过, 将 1.1.1.1 替换成你需要通过的 ip</span>
+<h3 id="添加自定义的规则"><a href="#添加自定义的规则" class="headerlink" title="添加自定义的规则"></a>添加自定义的规则</h3><div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># Allow the specified ip traffic to pass, replace 1.1.1.1 with the ip you need to pass</span>
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -s 1.1.1.1/32 -j ACCEPT
 
-<span class="hljs-comment"># 允许指定 ip 访问指定的端口（示例）</span>
-firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -p tcp -m multiport --dports 80,443 -s 1.1.1.1/32 -j ACCEPT <span class="hljs-comment"># 你也可以指定端口，這裡僅為示例</span>
+<span class="hljs-comment"># Allow the specified ip to access the specified port </span>
+firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -p tcp -m multiport --dports 80,443 -s 1.1.1.1/32 -j ACCEPT
 
-<span class="hljs-comment"># 拒绝其他流量</span>
+<span class="hljs-comment"># Reject other traffic</span>
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJECT --reject-with icmp-host-unreachable -m comment --comment <span class="hljs-string">&quot;reject all other traffic&quot;</span></code></pre></div>
 
 <div class="note note-warn">
-            <ul><li><code>REJECT</code>规则要在最后执行</li><li>同一条规则不要写多个 IP 地址</li><li>如果在 Docker 运行时重启 firewalld，那么 firewalld 将删除 DOCKER-USER</li></ul>
+            <ul><li><code>REJECT</code> rule should be executed at the end</li><li>Do not write multiple IP addresses for the same rule</li><li>If you restart firewalld while Docker is running, then firewalld will remove the DOCKER-USER</li></ul>
           </div>
 
-<h3 id="重新加载配置并验证"><a href="#重新加载配置并验证" class="headerlink" title="重新加载配置并验证"></a>重新加载配置并验证</h3><ul>
-<li>重新加载配置：<code>firewall-cmd --reload</code></li>
-<li>验证：<code>iptables -L</code> 查看 DOCKER-USER 的配置，或者通过 <code>cat /etc/firewalld/direct.xml</code> 查看 direct 的配置。</li>
+<h3 id="Reload-the-configuration-and-verify"><a href="#Reload-the-configuration-and-verify" class="headerlink" title="Reload the configuration and verify"></a>Reload the configuration and verify</h3><ul>
+<li>Reload the configuration: <code>firewall-cmd --reload</code></li>
+<li>Verify: <code>iptables -L</code> for DOCKER-USER, or <code>cat /etc/firewalld/direct.xml</code> for direct.</li>
 </ul>
 
                 
@@ -360,32 +360,32 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJEC
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>使用 Firewalld 保护 Docker 安全</div>
+      <div>Securing Docker with Firewalld</div>
       <div>https://okayhu.github.io/blog/posts/2022/docker-firewalld/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年6月30日</div>
+          <div>Posted on</div>
+          <div>June 30, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -405,19 +405,19 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJEC
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/posts/2022/jvm-object-memory/" title="JVM 之对象的创建过程和内存布局">
+                      <a href="/blog/posts/2022/jvm-object-memory/" title="Object Creation Process And Memory Layout In Java">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">Object Creation Process And Memory Layout In Java</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/posts/2022/linux-ssh-port-update/" title="更换 Linux 服务器 ssh 默认端口">
-                        <span class="hidden-mobile">更换 Linux 服务器 ssh 默认端口</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/blog/posts/2022/linux-ssh-port-update/" title="Modify The Linux Server SSH Port">
+                        <span class="hidden-mobile">Modify The Linux Server SSH Port</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -429,23 +429,24 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJEC
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: 'b6ae59d46d0360a31fe4e99e6cf1e83a'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/docker-firewalld/';
+          this.page.identifier = '/blog/posts/2022/docker-firewalld/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -460,7 +461,7 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJEC
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -515,7 +516,7 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJEC
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -523,7 +524,7 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJEC
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -702,7 +703,7 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJEC
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,16 +16,16 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="来源Spring 提供 @RequestParam 来绑定 Query 参数，并且能绑定不同名称的参数。 @GetMapping(&quot;&#x2F;page&quot;) pulic Page page(@RequestParam(&quot;current_page&quot;) Integer pageNum,                 @RequestParam(&quot;page_si">
+    <meta name="description" content="QuestionSpring provides @RequestParam to bind Query parameters, and can bind parameters with different names. @GetMapping(&quot;&#x2F;page&quot;) pulic Page page(@RequestParam(&quot;current_page&quot;) Int">
 <meta property="og:type" content="article">
-<meta property="og:title" content="绑定 Spring MVC 命令对象时如何自定义参数名">
+<meta property="og:title" content="How To Customize Parameter Names When  Binding Spring MVC Command Objects">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="来源Spring 提供 @RequestParam 来绑定 Query 参数，并且能绑定不同名称的参数。 @GetMapping(&quot;&#x2F;page&quot;) pulic Page page(@RequestParam(&quot;current_page&quot;) Integer pageNum,                 @RequestParam(&quot;page_si">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="QuestionSpring provides @RequestParam to bind Query parameters, and can bind parameters with different names. @GetMapping(&quot;&#x2F;page&quot;) pulic Page page(@RequestParam(&quot;current_page&quot;) Int">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/spring/spring-mvc.png">
 <meta property="article:published_time" content="2022-12-30T10:56:05.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="springmvc">
@@ -34,7 +34,7 @@
   
   
   
-  <title>绑定 Spring MVC 命令对象时如何自定义参数名 - dyhu&#39;s blog</title>
+  <title>How To Customize Parameter Names When  Binding Spring MVC Command Objects - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -159,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -171,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="绑定 Spring MVC 命令对象时如何自定义参数名"></span>
+            <span id="subtitle" data-typed-text="How To Customize Parameter Names When  Binding Spring MVC Command Objects"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          4.3k words
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          34 分钟
+          37 mins
         
       </span>
     
@@ -276,35 +276,35 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">绑定 Spring MVC 命令对象时如何自定义参数名</h1>
+            <h1 style="display: none">How To Customize Parameter Names When  Binding Spring MVC Command Objects</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h2><p>Spring 提供 <code>@RequestParam</code> 来绑定 Query 参数，并且能绑定不同名称的参数。</p>
+                <h2 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h2><p>Spring provides <code>@RequestParam</code> to bind Query parameters, and can bind parameters with different names.</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/page&quot;)</span>
 pulic Page <span class="hljs-title function_">page</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(&quot;current_page&quot;)</span> Integer pageNum,</span>
 <span class="hljs-params">                <span class="hljs-meta">@RequestParam(&quot;page_size&quot;)</span> Integer pageSize)</span> &#123;
     ...
 &#125;</code></pre></div>
 
-<p>然而当用对象来接收 Query 参数时，该如何绑定不同名称的参数呢？</p>
-<p>这是用来绑定的分页查询对象：</p>
+<p>However, when using objects to receive Query parameters, how do you bind parameters with different names?</p>
+<p>This is the paging query object used to bind:</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PageQuery</span> &#123;
     <span class="hljs-keyword">private</span> Integer pageNum;
     <span class="hljs-keyword">private</span> Integer pageSize;
 &#125;</code></pre></div>
 
-<p>对应的 Spring MVC 方法</p>
+<p>Corresponding Spring MVC methods:</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/page&quot;)</span>
 pulic Page <span class="hljs-title function_">page</span><span class="hljs-params">(PageQuery pageQuery)</span> &#123;
     ...
 &#125;</code></pre></div>
 
-<p>它适用于<code>http://example.com/page?pageNum=1&amp;pageSize=10</code>，却不适用于以下网址：</p>
+<p>It applies to <code>http://example.com/page?pageNum=1&amp;pageSize=10</code>, but not to the following URLs:</p>
 <p><code>http://example.com/page?current_page=1&amp;page_size=10</code></p>
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>为了解决上面这个问题，我们需要扩展 <code>HandlerMethodArgumentResolver</code>，并将其添加到 Spring MVC 的 ArgumentResolvers</p>
-<h3 id="自定义-DataBinder"><a href="#自定义-DataBinder" class="headerlink" title="自定义 DataBinder"></a>自定义 DataBinder</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RequestParamNameDataBinder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServletRequestDataBinder</span> &#123;
+<h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>To solve this problem above, we need to customize <code>HandlerMethodArgumentResolver</code> and add it to Spring MVC ArgumentResolvers</p>
+<h3 id="Customized-DataBinder"><a href="#Customized-DataBinder" class="headerlink" title="Customized DataBinder"></a>Customized DataBinder</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RequestParamNameDataBinder</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServletRequestDataBinder</span> &#123;
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> Map&lt;String, String&gt; requestParamNameMapping;
 
@@ -326,7 +326,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
     &#125;
 &#125;</code></pre></div>
 
-<h3 id="自定义参数处理器"><a href="#自定义参数处理器" class="headerlink" title="自定义参数处理器"></a>自定义参数处理器</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RequestParamNameMethodProcessor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServletModelAttributeMethodProcessor</span>
+<h3 id="Customized-parameter-processor"><a href="#Customized-parameter-processor" class="headerlink" title="Customized parameter processor"></a>Customized parameter processor</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RequestParamNameMethodProcessor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">ServletModelAttributeMethodProcessor</span>
     <span class="hljs-keyword">implements</span> <span class="hljs-title class_">InitializingBean</span> &#123;
 
     <span class="hljs-comment">// Rename cache</span>
@@ -382,7 +382,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
     &#125;
 &#125;</code></pre></div>
 
-<h3 id="对应的注解"><a href="#对应的注解" class="headerlink" title="对应的注解"></a>对应的注解</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Target(ElementType.FIELD)</span>
+<h3 id="Corresponding-annotation"><a href="#Corresponding-annotation" class="headerlink" title="Corresponding annotation"></a>Corresponding annotation</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Target(ElementType.FIELD)</span>
 <span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span>
 <span class="hljs-meta">@Documented</span>
 <span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> RequestParamName &#123;
@@ -393,7 +393,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
     String <span class="hljs-title function_">value</span><span class="hljs-params">()</span>;
 &#125;</code></pre></div>
 
-<h3 id="配置-Spring-MVC-的-ArgumentResolver"><a href="#配置-Spring-MVC-的-ArgumentResolver" class="headerlink" title="配置 Spring MVC 的 ArgumentResolver"></a>配置 Spring MVC 的 ArgumentResolver</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span>
+<h3 id="Configuring-the-Spring-MVC-ArgumentResolver"><a href="#Configuring-the-Spring-MVC-ArgumentResolver" class="headerlink" title="Configuring the Spring MVC ArgumentResolver"></a>Configuring the Spring MVC ArgumentResolver</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebConfiguration</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WebMvcConfigurer</span> &#123;
 
     <span class="hljs-meta">@Bean</span>
@@ -407,7 +407,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
     &#125;
 &#125;</code></pre></div>
 
-<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PageQuery</span> &#123;
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PageQuery</span> &#123;
     
     <span class="hljs-meta">@RequestParamName(&quot;current_page&quot;)</span>
     <span class="hljs-keyword">private</span> Integer pageNum;
@@ -461,32 +461,32 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>绑定 Spring MVC 命令对象时如何自定义参数名</div>
+      <div>How To Customize Parameter Names When  Binding Spring MVC Command Objects</div>
       <div>https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年12月30日</div>
+          <div>Posted on</div>
+          <div>December 30, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -510,9 +510,9 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/posts/2022/idea-settings/" title="IDEA 必备设置">
-                        <span class="hidden-mobile">IDEA 必备设置</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/blog/posts/2022/idea-settings/" title="Important Settings For IntelliJ IDEA">
+                        <span class="hidden-mobile">Important Settings For IntelliJ IDEA</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -524,23 +524,24 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: '1db425c7ab283f6004063a772f62336a'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/';
+          this.page.identifier = '/blog/posts/2022/spring-mvc-binding-object/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -555,7 +556,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -610,7 +611,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -618,7 +619,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -797,7 +798,7 @@ pulic Page <span class="hljs-title function_">page</span><span class="hljs-param
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

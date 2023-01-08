@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,16 +16,16 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？ 基类首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法 @No">
+    <meta name="description" content="Spring-Data-JPA provides many common Repository interfaces, such as CrudRepository, PagingAndSortingRepository, JpaRepository and so on. In practical development we often have some custom methods, so">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-Data-JPA 之自定义 Repository">
+<meta property="og:title" content="Spring Data JPA Custom Repository Example">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？ 基类首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法 @No">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Spring-Data-JPA provides many common Repository interfaces, such as CrudRepository, PagingAndSortingRepository, JpaRepository and so on. In practical development we often have some custom methods, so">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/spring/spring-date-jpa.png">
 <meta property="article:published_time" content="2022-08-26T14:16:41.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="jpa">
@@ -34,7 +34,7 @@
   
   
   
-  <title>Spring-Data-JPA 之自定义 Repository - dyhu&#39;s blog</title>
+  <title>Spring Data JPA Custom Repository Example - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -159,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -171,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Spring-Data-JPA 之自定义 Repository"></span>
+            <span id="subtitle" data-typed-text="Spring Data JPA Custom Repository Example"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.9k 字
+          3.3k words
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          25 分钟
+          28 mins
         
       </span>
     
@@ -276,13 +276,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Spring-Data-JPA 之自定义 Repository</h1>
+            <h1 style="display: none">Spring Data JPA Custom Repository Example</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Spring-Data-JPA 提供许多常用的 Repository 接口，如 CrudRepository、PagingAndSortingRepository、JpaRepository 等。在实际开发中我们常常会有一些自定义方法，那我们应该如何扩展 Repository 接口呢？</p>
-<h2 id="基类"><a href="#基类" class="headerlink" title="基类"></a>基类</h2><p>首先定义一个 BaseRepository 继承 JpaRepository，并写下我们要扩展的方法</p>
+                <p>Spring-Data-JPA provides many common Repository interfaces, such as CrudRepository, PagingAndSortingRepository, JpaRepository and so on. In practical development we often have some custom methods, so how should we extend the Repository interface?</p>
+<h2 id="Base-class"><a href="#Base-class" class="headerlink" title="Base class"></a>Base class</h2><p>First define a BaseRepository that inherits from JpaRepository and write the methods we want to extend</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@NoRepositoryBean</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">BaseRepository</span>&lt;T, ID&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">JpaRepository</span>&lt;T, ID&gt; &#123;
 
@@ -291,8 +291,8 @@
     <span class="hljs-keyword">void</span> <span class="hljs-title function_">deleteByIdIn</span><span class="hljs-params">(Iterable&lt;ID&gt; ids)</span>;
 &#125;</code></pre></div>
 
-<p>@NoRepositoryBean 的作用是通知 Spring 容器不要实例化 BaseRepository，因为 BaseRepository 是作为一个中间接口来派生具体的 Repository 接口。</p>
-<p>接下来创建 BaseRepository 的实现类，实现扩展的方法</p>
+<p>The <code>@NoRepositoryBean</code> is used to inform the Spring container not to instantiate the BaseRepository, since the BaseRepository is used as an intermediate interface to derive the concrete Repository interface.</p>
+<p>Next, create an implementation class of the BaseRepository that implements the extended methods</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BaseRepositoryImpl</span>&lt;T, ID&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">SimpleJpaRepository</span>&lt;T, ID&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">BaseRepository</span>&lt;T, ID&gt; &#123;
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> EntityManager em;
@@ -343,7 +343,7 @@
     &#125;
 &#125;</code></pre></div>
 
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>最后我们可以通过 <code>@EnableJpaRepositories</code> 在主类上指定新的 repositoryBaseClass</p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>Finally we can specify the new repositoryBaseClass on the main class with <code>@EnableJpaRepositories</code></p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)</span>
 <span class="hljs-meta">@SpringBootApplication</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JpaExamplesApplication</span> &#123;
@@ -353,11 +353,11 @@
     &#125;
 &#125;</code></pre></div>
 
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>我们的 Repository 接口就不再继承 JpaRepository 了，而是继承 BaseRepository</p>
+<h2 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h2><p>Instead of inheriting from JpaRepository, our Repository interface inherits from BaseRepository</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserRepository</span>&lt;User, Long&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseRepository</span>&lt;User, Long&gt; &#123;
 &#125;</code></pre></div>
 
-<p>接下来测试下我们自定义的方法</p>
+<p>Next, we test our custom method</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@SpringBootTest</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">BaseRepositoryTests</span> &#123;
 
@@ -370,10 +370,10 @@
     &#125;
 &#125;</code></pre></div>
 
-<p>开启 SQL 打印</p>
+<p>Turn on SQL printing:</p>
 <div class="code-wrapper"><pre><code class="hljs properties"><span class="hljs-attr">spring.jpa.show-sql</span>=<span class="hljs-string">true</span></code></pre></div>
 
-<p>控制台成功输出：<code>Hibernate: delete from user where id in (1 , 2)</code></p>
+<p>Console output successfully: <code>Hibernate: delete from user where id in (1 , 2)</code></p>
 
                 
               </div>
@@ -421,32 +421,32 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Spring-Data-JPA 之自定义 Repository</div>
+      <div>Spring Data JPA Custom Repository Example</div>
       <div>https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年8月26日</div>
+          <div>Posted on</div>
+          <div>August 26, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -466,19 +466,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/posts/2022/idea-database-groovy/" title="IDEA：通过 Groovy 脚本生成 Entity">
+                      <a href="/blog/posts/2022/idea-database-groovy/" title="Generating Entities With Groovy Scripts In IntelliJ IDEA">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">IDEA：通过 Groovy 脚本生成 Entity</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">Generating Entities With Groovy Scripts In IntelliJ IDEA</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/posts/2022/spring-boot-clean-architecture/" title="Spring Boot 的整洁架构">
-                        <span class="hidden-mobile">Spring Boot 的整洁架构</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/blog/posts/2022/jvm-object-gc/" title="Object References And GC Algorithms In Java">
+                        <span class="hidden-mobile">Object References And GC Algorithms In Java</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -490,23 +490,24 @@
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: 'd706ad8390241a1df4f247e3e267e1fd'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/';
+          this.page.identifier = '/blog/posts/2022/spring-jpa-custom-repository/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -521,7 +522,7 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -576,7 +577,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -584,7 +585,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -763,7 +764,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

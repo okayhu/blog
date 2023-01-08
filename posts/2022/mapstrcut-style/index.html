@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,16 +16,16 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
+    <meta name="description" content="MapStruct is a powerful and convenient pojo conversion tool in our project development process.Although MapStruct is good, there are some problems about its use. Do not change to the source objecte.g.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MapStruct 的使用姿势">
+<meta property="og:title" content="Useful Tips For MapStruct">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/mapstrcut-style/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。但是 MapStruct 虽好，也存在着一些使用误区。 不要改变源 pojo 的属性e.g. 将 UserDTO 对象转换为 UserVO public class UserDTO &amp;#123;      private Long id;     private String username;">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="MapStruct is a powerful and convenient pojo conversion tool in our project development process.Although MapStruct is good, there are some problems about its use. Do not change to the source objecte.g.">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/tool/mapstruct.png">
 <meta property="article:published_time" content="2022-07-14T14:03:31.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="tool">
 <meta property="article:tag" content="mapstruct">
@@ -34,7 +34,7 @@
   
   
   
-  <title>MapStruct 的使用姿势 - dyhu&#39;s blog</title>
+  <title>Useful Tips For MapStruct - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -159,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -171,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="MapStruct 的使用姿势"></span>
+            <span id="subtitle" data-typed-text="Useful Tips For MapStruct"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.5k words
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          10 分钟
+          13 mins
         
       </span>
     
@@ -276,13 +276,13 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">MapStruct 的使用姿势</h1>
+            <h1 style="display: none">Useful Tips For MapStruct</h1>
             
             
               <div class="markdown-body">
                 
-                <p>在我们的项目开发过程中，MapStruct 作为一款 pojo 转换工具无疑是十分强大的，便捷的。<br>但是 MapStruct 虽好，也存在着一些使用误区。</p>
-<h3 id="不要改变源-pojo-的属性"><a href="#不要改变源-pojo-的属性" class="headerlink" title="不要改变源 pojo 的属性"></a>不要改变源 pojo 的属性</h3><p>e.g. 将 UserDTO 对象转换为 UserVO</p>
+                <p>MapStruct is a powerful and convenient pojo conversion tool in our project development process.<br>Although MapStruct is good, there are some problems about its use.</p>
+<h3 id="Do-not-change-to-the-source-object"><a href="#Do-not-change-to-the-source-object" class="headerlink" title="Do not change to the source object"></a>Do not change to the source object</h3><p>e.g. Convert <code>UserDTO</code> to <code>UserVO</code></p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserDTO</span> &#123;
 
     <span class="hljs-keyword">private</span> Long id;
@@ -314,8 +314,8 @@
     &#125;
 &#125;</code></pre></div>
 
-<p>问题：对于方法的调用者来说，会造成预期之外的异常。</p>
-<h3 id="在-Mapper-中不要包含大量的业务逻辑"><a href="#在-Mapper-中不要包含大量的业务逻辑" class="headerlink" title="在 Mapper 中不要包含大量的业务逻辑"></a>在 Mapper 中不要包含大量的业务逻辑</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span>
+<p>Problem: Creates an unintended exception for the caller of the method.</p>
+<h3 id="Do-not-include-a-lot-of-business-code"><a href="#Do-not-include-a-lot-of-business-code" class="headerlink" title="Do not include a lot of business code"></a>Do not include a lot of business code</h3><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Mapper</span>
 <span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> &#123;
 
     UserVO <span class="hljs-title function_">dtoToVo</span><span class="hljs-params">(UserDTO userDto)</span>;
@@ -327,10 +327,10 @@
     &#125;
 &#125;</code></pre></div>
 
-<p>问题：</p>
+<p>Problem:</p>
 <ul>
-<li>Mapper 中的方法，很大程度会被多次调用，应用在不同的领域，所以编写者需要确保方法的预期是通用的、可信任的。而在上述写法中，转换后的 UserVO 不包含 roles、groups 包含 authorityCodes，但是这对于方法调用者来说不一定是符合预期的。</li>
-<li>一旦修改 Mapper 中的业务逻辑，可能会对多处造成不好的影响。</li>
+<li>Methods in Mapper, to a large extent, will be called multiple times and applied in different domains, so the writer needs to make sure that the expectations of the methods are generic and trusted. In the above example, the converted <code>UserVO</code> does not contain <code>roles</code>、 <code>groups</code>、<code>authorityCodes</code>, but this is not necessarily what is expected for the method caller.</li>
+<li>Once the business logic in the Mapper is modified, it may have a bad impact on multiple locations.</li>
 </ul>
 
                 
@@ -379,32 +379,32 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>MapStruct 的使用姿势</div>
+      <div>Useful Tips For MapStruct</div>
       <div>https://okayhu.github.io/blog/posts/2022/mapstrcut-style/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年7月14日</div>
+          <div>Posted on</div>
+          <div>July 14, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -424,19 +424,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/posts/2022/jvm-object-gc/" title="JVM 之 对象引用与垃圾回收算法">
+                      <a href="/blog/posts/2022/jvm-object-gc/" title="Object References And GC Algorithms In Java">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JVM 之 对象引用与垃圾回收算法</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">Object References And GC Algorithms In Java</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/posts/2022/jvm-object-memory/" title="JVM 之对象的创建过程和内存布局">
-                        <span class="hidden-mobile">JVM 之对象的创建过程和内存布局</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/blog/posts/2022/jvm-object-memory/" title="Object Creation Process And Memory Layout In Java">
+                        <span class="hidden-mobile">Object Creation Process And Memory Layout In Java</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -448,23 +448,24 @@
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: 'b9bdf46a011ee5cf9432b6c70d48d9cf'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/mapstrcut-style/';
+          this.page.identifier = '/blog/posts/2022/mapstrcut-style/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -479,7 +480,7 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -534,7 +535,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -542,7 +543,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -721,7 +722,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

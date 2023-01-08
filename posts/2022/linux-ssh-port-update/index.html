@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,16 +16,16 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="环境 centos 7  备份 ssh 配置文件cp &#x2F;etc&#x2F;ssh&#x2F;sshd_config &#x2F;etc&#x2F;ssh&#x2F;sshd_config.bak  修改默认端口vi etc&#x2F;ssh&#x2F;sshd_config  修改 #Port 22 为 Port 2233，则 ssh 端口分改为 2233 重启 sshd 服务systemctl restart sshd  放行新的端口firewall-cmd -">
+    <meta name="description" content="Environment: Centos 7             Back up the ssh configuration filecp &#x2F;etc&#x2F;ssh&#x2F;sshd_config &#x2F;etc&#x2F;ssh&#x2F;sshd_config.bak  Modify the default portvi etc&#x2F;ssh&#x2F;sshd_config  Change #Port 22 to Por">
 <meta property="og:type" content="article">
-<meta property="og:title" content="更换 Linux 服务器 ssh 默认端口">
+<meta property="og:title" content="Modify The Linux Server SSH Port">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/linux-ssh-port-update/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="环境 centos 7  备份 ssh 配置文件cp &#x2F;etc&#x2F;ssh&#x2F;sshd_config &#x2F;etc&#x2F;ssh&#x2F;sshd_config.bak  修改默认端口vi etc&#x2F;ssh&#x2F;sshd_config  修改 #Port 22 为 Port 2233，则 ssh 端口分改为 2233 重启 sshd 服务systemctl restart sshd  放行新的端口firewall-cmd -">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Environment: Centos 7             Back up the ssh configuration filecp &#x2F;etc&#x2F;ssh&#x2F;sshd_config &#x2F;etc&#x2F;ssh&#x2F;sshd_config.bak  Modify the default portvi etc&#x2F;ssh&#x2F;sshd_config  Change #Port 22 to Por">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/devops/linux.png">
 <meta property="article:published_time" content="2022-06-27T01:54:58.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="ssh">
@@ -34,7 +34,7 @@
   
   
   
-  <title>更换 Linux 服务器 ssh 默认端口 - dyhu&#39;s blog</title>
+  <title>Modify The Linux Server SSH Port - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -159,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -171,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="更换 Linux 服务器 ssh 默认端口"></span>
+            <span id="subtitle" data-typed-text="Modify The Linux Server SSH Port"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          219 字
+          307 words
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          2 分钟
+          3 mins
         
       </span>
     
@@ -276,22 +276,23 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">更换 Linux 服务器 ssh 默认端口</h1>
+            <h1 style="display: none">Modify The Linux Server SSH Port</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>环境 centos 7</p>
-</blockquote>
-<h3 id="备份-ssh-配置文件"><a href="#备份-ssh-配置文件" class="headerlink" title="备份 ssh 配置文件"></a>备份 ssh 配置文件</h3><div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> /etc/ssh/sshd_config /etc/ssh/sshd_config.bak</code></pre></div>
+                <div class="note note-success">
+            <p>Environment: Centos 7</p>
+          </div>
 
-<h3 id="修改默认端口"><a href="#修改默认端口" class="headerlink" title="修改默认端口"></a>修改默认端口</h3><div class="code-wrapper"><pre><code class="hljs bash">vi etc/ssh/sshd_config</code></pre></div>
+<h3 id="Back-up-the-ssh-configuration-file"><a href="#Back-up-the-ssh-configuration-file" class="headerlink" title="Back up the ssh configuration file"></a>Back up the ssh configuration file</h3><div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-built_in">cp</span> /etc/ssh/sshd_config /etc/ssh/sshd_config.bak</code></pre></div>
 
-<p>修改 <code>#Port 22</code> 为 <code>Port 2233</code>，则 ssh 端口分改为 2233</p>
-<h3 id="重启-sshd-服务"><a href="#重启-sshd-服务" class="headerlink" title="重启 sshd 服务"></a>重启 sshd 服务</h3><div class="code-wrapper"><pre><code class="hljs bash">systemctl restart sshd</code></pre></div>
+<h3 id="Modify-the-default-port"><a href="#Modify-the-default-port" class="headerlink" title="Modify the default port"></a>Modify the default port</h3><div class="code-wrapper"><pre><code class="hljs bash">vi etc/ssh/sshd_config</code></pre></div>
 
-<h2 id="放行新的端口"><a href="#放行新的端口" class="headerlink" title="放行新的端口"></a>放行新的端口</h2><div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --premanent --add-port=2233/tcp
+<p>Change <code>#Port 22</code> to <code>Port 2233</code>, so that the ssh port is changed to 2233</p>
+<h3 id="Restart-sshd-service"><a href="#Restart-sshd-service" class="headerlink" title="Restart sshd service"></a>Restart sshd service</h3><div class="code-wrapper"><pre><code class="hljs bash">systemctl restart sshd</code></pre></div>
+
+<h2 id="Release-the-new-port"><a href="#Release-the-new-port" class="headerlink" title="Release the new port"></a>Release the new port</h2><div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --premanent --add-port=2233/tcp
 firewall-cmd --reload</code></pre></div>
 
                 
@@ -340,32 +341,32 @@ firewall-cmd --reload</code></pre></div>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>更换 Linux 服务器 ssh 默认端口</div>
+      <div>Modify The Linux Server SSH Port</div>
       <div>https://okayhu.github.io/blog/posts/2022/linux-ssh-port-update/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年6月27日</div>
+          <div>Posted on</div>
+          <div>June 27, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -385,19 +386,19 @@ firewall-cmd --reload</code></pre></div>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/posts/2022/docker-firewalld/" title="使用 Firewalld 保护 Docker 安全">
+                      <a href="/blog/posts/2022/docker-firewalld/" title="Securing Docker with Firewalld">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">使用 Firewalld 保护 Docker 安全</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">Securing Docker with Firewalld</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/posts/2022/jvm-memory-structure/" title="JVM 之内存结构">
-                        <span class="hidden-mobile">JVM 之内存结构</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/blog/posts/2022/jvm-memory-structure/" title="Memory Structure In Java">
+                        <span class="hidden-mobile">Memory Structure In Java</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -409,23 +410,24 @@ firewall-cmd --reload</code></pre></div>
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: 'd9fc3f684c42f0b343e86c2cc23cdb14'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/linux-ssh-port-update/';
+          this.page.identifier = '/blog/posts/2022/linux-ssh-port-update/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -440,7 +442,7 @@ firewall-cmd --reload</code></pre></div>
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -495,7 +497,7 @@ firewall-cmd --reload</code></pre></div>
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -503,7 +505,7 @@ firewall-cmd --reload</code></pre></div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -682,7 +684,7 @@ firewall-cmd --reload</code></pre></div>
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

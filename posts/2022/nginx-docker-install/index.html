@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,25 +16,25 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="环境：CentOS 7  下载并启动镜像docker run --name nginx -p 80:80 -d nginx:latest  开放端口如果 80 端口未开放，执行以下命令 firewall-cmd --premanent --add-port&#x3D;80&#x2F;tcp  # 也可以以service的方式开启 firewall-cmd --premanent --add-service&#x3D;http">
+    <meta name="description" content="Environment: Centos 7             Download and start the imagedocker run --name nginx -p 80:80 -d nginx:latest  Open the portIf port 80 is not open, execute the following command firewall">
 <meta property="og:type" content="article">
-<meta property="og:title" content="通过 Docker 安装 Nginx">
+<meta property="og:title" content="Installing Nginx with Docker">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/nginx-docker-install/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="环境：CentOS 7  下载并启动镜像docker run --name nginx -p 80:80 -d nginx:latest  开放端口如果 80 端口未开放，执行以下命令 firewall-cmd --premanent --add-port&#x3D;80&#x2F;tcp  # 也可以以service的方式开启 firewall-cmd --premanent --add-service&#x3D;http">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Environment: Centos 7             Download and start the imagedocker run --name nginx -p 80:80 -d nginx:latest  Open the portIf port 80 is not open, execute the following command firewall">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/devops/nginx_docker.png">
 <meta property="article:published_time" content="2022-06-21T13:28:22.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
-<meta property="article:tag" content="docker">
 <meta property="article:tag" content="nginx">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://uposs.justokay.cn/images/devops/nginx_docker.png">
   
   
   
-  <title>通过 Docker 安装 Nginx - dyhu&#39;s blog</title>
+  <title>Installing Nginx with Docker - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -123,7 +123,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -135,7 +135,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -147,7 +147,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -159,7 +159,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -171,7 +171,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="通过 Docker 安装 Nginx"></span>
+            <span id="subtitle" data-typed-text="Installing Nginx with Docker"></span>
           
         </div>
 
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1k 字
+          1.3k words
         
       </span>
     
@@ -238,7 +238,7 @@
         
         
         
-          9 分钟
+          12 mins
         
       </span>
     
@@ -276,34 +276,35 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">通过 Docker 安装 Nginx</h1>
+            <h1 style="display: none">Installing Nginx with Docker</h1>
             
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>环境：CentOS 7</p>
-</blockquote>
-<h3 id="下载并启动镜像"><a href="#下载并启动镜像" class="headerlink" title="下载并启动镜像"></a>下载并启动镜像</h3><div class="code-wrapper"><pre><code class="hljs bash">docker run --name nginx -p 80:80 -d nginx:latest</code></pre></div>
+                <div class="note note-success">
+            <p>Environment: Centos 7</p>
+          </div>
 
-<h3 id="开放端口"><a href="#开放端口" class="headerlink" title="开放端口"></a>开放端口</h3><p>如果 80 端口未开放，执行以下命令</p>
+<h3 id="Download-and-start-the-image"><a href="#Download-and-start-the-image" class="headerlink" title="Download and start the image"></a>Download and start the image</h3><div class="code-wrapper"><pre><code class="hljs bash">docker run --name nginx -p 80:80 -d nginx:latest</code></pre></div>
+
+<h3 id="Open-the-port"><a href="#Open-the-port" class="headerlink" title="Open the port"></a>Open the port</h3><p>If port 80 is not open, execute the following command</p>
 <div class="code-wrapper"><pre><code class="hljs bash">firewall-cmd --premanent --add-port=80/tcp
 
-<span class="hljs-comment"># 也可以以service的方式开启</span>
-firewall-cmd --premanent --add-service=http
+<span class="hljs-comment"># You can also open it as a service</span>
+firewall-cmd --premanent --add-service-=http
 
-<span class="hljs-comment"># 重新加载配置</span>
+<span class="hljs-comment"># Reload the configuration</span>
 firewall-cmd --reload
 
-<span class="hljs-comment"># 查看所有开启的端口</span>
+<span class="hljs-comment"># View all open ports</span>
 firewall-cmd --list-port
 
-<span class="hljs-comment"># 查看所有开启的服务</span>
-firewall-cmd --list-service
+<span class="hljs-comment"># View all open services</span>
+firewall-cmd --list-services
 </code></pre></div>
 
-<h3 id="挂载配置"><a href="#挂载配置" class="headerlink" title="挂载配置"></a>挂载配置</h3><p>将 nginx 的配置文件以及 html 文件拷贝到宿主机</p>
-<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment"># 将 /usr/local/docker/nginx/ 换成你想存放的目录</span>
+<h3 id="Mount-the-configuration"><a href="#Mount-the-configuration" class="headerlink" title="Mount the configuration"></a>Mount the configuration</h3><p>Copy the nginx configuration file and the html file to the host</p>
+<div class="code-wrapper"><pre><code class="hljs bash"><span class="hljs-comment">### Replace /usr/local/docker/nginx/ with the directory you want</span>
 <span class="hljs-built_in">mkdir</span> -p /usr/local/docker/nginx/&#123;conf,<span class="hljs-built_in">log</span>,html&#125;
 
 docker <span class="hljs-built_in">cp</span> nginx:/etc/nginx/nginx.conf /usr/local/docker/nginx/conf/nginx.conf
@@ -313,25 +314,24 @@ docker <span class="hljs-built_in">cp</span> nginx:/etc/nginx/conf.d /usr/local/
 docker <span class="hljs-built_in">cp</span> nginx:/usr/share/nginx/html /usr/local/docker/nginx/html
 </code></pre></div>
 
-<h3 id="额外的命令"><a href="#额外的命令" class="headerlink" title="额外的命令"></a>额外的命令</h3><p>停止并删除 nginx 容器</p>
+<h3 id="Additional-commands"><a href="#Additional-commands" class="headerlink" title="Additional commands"></a>Additional commands</h3><p>Stop and delete the nginx container</p>
 <div class="code-wrapper"><pre><code class="hljs bash">docker stop nginx
 
 docker <span class="hljs-built_in">rm</span> nginx
 
-<span class="hljs-comment"># 可以删除还在运行的容器</span>
+<span class="hljs-comment"># You can delete containers that are still running</span>
 docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
 
-<p>重新启动 nginx 容器</p>
-<div class="code-wrapper"><pre><code class="hljs bash">docker run --name nginx -p 80:80 \\
--v /usr/local/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \\
--v /usr/local/docker/nginx/conf/conf.d:/etc/nginx/conf.d \\
--v /usr/local/docker/nginx/html:/usr/share/nginx/html \\
--v /usr/local/docker/nginx/log:/var/log/nginx \\
+<p>Restart the nginx container</p>
+<div class="code-wrapper"><pre><code class="hljs bash">docker run --name nginx -p 80:80 \\\
+-v /usr/local/docker/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \\\
+-v /usr/local/docker/nginx/conf/conf.d:/etc/nginx/conf.d \\\
+-v /usr/local/docker/nginx/html:/usr/share/nginx/html \\\
+-v /usr/local/docker/nginx/log:/var/log/nginx \\\
 -d nginx:latest</code></pre></div>
 
-<p>如果要修改 nginx 配置，可以直接修改 <code>usr/local/docker/nginx/conf/nginx.conf</code> 文件，并执行</p>
+<p>If you want to modify the nginx configuration, you can directly modify the <code>usr/local/docker/nginx/conf/nginx.conf</code> file, and execute</p>
 <div class="code-wrapper"><pre><code class="hljs bash">docker restart nginx</code></pre></div>
-
                 
               </div>
             
@@ -364,9 +364,9 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/blog/tags/docker/">#docker</a>
-      
         <a href="/blog/tags/nginx/">#nginx</a>
+      
+        <a href="/blog/tags/docker/">#docker</a>
       
     </div>
   
@@ -378,32 +378,32 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>通过 Docker 安装 Nginx</div>
+      <div>Installing Nginx with Docker</div>
       <div>https://okayhu.github.io/blog/posts/2022/nginx-docker-install/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年6月21日</div>
+          <div>Posted on</div>
+          <div>June 21, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -423,10 +423,10 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/posts/2022/jvm-memory-structure/" title="JVM 之内存结构">
+                      <a href="/blog/posts/2022/jvm-memory-structure/" title="Memory Structure In Java">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JVM 之内存结构</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">Memory Structure In Java</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
@@ -441,23 +441,24 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: '8f72019b84d2b5f4431e11bdcf939002'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/nginx-docker-install/';
+          this.page.identifier = '/blog/posts/2022/nginx-docker-install/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -472,7 +473,7 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -527,7 +528,7 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -535,7 +536,7 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -714,7 +715,7 @@ docker <span class="hljs-built_in">rm</span> -f nginx</code></pre></div>
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

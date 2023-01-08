@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,16 +16,16 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
+    <meta name="description" content="Object creation process Checking loadingFirst check that the parameters of this instruction locate a symbolic reference to a class in the constant pool (symbolic reference: a symbolic reference descri">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM 之对象的创建过程和内存布局">
+<meta property="og:title" content="Object Creation Process And Memory Layout In Java">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/jvm-object-memory/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="对象的创建过程 检查加载首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。 分配内存虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。 分配内存由两种方式：  指针碰撞：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Object creation process Checking loadingFirst check that the parameters of this instruction locate a symbolic reference to a class in the constant pool (symbolic reference: a symbolic reference descri">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm.png">
 <meta property="article:published_time" content="2022-07-04T07:34:20.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   
   
   
-  <title>JVM 之对象的创建过程和内存布局 - dyhu&#39;s blog</title>
+  <title>Object Creation Process And Memory Layout In Java - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -122,7 +122,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -134,7 +134,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -146,7 +146,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -158,7 +158,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -170,7 +170,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -203,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JVM 之对象的创建过程和内存布局"></span>
+            <span id="subtitle" data-typed-text="Object Creation Process And Memory Layout In Java"></span>
           
         </div>
 
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          8.1k words
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          28 分钟
+          68 mins
         
       </span>
     
@@ -275,82 +275,81 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JVM 之对象的创建过程和内存布局</h1>
+            <h1 style="display: none">Object Creation Process And Memory Layout In Java</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="对象的创建过程"><a href="#对象的创建过程" class="headerlink" title="对象的创建过程"></a>对象的创建过程</h2><p><img src="https://uposs.justokay.cn/images/jvm/jvm-object-memory-01.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload></p>
-<h3 id="检查加载"><a href="#检查加载" class="headerlink" title="检查加载"></a>检查加载</h3><p>首先检查这个指令的参数是否能在常量池中定位到一个类的符号引用（符号引用 ：符号引用以一组符号来描述所引用的目标），并且检查类是否已经被加载、 解析和初始化过。</p>
-<h3 id="分配内存"><a href="#分配内存" class="headerlink" title="分配内存"></a>分配内存</h3><p>虚拟机将为新生对象分配内存。为对象分配空间的任务等同于把一块确定大小的内存从 Java 堆中划分出来。</p>
-<p>分配内存由两种方式：</p>
+                <h2 id="Object-creation-process"><a href="#Object-creation-process" class="headerlink" title="Object creation process"></a>Object creation process</h2><p><img src="https://uposs.justokay.cn/images/jvm/jvm-object-memory-01.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload></p>
+<h3 id="Checking-loading"><a href="#Checking-loading" class="headerlink" title="Checking loading"></a>Checking loading</h3><p>First check that the parameters of this instruction locate a symbolic reference to a class in the constant pool (symbolic reference: a symbolic reference describes the referenced target by a set of symbols) and that the class has been loaded, parsed and initialized.</p>
+<h3 id="Allocating-memory"><a href="#Allocating-memory" class="headerlink" title="Allocating memory"></a>Allocating memory</h3><p>The virtual machine will allocate memory for the new object. The task of allocating space for an object is equivalent to partitioning a definite size chunk of memory from the Java heap.</p>
+<p>Allocating memory is done in two ways.</p>
 <ul>
-<li><strong>指针碰撞</strong>：如果 Java 堆中内存是绝对规整的，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器。那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离，这种分配方式称为指针碰撞。</li>
-<li><strong>空闲列表</strong>：如果 Java 堆中的内存并不是规整的，已使用的内存和空闲的内存相互交错，那就没有办法简单地进行指针碰撞了，虚拟机就必须维护一个列表，记录上哪些内存块是可用的。在分配的时候从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为空闲列表。</li>
+<li><strong>Pointer collision</strong>: If the memory in the Java heap is absolutely regular, with all used memory on one side and free memory on the other, with a pointer placed in the middle as an indicator of the division point. Then the allocated memory is simply moving that pointer towards the free space by a distance equal to the size of the object, and this allocation is called pointer collision.</li>
+<li><strong>Free List</strong>: If the memory in the Java heap is not regular, and used memory and free memory are interleaved, then there is no way to simply perform pointer collisions, and the virtual machine must maintain a list of which memory blocks are available. When allocating a block from the list that is large enough to be divided among object instances, and updating the record on the list, this allocation is called a free list.</li>
 </ul>
 <div class="note note-info">
-            <p>选择哪种分配方式由 Java 堆是否规整决定，而 Java 堆是否规整又由所采用的垃圾收集器是否带有压缩整理功能决定。如果是 Serial、ParNew 等带有压缩的整理的垃圾回收器的话，系统采用的是指针碰撞，既简单又高效。如果是使用 CMS 这种不带压缩整理的垃圾回收器的话，理论上只能采用较复杂的空闲列表。</p>
+            <p>The choice of allocation method is determined by whether the Java heap is tidy, which in turn is determined by whether the garbage collector used has compression and tidying. If you use a garbage collector with compressed collation like Serial or ParNew, the system uses pointer collision, which is simple and efficient. If you use a garbage collector like CMS without compressed collation, theoretically you can only use a more complex idle list.</p>
           </div>
 
-<p>JVM 在分配内存时，还要考虑并发安全问题，解决这个问题有两种方案:</p>
+<p>The JVM also has to consider concurrency safety when allocating memory, and there are two solutions to this problem:</p>
 <ul>
-<li><code>CAS</code>: 对分配内存空间的动作进行同步处理，实际上虚拟机采用 CAS 配上失败重试的方式保证更新操作的原子性。</li>
-<li><code>TLAB（Thread Local Allocation Buffer, 本地线程分配缓冲）</code>：</li>
-<li><ul>
-<li>概述：是指把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在 Java 堆中预先分配一小块私有内存，也就是本地线程分配缓冲（TLAB）。</li>
-<li>步骤：JVM 在线程初始化时，同时也会申请一块指定大小的内存，只给当前线程使用，这样每个线程都单独拥有一个 Buffer，如果需要分配内存，就在自己的 Buffer 上分配，这样就不存在竞争的情况，可以大大提升分配效率，当 Buffer 容量不够的时候，再重新从 Eden 区域申请一块继续使用。</li>
-<li>参数：<code>JVM options: -XX:+UseTLAB </code> 允许在年轻代空间中使用线程本地分配块（TLAB），默认启用，如果要禁用 TLAB，请指定 <code>-XX:-UseTLAB</code>。</li>
+<li><code>CAS</code>: The action of allocating memory space is handled synchronously, in fact the VM uses CAS with failure retries to ensure atomicity of update operations.</li>
+<li><code>TLAB (Thread Local Allocation Buffer)</code>.</li>
+<li>Overview: The memory allocation action is divided into different spaces according to threads, i.e., each thread is pre-allocated a small piece of private memory in the Java heap, i.e., the Local Thread Allocation Buffer (TLAB).<ul>
+<li>Step: When the JVM initializes a thread, it also requests a piece of memory of a specified size for the current thread only, so that each thread has a separate Buffer, and if it needs to allocate memory, it will allocate it on its own Buffer. area when the Buffer is running low.</li>
+<li>Parameters: <code>JVM options: -XX:+UseTLAB </code> Allows the use of thread local allocation blocks (TLAB) in the young generation space, enabled by default.</li>
 </ul>
 </li>
 </ul>
-<h3 id="内存空间初始化"><a href="#内存空间初始化" class="headerlink" title="内存空间初始化"></a>内存空间初始化</h3><p>注意不是构造方法,内存分配完成后，虚拟机需要将分配到的内存空间都初始化为零值（如 int 值为 0，boolean 值为 false 等）。这一步操作保证了对象的实例字段在 Java 代码中可以不赋初始值就直接使用，程序能访问到这些字段的数据类型所对应的零值。</p>
-<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>接下来虚拟机要对对象进行必要的设置，例如这个对象是哪个类的实例、如何才能找到类的元数据信息（Java Classes 在 Java hotspot VM 内部表示为类元数据）、对象的哈希码、对象的 GC 分代年龄等信息。这些信息存放在对象的对象头之中。</p>
-<h3 id="对象初始化"><a href="#对象初始化" class="headerlink" title="对象初始化"></a>对象初始化</h3><p>在上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从 Java 程序的视角来看，对象创建才刚刚开始，所有的字段都还为零值。所以，一般来说，执行 new 指令之后会接着把对象按照程序员的意愿进行初始化（执行 <code>init</code> 方法），这样一个真正可用的对象才算完全产生出来。</p>
-<h2 id="对象的内存分配策略"><a href="#对象的内存分配策略" class="headerlink" title="对象的内存分配策略"></a>对象的内存分配策略</h2><p>对象的内存分配通常是在 Java 堆上分配，但随着虚拟机优化技术的诞生（<code>逃逸分析技术</code>），某些场景下也会在栈上分配。对象主要分配在新生代的 Eden 区，如果启动了本地线程缓冲，将按照线程优先在 TLAB 上分配。少数情况下也会直接在老年代上分配。</p>
-<p>总的来说分配规则不是百分百固定的，其细节取决于哪一种垃圾收集器组合以及虚拟机相关参数有关，但是虚拟机对于内存的分配还是会遵循以下几种普遍的规则：</p>
+<h3 id="Memory-space-initialization"><a href="#Memory-space-initialization" class="headerlink" title="Memory space initialization"></a>Memory space initialization</h3><p>Note that the virtual machine needs to initialize the allocated memory space to zero values (e.g., 0 for int, false for boolean, etc.) after the memory allocation is completed, not the constructor. This step ensures that the object’s instance fields can be used directly in Java code without being assigned initial values, and that the program can access the zero values corresponding to the data types of these fields.</p>
+<h3 id="Setup"><a href="#Setup" class="headerlink" title="Setup"></a>Setup</h3><p>Next, the virtual machine makes the necessary settings for the object, such as which class the object is an instance of, how to find the class metadata information (Java Classes are represented as class metadata inside the Java hotspot VM), the object’s hash code, the object’s GC generation age, and other information. This information is stored in the object header of the object.</p>
+<h3 id="Object-initialization"><a href="#Object-initialization" class="headerlink" title="Object initialization"></a>Object initialization</h3><p>After all the above work is done, a new object has been created from the VM’s point of view, but from the Java program’s point of view, the object creation has just started and all the fields are still zero-valued. So, in general, the execution of the new instruction is followed by the initialization of the object according to the programmer’s wishes (execution of the <code>init</code> method), so that a truly usable object is fully created.</p>
+<h2 id="Object-memory-allocation-strategy"><a href="#Object-memory-allocation-strategy" class="headerlink" title="Object memory allocation strategy"></a>Object memory allocation strategy</h2><p>Memory allocation for objects is usually done on the Java heap, but with the advent of virtual machine optimization techniques (<code>escaping analysis techniques</code>), in some scenarios it is also done on the stack. Objects are mainly allocated in the Eden area of the new generation, and if a local thread buffer is started, they will be allocated on TLAB according to thread priority. In a few cases, they are also allocated directly on the old generation.</p>
+<p>In general the allocation rules are not 100% fixed, the details depend on which combination of garbage collectors and VM related parameters are involved, but the VM will follow the following general rules for memory allocation.</p>
 <ul>
-<li><strong>对象优先分配在 Eden 区</strong>，如果 Eden 区没有足够的空间时，虚拟机执行一次 Minor GC。</li>
-<li><strong>大对象直接进入老年代（大对象是指需要大量连续内存空间的对象）</strong>。这样做的目的是避免在 Eden 区和两个 Survivor 区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</li>
-<li><strong>长期存活的对象进入老年代</strong>。虚拟机为每个对象定义了一个年龄计数器，如果对象经过了 1 次 Minor GC，那么对象会进入 Survivor 区，并将对象年龄设为 1。对象在 Survivor 区中每熬过一次 Minor GC，年龄就增加 1，当它的年龄增加到一定程度（<strong>并发的垃圾回收器默认为 15，CMS 是 6</strong>），就会被晋升到老年代中。可以通过 <code>-XX:MaxTenuringThreshold</code> 调整。</li>
-<li><strong>动态判断对象的年龄</strong>。为了能更好地适应不同程序的内存状况，虚拟机并不是永远地要求对象的年龄必须达到了 <code>MaxTenuringThreshold</code> 才能晋升老年代，如果在 Survivor 空间中相同年龄所有对象大小的总和大于 Survivor 空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无须等到 <code>MaxTenuringThreshold</code> 中要求的年龄。</li>
-<li><strong>空间分配担保</strong>。每次进行 Minor GC 之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果这个条件成立，那么 Minor GC 可以确保是安全的。如果不成立，则虚拟机会查看 <code>HandlePromotionFailure</code> 设置值是否允许担保失败。如 <code>HandlePromotionFailure=true</code>，那么会继续检查老年代最大可用连续空间是否大于历次晋升到老年代的对象的平均大小，如果大于，则尝试进行一次 Minor GC，但这次 Minor GC 依然是有风险的；如果小于或者 <code>HandlePromotionFailure=false</code>，则改为进行一次 Full GC。</li>
+<li><strong>Objects are allocated in the Eden area first</strong>, and if there is not enough space in the Eden area, the VM performs a Minor GC.</li>
+<li><strong>Large objects go directly to the old age (large objects are those that require a lot of contiguous memory space)</strong>. This is done to avoid a large number of memory copies occurring between the Eden zone and the two Survivor zones (the new generation uses a replication algorithm to collect memory).</li>
+<li><strong>Long-term surviving objects go to the old generation</strong>. The virtual machine defines an age counter for each object, if the object has survived 1 Minor GC, the object enters the Survivor zone and sets the object age to 1. The age of the object increases by 1 for each Minor GC it survives in the Survivor zone, and when it increases to a certain age (<strong>the concurrent garbage collector defaults to 15, the CMS is 6</strong>), it will be promoted to the old age. This can be adjusted with <code>-XX:MaxTenuringThreshold</code>.</li>
+<li><strong>Dynamically determine the age of an object</strong>. In order to better adapt to the memory situation of different programs, the VM does not always require the age of an object to reach <code>MaxTenuringThreshold</code> before it can be promoted to an older age. If the sum of all objects of the same age in Survivor space is greater than half the size of Survivor space, objects with an age greater than or equal to that age can be directly aged, without waiting for the age required in <code>MaxTenuringThreshold</code>.</li>
+<li><strong>Space Allocation Guarantee</strong>. Before each Minor GC, the VM checks if the maximum available contiguous space in the old age is greater than the total space of all objects in the new age. If this condition is not true, the VM will check if the <code>HandlePromotionFailure</code> setting allows the guarantee to fail. If <code>HandlePromotionFailure=true</code>, then it will continue to check if the maximum available contiguous space in the old age is greater than the average size of objects promoted to the old age over time, and if it is, then a Minor GC will be attempted, but this Minor GC is still risky; if it is less than or <code> HandlePromotionFailure=false</code>, then a Full GC is performed instead.</li>
 </ul>
-<h2 id="对象的内存布局"><a href="#对象的内存布局" class="headerlink" title="对象的内存布局"></a>对象的内存布局</h2><p><img src="https://uposs.justokay.cn/images/jvm/jvm-object-memory-02.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload></p>
-<p>在 HotSpot 虚拟机中，对象在内存中存储的布局可以分为 3 块区域：对象头（Object Header）、实例数据（Instance Data）和对齐填充（Padding）。</p>
-<h3 id="对象头（Object-Header）"><a href="#对象头（Object-Header）" class="headerlink" title="对象头（Object Header）"></a>对象头（Object Header）</h3><p>对象头在 HotSpot 虚拟机中被分为了两部分，一部分称为 Mark Word，另一部分是类型指针。如果对象是一个数组，那在对象头中还有一块用于记录数组长度的数据。</p>
+<h2 id="Memory-layout-of-objects"><a href="#Memory-layout-of-objects" class="headerlink" title="Memory layout of objects"></a>Memory layout of objects</h2><p><img src="https://uposs.justokay.cn/images/jvm/jvm-object-memory-02.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload></p>
+<p>In the HotSpot VM, the layout of objects stored in memory can be divided into 3 areas: Object Header, Instance Data, and Alignment Padding.</p>
+<h3 id="Object-Header"><a href="#Object-Header" class="headerlink" title="Object Header"></a>Object Header</h3><p>The object header is divided into two parts in the HotSpot virtual machine, one called the Mark Word and the other a type pointer. If the object is an array, there is a piece of data in the object header that is used to record the length of the array.</p>
 <table>
 <thead>
 <tr>
-<th align="center">长度</th>
-<th align="center">内容</th>
-<th align="center">描述</th>
+<th align="center">length</th>
+<th align="center">content</th>
+<th align="center">description</th>
 </tr>
 </thead>
 <tbody><tr>
 <td align="center">32&#x2F;64bit</td>
 <td align="center">Mark Word</td>
-<td align="center">存储对象的 hashcode 、偏向锁模式、锁信息和 GC 分代年龄</td>
+<td align="center">stores the hashcode, bias lock pattern, lock information and GC age of the object.</td>
 </tr>
 <tr>
 <td align="center">32&#x2F;64bit</td>
 <td align="center">Class Metadata Address</td>
-<td align="center">存储对象指向它的类元数据的指针</td>
+<td align="center">A pointer to the object’s class metadata.</td>
 </tr>
 <tr>
 <td align="center">32&#x2F;64bit</td>
 <td align="center">Array Length</td>
-<td align="center">数组长度（不一定有）</td>
+<td align="center">The length of the array (not necessarily available)</td>
 </tr>
 </tbody></table>
-<h3 id="实例数据（Instance-Data）"><a href="#实例数据（Instance-Data）" class="headerlink" title="实例数据（Instance Data）"></a>实例数据（Instance Data）</h3><p>实例数据是对象真正存储的有效信息，也是在程序代码中所定义的对象的属性等信息。</p>
-<h3 id="对齐填充（Padding）"><a href="#对齐填充（Padding）" class="headerlink" title="对齐填充（Padding）"></a>对齐填充（Padding）</h3><p>并不是必然存在的，也没有特别的含义，它仅仅起着占位符的作用。由于 HotSpot VM 的自动内存管理系统要求对对象的大小必须是 <strong>8 字节的整数倍</strong>，当对象其他数据部分没有对齐时，就需要通过对齐填充来补全。</p>
-<h2 id="对象的访问定位"><a href="#对象的访问定位" class="headerlink" title="对象的访问定位"></a>对象的访问定位</h2><p>Java 程序需要通过 JVM 栈上的引用访问堆中的具体对象。对象的访问方式取决于 JVM 虚拟机的实现。目前主流的访问方式有句柄和直接指针两种方式。</p>
-<h3 id="直接指针"><a href="#直接指针" class="headerlink" title="直接指针"></a>直接指针</h3><p>指向对象，代表一个对象在内存中的起始地址。如果使用直接指针访问，引用中存储的直接就是对象地址，那么 Java 堆对象内部的布局中就必须考虑如何放置访问类型数据的相关信息。</p>
+<h3 id="Instance-Data"><a href="#Instance-Data" class="headerlink" title="Instance Data"></a>Instance Data</h3><p>Instance data is the actual valid information stored in the object, and is also the information about the properties of the object as defined in the program code.</p>
+<h3 id="Alignment-Padding"><a href="#Alignment-Padding" class="headerlink" title="Alignment Padding"></a>Alignment Padding</h3><p>Padding is not necessarily present and has no special meaning; it acts as a placeholder. Since the HotSpot VM’s automatic memory management system requires that the size of an object be an integer multiple of <strong>8 bytes</strong>, alignment padding is needed to fill in other parts of the object’s data when they are not aligned.</p>
+<h2 id="Object-Access-Location"><a href="#Object-Access-Location" class="headerlink" title="Object Access Location"></a>Object Access Location</h2><p>Java programs need to access specific objects in the heap via references on the JVM stack. The way objects are accessed depends on the implementation of the JVM virtual machine. Currently the two dominant access methods are handles and direct pointers.</p>
+<h3 id="Direct-pointers"><a href="#Direct-pointers" class="headerlink" title="Direct pointers"></a>Direct pointers</h3><p>points to an object and represents the starting address of an object in memory. If direct pointer access is used, what is stored in the reference is directly the object address, and then the layout inside the Java heap object must take into account how to place information about accessing the type data.</p>
 <p><img src="https://uposs.justokay.cn/images/jvm/jvm-object-memory-03.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload></p>
-<p>优点：速度快，节省了一次指针定位的时间开销。由于对象的访问在 Java 中非常频繁，因此这类开销积少成多后也是非常可观的执行成本。HotSpot 中采用的就是这种方式。</p>
-<h3 id="句柄"><a href="#句柄" class="headerlink" title="句柄"></a>句柄</h3><p>可以理解为指向指针的指针，维护着对象的指针。句柄不直接指向对象，而是指向对象的指针（句柄不发生变化，指向固定内存地址），再由对象的指针指向对象的真实内存地址。如果使用直接句柄访问，Java 堆中划分出一块内存来作为句柄池，引用中存储对象的句柄地址，而句柄中包含了对象实例数据与对象类型数据各自的具体地址信息。</p>
+<p>Advantages: fast, saves time overhead of one pointer location. Since object access is very frequent in Java, this type of overhead can add up to a significant implementation cost. this is the approach used in HotSpot.</p>
+<h3 id="Handles"><a href="#Handles" class="headerlink" title="Handles"></a>Handles</h3><p>A handle can be understood as a pointer to a pointer that maintains a pointer to an object. The handle does not point directly to the object, but to the object’s pointer (the handle does not change and points to a fixed memory address), which in turn points to the object’s real memory address. If you use direct handle access, a chunk of memory is divided in the Java heap to serve as a pool of handles, and the reference stores the object’s handle address, which contains information about the specific address of each of the object’s instance data and object type data.</p>
 <p><img src="https://uposs.justokay.cn/images/jvm/jvm-object-memory-04.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload></p>
-<p>优点：引用中存储的是稳定的句柄地址，在对象被移动（垃圾收集时移动对象是非常普遍的行为）时只会改变句柄中的实例数据指针，而引用本身不需要修改。</p>
+<p>Advantage: the reference stores a stable handle address, and when the object is moved (it is very common to move objects during garbage collection), only the instance data pointer in the handle is changed, and the reference itself does not need to be modified.</p>
 
                 
               </div>
@@ -396,32 +395,32 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>JVM 之对象的创建过程和内存布局</div>
+      <div>Object Creation Process And Memory Layout In Java</div>
       <div>https://okayhu.github.io/blog/posts/2022/jvm-object-memory/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年7月4日</div>
+          <div>Posted on</div>
+          <div>July 4, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -441,19 +440,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/posts/2022/mapstrcut-style/" title="MapStruct 的使用姿势">
+                      <a href="/blog/posts/2022/mapstrcut-style/" title="Useful Tips For MapStruct">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">MapStruct 的使用姿势</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">Useful Tips For MapStruct</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/posts/2022/docker-firewalld/" title="使用 Firewalld 保护 Docker 安全">
-                        <span class="hidden-mobile">使用 Firewalld 保护 Docker 安全</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/blog/posts/2022/docker-firewalld/" title="Securing Docker with Firewalld">
+                        <span class="hidden-mobile">Securing Docker with Firewalld</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -465,23 +464,24 @@
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: '280d3449a91503496a54db0228a0a828'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/jvm-object-memory/';
+          this.page.identifier = '/blog/posts/2022/jvm-object-memory/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -496,7 +496,7 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -551,7 +551,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -559,7 +559,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -738,7 +738,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
+<html lang="en" data-default-color-scheme=auto>
 
 
 
@@ -16,16 +16,16 @@
   <meta name="author" content="dyhu">
   <meta name="keywords" content="">
   
-    <meta name="description" content="引用的分类强引用：我们平时 new 了一个对象就是强引用，例如 Object obj &#x3D; new Object()。即使在内存不足的情况下，JVM 宁愿抛出 OutOfMemory 错误也不会回收这种对象。   软引用：如果一个对象只具有软引用，则内存空间足够，垃圾回收器不会回收它，如果内存不足，则在发生内存溢出之前被回收。 SoftReference&lt;String&gt; softRef">
+    <meta name="description" content="Object referencesStrong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, e">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JVM 之 对象引用与垃圾回收算法">
+<meta property="og:title" content="Object References And GC Algorithms In Java">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/index.html">
 <meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="引用的分类强引用：我们平时 new 了一个对象就是强引用，例如 Object obj &#x3D; new Object()。即使在内存不足的情况下，JVM 宁愿抛出 OutOfMemory 错误也不会回收这种对象。   软引用：如果一个对象只具有软引用，则内存空间足够，垃圾回收器不会回收它，如果内存不足，则在发生内存溢出之前被回收。 SoftReference&lt;String&gt; softRef">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:description" content="Object referencesStrong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, e">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm.png">
 <meta property="article:published_time" content="2022-07-18T14:08:11.000Z">
-<meta property="article:modified_time" content="2023-01-07T14:12:55.954Z">
+<meta property="article:modified_time" content="2023-01-08T04:00:57.049Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
   
   
   
-  <title>JVM 之 对象引用与垃圾回收算法 - dyhu&#39;s blog</title>
+  <title>Object References And GC Algorithms In Java - dyhu&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -122,7 +122,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                Home
               </a>
             </li>
           
@@ -134,7 +134,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                Archives
               </a>
             </li>
           
@@ -146,7 +146,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                Categories
               </a>
             </li>
           
@@ -158,7 +158,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                Tags
               </a>
             </li>
           
@@ -170,7 +170,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/blog/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                About
               </a>
             </li>
           
@@ -203,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="JVM 之 对象引用与垃圾回收算法"></span>
+            <span id="subtitle" data-typed-text="Object References And GC Algorithms In Java"></span>
           
         </div>
 
@@ -226,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          5.2k words
         
       </span>
     
@@ -237,7 +237,7 @@
         
         
         
-          18 分钟
+          43 mins
         
       </span>
     
@@ -275,63 +275,61 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JVM 之 对象引用与垃圾回收算法</h1>
+            <h1 style="display: none">Object References And GC Algorithms In Java</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="引用的分类"><a href="#引用的分类" class="headerlink" title="引用的分类"></a>引用的分类</h2><p><strong>强引用</strong>：我们平时 new 了一个对象就是强引用，例如 <code>Object obj = new Object()</code>。即使在内存不足的情况下，JVM 宁愿抛出 OutOfMemory 错误也不会回收这种对象。</p>
-<!--truncate-->
-
-<p><strong>软引用</strong>：如果一个对象只具有软引用，则内存空间足够，垃圾回收器不会回收它，如果内存不足，则在发生内存溢出之前被回收。</p>
+                <h2 id="Object-references"><a href="#Object-references" class="headerlink" title="Object references"></a>Object references</h2><p><strong>Strong reference</strong>: We usually new an object is a strong reference, for example <code>Object obj = new Object()</code>. The JVM would rather throw an OutOfMemory error than reclaim such an object, even in the case of insufficient memory.</p>
+<p><strong>Soft reference</strong>: If an object has only a soft reference, there is enough memory space and GC will not reclaim it, or if there is not enough memory, it will be reclaimed before a memory overflow occurs.</p>
 <div class="code-wrapper"><pre><code class="hljs java">SoftReference&lt;String&gt; softRef = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SoftReference</span>&lt;String&gt;(str);</code></pre></div>
 
-<p><strong>弱引用</strong>：具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器进行垃圾回收时，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。</p>
+<p><strong>Weak references</strong>: Objects with weak references have a shorter life cycle. When GC performs garbage collection, once an object with only weak references is found, its memory will be reclaimed regardless of whether the current memory space is sufficient.</p>
 <div class="code-wrapper"><pre><code class="hljs java">WeakReference&lt;String&gt; weakRef = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakReference</span>&lt;String&gt;(str);</code></pre></div>
 
-<p><strong>虚引用</strong>：如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。</p>
-<p>虚引用主要用来跟踪对象被垃圾回收器回收的活动。虚引用必须和引用队列（ReferenceQueue）联合使用。当垃圾回收器准备回收一个对象时，如果发现它还有虚引用，就会在回收对象的内存之前，把这个虚引用加入到与之关联的引用队列中。</p>
+<p><strong>Phantom References</strong>. If an object holds only a phantom reference, it can be reclaimed by GC at any time, just as if it did not have any reference.</p>
+<p>Phantom references are mainly used to track the activity of objects that are GC’d. Phantom references must be used in conjunction with a reference queue (<code>ReferenceQueue</code>). When the GC is ready to reclaim an object, if it finds it to be a phantom reference, it will add the phantom reference to the reference queue associated with it before reclaiming the object’s memory.</p>
 <div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">ReferenceQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReferenceQueue</span>();
 <span class="hljs-type">PhantomReference</span> <span class="hljs-variable">phantomRef</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PhantomReference</span>(str, queue);</code></pre></div>
 
-<h2 id="什么是垃圾"><a href="#什么是垃圾" class="headerlink" title="什么是垃圾"></a>什么是垃圾</h2><p>没有任何引用的对象。</p>
-<h2 id="如何判断对象没有任何引用"><a href="#如何判断对象没有任何引用" class="headerlink" title="如何判断对象没有任何引用"></a>如何判断对象没有任何引用</h2><h3 id="引用计数器法"><a href="#引用计数器法" class="headerlink" title="引用计数器法"></a>引用计数器法</h3><p>为每个对象创建一个引用计数，有对象引用时计数器 +1，引用被释放时计数 -1，当计数器为 0 时就可以被回收。</p>
+<h2 id="What-is-garbage"><a href="#What-is-garbage" class="headerlink" title="What is garbage"></a>What is garbage</h2><p>An object that doesn’t have any references.</p>
+<h2 id="How-to-tell-when-an-object-doesn’t-have-any-references"><a href="#How-to-tell-when-an-object-doesn’t-have-any-references" class="headerlink" title="How to tell when an object doesn’t have any references"></a>How to tell when an object doesn’t have any references</h2><h2 id="Reference-counter-method"><a href="#Reference-counter-method" class="headerlink" title="Reference counter method"></a>Reference counter method</h2><p>Create a reference counter for each object, +1 when there is a reference to the object, -1 when the reference is released, when the counter is 0 then it can be recycled.</p>
 <div class="note note-info">
-            <p>引用计数器无法解决循环应用的问题。</p>
+            <p>The reference counter does not solve the problem of circular applications.</p>
           </div>
 
-<h3 id="可达性分析算法"><a href="#可达性分析算法" class="headerlink" title="可达性分析算法"></a>可达性分析算法</h3><p>从 GC Roots 开始向下搜索，搜索所走过的路径称为 <code>引用链（Reference Chain）</code>。当一个对象到 GC Roots 没有任何引用链相连时，则证明此对象是可以被回收的。</p>
-<p>作为 GC Roots 的对象包括下面几种（重点是前面 4 种）：</p>
+<h3 id="Reachability-Analysis-Algorithm"><a href="#Reachability-Analysis-Algorithm" class="headerlink" title="Reachability Analysis Algorithm"></a>Reachability Analysis Algorithm</h3><p>Starting from GC Roots and searching down the path called <code>Reference Chain</code>. When an object is not connected to any reference chain to GC Roots, it is proved that the object is recyclable.</p>
+<p>The objects that are GC Roots include the following (emphasis on the first 4).</p>
 <ul>
-<li><strong>虚拟机栈（栈帧中的本地变量表）中引用的对象；各个线程调用方法堆栈中使用到的参数、局部变量、临时变量等</strong>。</li>
-<li><strong>方法区中类静态属性引用的对象、java 类的引用类型静态变量</strong>。</li>
-<li><strong>方法区中常量引用的对象。比如：字符串常量池里的引用</strong>。</li>
-<li><strong>本地方法栈中 JNI（即一般说的 Native 方法）引用的对象</strong>。</li>
-<li>JVM 的内部引用（class 对象、异常对象 NullPointException、OutofMemoryError，系统类加载器）。</li>
-<li>所有被同步锁（synchronized 关键字）持有的对象。</li>
-<li>JVM 内部的 JMXBean、JVMTI 中注册的回调、本地代码缓存等。</li>
-<li>JVM 实现中的临时性对象，跨代引用的对象。</li>
+<li><strong>Objects referenced in the virtual machine stack (local variable table in the stack frame); parameters, local variables, temporary variables, etc. used in the method stack of each thread call.</strong></li>
+<li><strong>Objects referenced by static properties of classes in the method area, static variables of reference types of java classes</strong>.</li>
+<li><strong>Objects referenced by constants in the method area. For example: references in the pool of string constants</strong>.</li>
+<li><strong>Objects referenced by JNI (e.g. Native methods) in the local method stack</strong>.</li>
+<li>Internal references of the JVM (class objects, exception objects NullPointException, OutofMemoryError, system class loader).</li>
+<li>All objects held by synchronized locks (synchronized keyword).</li>
+<li>JMXBean inside the JVM, callbacks registered in JVMTI, local code cache, etc.</li>
+<li>Temporary objects in JVM implementations, objects referenced across generations.</li>
 </ul>
-<p>以上的回收都是对象，类（Class）的回收条件非常苛刻，必须同时满足以下的条件（仅仅是可以，不代表必然，因为还有一些参数可以进行控制）</p>
+<p>The above recycling are objects, the class (Class) recycling conditions are very demanding, must also meet the following conditions (just can, does not mean necessarily, because there are some parameters can be controlled)</p>
 <ul>
-<li>该类所有的实例都已经被回收，也就是堆中不存在该类的任何实例。</li>
-<li>加载该类的 ClassLoader 已经被回收。</li>
-<li>该类对应的 java.lang.Class 对象没有在任何地方被引用，无法在任何地方通过反射访问该类的方法。</li>
+<li>All instances of the class have been recycled, i.e. there are no instances of the class in the heap.</li>
+<li>The ClassLoader that loaded the class has been recycled.</li>
+<li>The java.lang.Class object corresponding to this class is not referenced anywhere, and the methods of this class cannot be accessed anywhere by reflection.</li>
 </ul>
-<p><code>-Xnoclassgc</code>：禁用类的垃圾回收。</p>
-<p>废弃的常量和静态变量的回收其实就和 Class 回收的条件差不多。</p>
+<p><code>-Xnoclassgc</code>: Disables garbage collection for the class.</p>
+<p>The recycling of deprecated constants and static variables is actually similar to the conditions for Class recycling.</p>
 <p><strong>Finalize</strong></p>
-<p>Object 类中的 finalize() 方法类似 C++ 的析构函数，用来做关闭外部资源等工作。但是 try-finally 等方式可以做的更好，并且该方法运行代价高昂，不确定性大，无法保证各个对象的调用顺序，因此最好不要使用 finalize()。</p>
+<p>The finalize() method in the Object class is similar to the C++ destructor and is used to close external resources and so on. But try-finally and other methods can do better, and the method is expensive to run, uncertain, and does not guarantee the order of calls for each object, so it is better not to use finalize().</p>
 <div class="note note-info">
-            <p>当一个对象可被回收时，如果执行该对象的 finalize() 方法，只能说<strong>有可能</strong>通过在该方法中让对象重新被引用，从而实现自救。</p>
+            <p>Executing the finalize() method on an object when it is ready to be recycled only means that <strong>it is possible</strong> to save yourself by having the object referenced again in that method.</p>
           </div>
 
-<h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><h3 id="复制算法（Copying）"><a href="#复制算法（Copying）" class="headerlink" title="复制算法（Copying）"></a>复制算法（Copying）</h3><p>它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另外一块上面，然后再把已使用过的内存空间一次清理掉。</p>
-<p>复制回收算法适合于新生代。因为大部分对象朝生夕死，那么复制过去的对象比较少，效率自然就高。</p>
-<h3 id="标记-清除算法（Mark-Sweep）"><a href="#标记-清除算法（Mark-Sweep）" class="headerlink" title="标记-清除算法（Mark-Sweep）"></a>标记-清除算法（Mark-Sweep）</h3><p>算法分为标记和清除两个阶段。首先扫描出所有对象并标记出需要回收的对象，在标记完成后扫描回收所有被标记的对象，所以需要扫描两遍。回收的时候如果需要回收的对象越多，需要做的标记和清除的工作越多，对比复制回收效率要低，所以标记清除算法适用于老年代。</p>
-<p>标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾回收动作。</p>
-<h3 id="标记-整理算法（Mark-Compact）"><a href="#标记-整理算法（Mark-Compact）" class="headerlink" title="标记-整理算法（Mark-Compact）"></a>标记-整理算法（Mark-Compact）</h3><p>算法分为标记和整理两个阶段：首先标记出所有需要回收的对象，在标记完成后，不是直接对可回收对象进行清理，而是将所有存活的对象压缩到内存的一端，使他们紧凑的排列在一起，然后对端边界以外的内存进行回收。</p>
-<p>标记整理算法虽然没有内存碎片，但是效率偏低。我们看到标记整理算法与标记清除算法的区别主要在于对象的移动。对象移动不单单会加重系统负担，同时需要全程暂停用户线程才能进行，同时所有引用对象的地方都需要更新（直接指针需要调整）。</p>
+<h2 id="Garbage-collection-algorithms"><a href="#Garbage-collection-algorithms" class="headerlink" title="Garbage collection algorithms"></a>Garbage collection algorithms</h2><h3 id="Copying-algorithm"><a href="#Copying-algorithm" class="headerlink" title="Copying algorithm"></a>Copying algorithm</h3><p>It divides the available memory into two equal-sized chunks by capacity and uses only one of them at a time. When this block is used up, the remaining objects are copied to the other block, and the used memory space is cleaned up at once.</p>
+<p>The copy recovery algorithm is suitable for new generations. Since most of the objects are born and die, fewer objects are copied over, so it is more efficient.</p>
+<h3 id="Mark-Sweep-algorithm"><a href="#Mark-Sweep-algorithm" class="headerlink" title="Mark-Sweep algorithm"></a>Mark-Sweep algorithm</h3><p>The algorithm is divided into two phases: mark and sweep. First scan out all the objects and mark the objects to be recycled, after the mark is completed, scan and recycle all the marked objects, so it needs to scan twice. When recycling, if there are more objects to be recycled, the more marking and clearing work needs to be done, which is less efficient than replication recycling, so the marking and clearing algorithm is suitable for old age.</p>
+<p>Too much space fragmentation may lead to the inability to find enough contiguous memory when a larger object needs to be allocated later in the program runtime and another garbage collection action has to be triggered earlier.</p>
+<h3 id="Mark-Compact-algorithm"><a href="#Mark-Compact-algorithm" class="headerlink" title="Mark-Compact algorithm"></a>Mark-Compact algorithm</h3><p>The algorithm is divided into two stages: first mark all the objects to be recycled, and after the mark is done, instead of cleaning up the recyclable objects directly, all the surviving objects are compressed into one end of memory so that they are compactly arranged together, and then the memory outside the end boundary is recycled.</p>
+<p>The mark-cleaning algorithm has no memory fragmentation, but it is inefficient. We see that the main difference between the mark-cleaning algorithm and the mark-removal algorithm is object movement. Object movement not only burdens the system, but also requires the entire user thread to be suspended in order to do so, and all references to the object need to be updated (direct pointers need to be adjusted).</p>
 
                 
               </div>
@@ -377,32 +375,32 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>JVM 之 对象引用与垃圾回收算法</div>
+      <div>Object References And GC Algorithms In Java</div>
       <div>https://okayhu.github.io/blog/posts/2022/jvm-object-gc/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>作者</div>
+          <div>Author</div>
           <div>dyhu</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2022年7月18日</div>
+          <div>Posted on</div>
+          <div>July 18, 2022</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>许可协议</div>
+          <div>Licensed under</div>
           <div>
             
               
               
                 <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -422,19 +420,19 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/posts/2022/spring-boot-clean-architecture/" title="Spring Boot 的整洁架构">
+                      <a href="/blog/posts/2022/spring-jpa-custom-repository/" title="Spring Data JPA Custom Repository Example">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Spring Boot 的整洁架构</span>
-                        <span class="visible-mobile">上一篇</span>
+                        <span class="hidden-mobile">Spring Data JPA Custom Repository Example</span>
+                        <span class="visible-mobile">Previous</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/posts/2022/mapstrcut-style/" title="MapStruct 的使用姿势">
-                        <span class="hidden-mobile">MapStruct 的使用姿势</span>
-                        <span class="visible-mobile">下一篇</span>
+                      <a href="/blog/posts/2022/mapstrcut-style/" title="Useful Tips For MapStruct">
+                        <span class="hidden-mobile">Useful Tips For MapStruct</span>
+                        <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -446,23 +444,24 @@
             
   <article id="comments" lazyload>
     
-  <div id="gitalk-container"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#gitalk-container', function() {
-      Fluid.utils.createCssLink('/blog/css/gitalk.css')
-      Fluid.utils.createScript('https://lib.baomitu.com/gitalk/1.8.0/gitalk.min.js', function() {
-        var options = Object.assign(
-          {"clientID":"6e18bec708b45d48f000","clientSecret":"6520b7d1ab0e86706c6816b61d5f3215dffd24c2","repo":"blog","owner":"okayhu","admin":["okayhu"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","id":"location.pathname"},
-          {
-            id: '0039cc32722f0848dba137d042a08acb'
-          }
-        )
-        var gitalk = new Gitalk(options);
-        gitalk.render('gitalk-container');
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <div class="disqus" style="width:100%">
+    <div id="disqus_thread"></div>
+    
+      <script type="text/javascript">
+        var disqus_config = function() {
+          this.page.url = 'https://okayhu.github.io/blog/posts/2022/jvm-object-gc/';
+          this.page.identifier = '/blog/posts/2022/jvm-object-gc/';
+        };
+        Fluid.utils.loadComments('#disqus_thread', function() {
+          var d = document, s = d.createElement('script');
+          s.src = '//' + 'dyhu-blog' + '.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', new Date());
+          (d.head || d.body).appendChild(s);
+        });
+      </script>
+    
+    <noscript>Please enable JavaScript to view the comments</noscript>
+  </div>
 
 
   </article>
@@ -477,7 +476,7 @@
       
   <aside class="sidebar" style="margin-left: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -532,7 +531,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -540,7 +539,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -719,7 +718,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
   </noscript>
 </body>
 </html>
