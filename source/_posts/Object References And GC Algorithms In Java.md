@@ -36,8 +36,6 @@ PhantomReference phantomRef = new PhantomReference(str, queue);
 
 An object that doesn't have any references.
 
-## How to tell when an object doesn't have any references
-
 ## Reference counter method
 
 Create a reference counter for each object, +1 when there is a reference to the object, -1 when the reference is released, when the counter is 0 then it can be recycled.

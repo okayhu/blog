@@ -19,6 +19,15 @@
 }
 
 @font-face {
+  font-family: "SourceSerifPro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("SourceSerifPro-Regular"),
+    url("../font/SourceSerifPro-Regular.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "mononoki";
   font-style: normal;
   font-weight: 400;
@@ -30,17 +39,21 @@
 
 :root {
   --inlinecode-bg-color: #e7e9f8;
-  /* --post-heading-color: #000000; */
+  --text-color: #292929;
+  --post-heading-color: #292929;
+  --post-text-color: #292929;
 }
 
 [data-user-color-scheme="dark"] {
   --inlinecode-bg-color: rgba(99, 110, 123, 0.4);
+  --post-text-color: #c4c6c9;
 }
 
 .index-header {
-  font-weight: normal;
-  font-size: 1.4rem;
+  font-weight: bold;
+  font-size: 22px;
 }
+
 .category .category-item,
 .category .category-subitem {
   font-weight: normal;
@@ -53,16 +66,44 @@
 html,
 body,
 .markdown-body {
-  font-family: Merriweather, NotoSans, sans-serif;
-  font-size: 16px;
+  font-family: SourceSerifPro, Merriweather, NotoSans, sans-serif;
+  font-size: 18px;
 }
 
-/* .markdown-body {
-  font-size: 17px;
-} */
+.markdown-body {
+  font-size: 19px;
+  line-height: 32px;
+  letter-spacing: -0.003em;
+}
+
+.note {
+  font-size: 19px;
+}
+
+.markdown-body h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.markdown-body h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+}
 
 .markdown-body code,
 .markdown-body pre {
   font-family: mononoki, SFMono-Regular, monospace;
-  font-size: 16px;
+  font-size: 92% !important;
+}
+
+.markdown-body blockquote,
+.markdown-body details,
+.markdown-body dl,
+.markdown-body ol,
+.markdown-body p,
+.markdown-body pre,
+.markdown-body table,
+.markdown-body ul {
+  margin-top: 0;
+  margin-bottom: 26px;
 }

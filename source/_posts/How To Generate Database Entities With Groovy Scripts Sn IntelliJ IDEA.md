@@ -1,5 +1,5 @@
 ---
-title: Generating Entities With Groovy Scripts In IntelliJ IDEA
+title: How To Generate Database Entities With Groovy Scripts Sn IntelliJ IDEA
 sub_title: idea-database-groovy
 index_img: https://uposs.justokay.cn/images/idea/idea.png
 date: 2022-11-12 22:14:07
