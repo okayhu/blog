@@ -1,6 +1,6 @@
 https://okayhu.github.io/blog/google0d6166798972af88.html
-https://okayhu.github.io/blog/posts/2022/idea-database-groovy/
 https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/
+https://okayhu.github.io/blog/posts/2022/idea-database-groovy/
 https://okayhu.github.io/blog/posts/2022/idea-settings/
 https://okayhu.github.io/blog/posts/2022/nginx-docker-install/
 https://okayhu.github.io/blog/posts/2022/jvm-memory-structure/
@@ -12,10 +12,10 @@ https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/
 https://okayhu.github.io/blog/posts/2022/mapstrcut-style/
 https://okayhu.github.io/blog/about/index.html
 https://okayhu.github.io/blog
-https://okayhu.github.io/blog/tags/idea/
-https://okayhu.github.io/blog/tags/groovy/
 https://okayhu.github.io/blog/tags/spring/
 https://okayhu.github.io/blog/tags/springmvc/
+https://okayhu.github.io/blog/tags/idea/
+https://okayhu.github.io/blog/tags/groovy/
 https://okayhu.github.io/blog/tags/nginx/
 https://okayhu.github.io/blog/tags/docker/
 https://okayhu.github.io/blog/tags/jvm/
@@ -25,8 +25,8 @@ https://okayhu.github.io/blog/tags/firewalld/
 https://okayhu.github.io/blog/tags/jpa/
 https://okayhu.github.io/blog/tags/tool/
 https://okayhu.github.io/blog/tags/mapstruct/
-https://okayhu.github.io/blog/categories/IntelliJ-IDEA/
 https://okayhu.github.io/blog/categories/spring/
+https://okayhu.github.io/blog/categories/IntelliJ-IDEA/
 https://okayhu.github.io/blog/categories/Devops/
 https://okayhu.github.io/blog/categories/Java/
 https://okayhu.github.io/blog/categories/Spring/

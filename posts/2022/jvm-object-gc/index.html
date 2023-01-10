@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm.png">
 <meta property="article:published_time" content="2022-07-18T14:08:11.000Z">
-<meta property="article:modified_time" content="2023-01-09T14:08:47.269Z">
+<meta property="article:modified_time" content="2023-01-10T10:02:09.174Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary_large_image">
@@ -227,7 +227,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.2k words
+          5.1k words
         
       </span>
     
@@ -294,7 +294,7 @@
 <span class="hljs-type">PhantomReference</span> <span class="hljs-variable">phantomRef</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PhantomReference</span>(str, queue);</code></pre></div>
 
 <h2 id="What-is-garbage"><a href="#What-is-garbage" class="headerlink" title="What is garbage"></a>What is garbage</h2><p>An object that doesn’t have any references.</p>
-<h2 id="How-to-tell-when-an-object-doesn’t-have-any-references"><a href="#How-to-tell-when-an-object-doesn’t-have-any-references" class="headerlink" title="How to tell when an object doesn’t have any references"></a>How to tell when an object doesn’t have any references</h2><h2 id="Reference-counter-method"><a href="#Reference-counter-method" class="headerlink" title="Reference counter method"></a>Reference counter method</h2><p>Create a reference counter for each object, +1 when there is a reference to the object, -1 when the reference is released, when the counter is 0 then it can be recycled.</p>
+<h2 id="Reference-counter-method"><a href="#Reference-counter-method" class="headerlink" title="Reference counter method"></a>Reference counter method</h2><p>Create a reference counter for each object, +1 when there is a reference to the object, -1 when the reference is released, when the counter is 0 then it can be recycled.</p>
 <div class="note note-info">
             <p>The reference counter does not solve the problem of circular applications.</p>
           </div>
