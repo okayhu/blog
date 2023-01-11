@@ -1,1 +1,104 @@
-@font-face{font-family:"Noto Sans";font-style:normal;font-weight:400;font-display:swap;src:local("Noto Sans"),url("https://uposs.justokay.cn/font/NotoSans.ttf"),url("../font/NotoSans.ttf") format("truetype")}@font-face{font-family:"Source Serif Pro";font-style:normal;font-weight:400;font-display:swap;src:local("Source Serif Pro"),url("https://uposs.justokay.cn/font/SourceSerifPro.ttf"),url("../font/SourceSerifPro.ttf") format("truetype")}@font-face{font-family:mononoki;font-style:normal;font-weight:400;font-display:swap;src:local("mononoki"),url("https://uposs.justokay.cn/font/mononoki.ttf"),url("../font/mononoki.ttf") format("truetype")}:root{--inlinecode-bg-color:#e7e9f8;--text-color:#292929;--post-heading-color:#292929;--post-text-color:#292929}[data-user-color-scheme=dark]{--inlinecode-bg-color:rgba(99, 110, 123, 0.4);--post-text-color:#c4c6c9}.index-header{font-weight:700;font-size:22px;font-family:NotoSans,sans-serif}.category .category-item,.category .category-subitem{font-weight:400}.about-name{font-weight:400}.markdown-body,body,html{font-family:Noto Sans,"Source Serif Pro",sans-serif;font-size:18px}.markdown-body code,.markdown-body pre{font-family:mononoki,SFMono-Regular,monospace;font-size:92%!important}.markdown-body{font-size:19px;line-height:32px}.note{font-size:19px}.markdown-body h2{font-size:1.4em;font-weight:700}.markdown-body h3{font-size:1.2em;font-weight:700}.markdown-body p,.markdown-body strong,.markdown-body ul{font-family:"Source Serif Pro",serif}.markdown-body blockquote,.markdown-body details,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:30px}
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Noto Sans"), url("https://uposs.justokay.cn/font/NotoSans.ttf"),
+    url("../font/NotoSans.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Source Serif Pro"),
+    url("https://uposs.justokay.cn/font/SourceSerifPro.ttf"),
+    url("../font/SourceSerifPro.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "mononoki";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("mononoki"), url("https://uposs.justokay.cn/font/mononoki.ttf"),
+    url("../font/mononoki.ttf") format("truetype");
+}
+
+:root {
+  --inlinecode-bg-color: #e7e9f8;
+  --text-color: #292929;
+  --post-heading-color: #292929;
+  --post-text-color: #292929;
+}
+
+[data-user-color-scheme="dark"] {
+  --inlinecode-bg-color: rgba(99, 110, 123, 0.4);
+  --post-text-color: #c4c6c9;
+}
+
+.index-header {
+  font-weight: bold;
+  font-size: 22px;
+  font-family: NotoSans, sans-serif;
+}
+
+.category .category-item,
+.category .category-subitem {
+  font-weight: normal;
+}
+
+.about-name {
+  font-weight: normal;
+}
+
+html,
+body,
+.markdown-body {
+  font-family: Noto Sans, "Source Serif Pro", sans-serif;
+  font-size: 18px;
+}
+
+.markdown-body code,
+.markdown-body pre {
+  font-family: mononoki, SFMono-Regular, monospace;
+  font-size: 92% !important;
+}
+
+.markdown-body {
+  font-size: 19px;
+  line-height: 32px;
+}
+
+.note {
+  font-size: 19px;
+}
+
+.markdown-body h2 {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.markdown-body h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.markdown-body p,
+.markdown-body strong,
+.markdown-body ul {
+  font-family: "Source Serif Pro", serif;
+}
+
+.markdown-body blockquote,
+.markdown-body details,
+.markdown-body dl,
+.markdown-body ol,
+.markdown-body p,
+.markdown-body pre,
+.markdown-body table,
+.markdown-body ul {
+  margin-top: 0;
+  margin-bottom: 30px;
+}

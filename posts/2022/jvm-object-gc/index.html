@@ -1,3 +1,382 @@
-<!DOCTYPE html><html lang="en" data-default-color-scheme="auto"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="https://uposs.justokay.cn/images/favicon.ico"><link rel="icon" href="https://uposs.justokay.cn/images/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="author" content="dyhu"><meta name="keywords" content=""><meta name="description" content="Object referencesStrong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, e"><meta property="og:type" content="article"><meta property="og:title" content="Object References And GC Algorithms In Java"><meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/index.html"><meta property="og:site_name" content="dyhu&#39;s blog"><meta property="og:description" content="Object referencesStrong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, e"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm.png"><meta property="article:published_time" content="2022-07-18T14:08:11.000Z"><meta property="article:modified_time" content="2023-01-11T02:21:43.311Z"><meta property="article:author" content="dyhu"><meta property="article:tag" content="jvm"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://uposs.justokay.cn/images/jvm/jvm.png"><title>Object References And GC Algorithms In Java - dyhu&#39;s blog</title><link rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css"><link rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css"><link rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css"><link rel="stylesheet" href="/blog/css/main.css"><link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css"><link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css"><link rel="stylesheet" href="/blog/css/custom.css"><script id="fluid-configs">var Fluid=window.Fluid||{};Fluid.ctx=Object.assign({},Fluid.ctx);var CONFIG={hostname:"okayhu.github.io",root:"/blog/",version:"1.9.4",typing:{enable:!0,typeSpeed:70,cursorChar:"_",loop:!1,scope:[]},anchorjs:{enable:!0,element:"h1,h2,h3,h4,h5,h6",placement:"left",visible:"hover",icon:""},progressbar:{enable:!0,height_px:3,color:"#29d",options:{showSpinner:!1,trickleSpeed:100}},code_language:{enable:!0,default:"TEXT"},copy_btn:!0,image_caption:{enable:!0},image_zoom:{enable:!0,img_url_replace:["",""]},toc:{enable:!0,placement:"right",headingSelector:"h1,h2,h3,h4,h5,h6",collapseDepth:0},lazyload:{enable:!0,loading_img:"https://uposs.justokay.cn/images/loading.gif",onlypost:!1,offset_factor:2},web_analytics:{enable:!1,follow_dnt:!0,baidu:null,google:"G-NZR9Y6CNBN",gtag:null,tencent:{sid:null,cid:null},woyaola:null,cnzz:null,leancloud:{app_id:null,app_key:null,server_url:null,path:"window.location.pathname",ignore_local:!1}},search_path:"/blog/local-search.xml"};if(CONFIG.web_analytics.follow_dnt){var dntVal=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack;Fluid.ctx.dnt=dntVal&&(dntVal.startsWith("1")||dntVal.startsWith("yes")||dntVal.startsWith("on"))}</script><script src="/blog/js/utils.js"></script><script src="/blog/js/color-schema.js"></script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="dyhu's blog" type="application/atom+xml">
-</head><body><header><div class="header-inner" style="height:70vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/blog/"><strong>dyhu&#39;s blog</strong> </a><button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/blog/"><i class="iconfont icon-home-fill"></i> <span>Home</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/archives/"><i class="iconfont icon-archive-fill"></i> <span>Archives</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/categories/"><i class="iconfont icon-category-fill"></i> <span>Categories</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/tags/"><i class="iconfont icon-tags-fill"></i> <span>Tags</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/about/"><i class="iconfont icon-user-fill"></i> <span>About</span></a></li><li class="nav-item" id="search-btn"><a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search"><i class="iconfont icon-search"></i></a></li><li class="nav-item" id="color-toggle-btn"><a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle"><i class="iconfont icon-dark" id="color-toggle-icon"></i></a></li></ul></div></div></nav><div id="banner" class="banner" false style="background:url(https://uposs.justokay.cn/images/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="banner-text text-center fade-in-up"><div class="h2"><span id="subtitle" data-typed-text="Object References And GC Algorithms In Java"></span></div><div class="mt-3"><span class="post-meta"><i class="iconfont icon-date-fill" aria-hidden="true"></i> <time datetime="2022-07-18 22:08" pubdate>2022-07-18</time></span></div><div class="mt-1"><span class="post-meta mr-2"><i class="iconfont icon-chart"></i> 5.1k words </span><span class="post-meta mr-2"><i class="iconfont icon-clock-fill"></i> 43 mins</span></div></div></div></div></div></div></header><main><div class="container-fluid nopadding-x"><div class="row nomargin-x"><div class="side-col d-none d-lg-block col-lg-2"></div><div class="col-lg-8 nopadding-x-md"><div class="container nopadding-x-md" id="board-ctn"><div id="board"><article class="post-content mx-auto"><h1 style="display:none">Object References And GC Algorithms In Java</h1><div class="markdown-body"><h2 id="Object-references"><a href="#Object-references" class="headerlink" title="Object references"></a>Object references</h2><p><strong>Strong reference</strong>: We usually new an object is a strong reference, for example <code>Object obj = new Object()</code>. The JVM would rather throw an OutOfMemory error than reclaim such an object, even in the case of insufficient memory.</p><p><strong>Soft reference</strong>: If an object has only a soft reference, there is enough memory space and GC will not reclaim it, or if there is not enough memory, it will be reclaimed before a memory overflow occurs.</p><div class="code-wrapper"><pre><code class="hljs java">SoftReference&lt;String&gt; softRef = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SoftReference</span>&lt;String&gt;(str);</code></pre></div><p><strong>Weak references</strong>: Objects with weak references have a shorter life cycle. When GC performs garbage collection, once an object with only weak references is found, its memory will be reclaimed regardless of whether the current memory space is sufficient.</p><div class="code-wrapper"><pre><code class="hljs java">WeakReference&lt;String&gt; weakRef = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakReference</span>&lt;String&gt;(str);</code></pre></div><p><strong>Phantom References</strong>. If an object holds only a phantom reference, it can be reclaimed by GC at any time, just as if it did not have any reference.</p><p>Phantom references are mainly used to track the activity of objects that are GC’d. Phantom references must be used in conjunction with a reference queue (<code>ReferenceQueue</code>). When the GC is ready to reclaim an object, if it finds it to be a phantom reference, it will add the phantom reference to the reference queue associated with it before reclaiming the object’s memory.</p><div class="code-wrapper"><pre><code class="hljs java"><span class="hljs-type">ReferenceQueue</span> <span class="hljs-variable">queue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ReferenceQueue</span>();
-<span class="hljs-type">PhantomReference</span> <span class="hljs-variable">phantomRef</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">PhantomReference</span>(str, queue);</code></pre></div><h2 id="What-is-garbage"><a href="#What-is-garbage" class="headerlink" title="What is garbage"></a>What is garbage</h2><p>An object that doesn’t have any references.</p><h2 id="Reference-counter-method"><a href="#Reference-counter-method" class="headerlink" title="Reference counter method"></a>Reference counter method</h2><p>Create a reference counter for each object, +1 when there is a reference to the object, -1 when the reference is released, when the counter is 0 then it can be recycled.</p><div class="note note-info"><p>The reference counter does not solve the problem of circular applications.</p></div><h3 id="Reachability-Analysis-Algorithm"><a href="#Reachability-Analysis-Algorithm" class="headerlink" title="Reachability Analysis Algorithm"></a>Reachability Analysis Algorithm</h3><p>Starting from GC Roots and searching down the path called <code>Reference Chain</code>. When an object is not connected to any reference chain to GC Roots, it is proved that the object is recyclable.</p><p>The objects that are GC Roots include the following (emphasis on the first 4).</p><ul><li><strong>Objects referenced in the virtual machine stack (local variable table in the stack frame); parameters, local variables, temporary variables, etc. used in the method stack of each thread call.</strong></li><li><strong>Objects referenced by static properties of classes in the method area, static variables of reference types of java classes</strong>.</li><li><strong>Objects referenced by constants in the method area. For example: references in the pool of string constants</strong>.</li><li><strong>Objects referenced by JNI (e.g. Native methods) in the local method stack</strong>.</li><li>Internal references of the JVM (class objects, exception objects NullPointException, OutofMemoryError, system class loader).</li><li>All objects held by synchronized locks (synchronized keyword).</li><li>JMXBean inside the JVM, callbacks registered in JVMTI, local code cache, etc.</li><li>Temporary objects in JVM implementations, objects referenced across generations.</li></ul><p>The above recycling are objects, the class (Class) recycling conditions are very demanding, must also meet the following conditions (just can, does not mean necessarily, because there are some parameters can be controlled)</p><ul><li>All instances of the class have been recycled, i.e. there are no instances of the class in the heap.</li><li>The ClassLoader that loaded the class has been recycled.</li><li>The java.lang.Class object corresponding to this class is not referenced anywhere, and the methods of this class cannot be accessed anywhere by reflection.</li></ul><p><code>-Xnoclassgc</code>: Disables garbage collection for the class.</p><p>The recycling of deprecated constants and static variables is actually similar to the conditions for Class recycling.</p><p><strong>Finalize</strong></p><p>The finalize() method in the Object class is similar to the C++ destructor and is used to close external resources and so on. But try-finally and other methods can do better, and the method is expensive to run, uncertain, and does not guarantee the order of calls for each object, so it is better not to use finalize().</p><div class="note note-info"><p>Executing the finalize() method on an object when it is ready to be recycled only means that <strong>it is possible</strong> to save yourself by having the object referenced again in that method.</p></div><h2 id="Garbage-collection-algorithms"><a href="#Garbage-collection-algorithms" class="headerlink" title="Garbage collection algorithms"></a>Garbage collection algorithms</h2><h3 id="Copying-algorithm"><a href="#Copying-algorithm" class="headerlink" title="Copying algorithm"></a>Copying algorithm</h3><p>It divides the available memory into two equal-sized chunks by capacity and uses only one of them at a time. When this block is used up, the remaining objects are copied to the other block, and the used memory space is cleaned up at once.</p><p>The copy recovery algorithm is suitable for new generations. Since most of the objects are born and die, fewer objects are copied over, so it is more efficient.</p><h3 id="Mark-Sweep-algorithm"><a href="#Mark-Sweep-algorithm" class="headerlink" title="Mark-Sweep algorithm"></a>Mark-Sweep algorithm</h3><p>The algorithm is divided into two phases: mark and sweep. First scan out all the objects and mark the objects to be recycled, after the mark is completed, scan and recycle all the marked objects, so it needs to scan twice. When recycling, if there are more objects to be recycled, the more marking and clearing work needs to be done, which is less efficient than replication recycling, so the marking and clearing algorithm is suitable for old age.</p><p>Too much space fragmentation may lead to the inability to find enough contiguous memory when a larger object needs to be allocated later in the program runtime and another garbage collection action has to be triggered earlier.</p><h3 id="Mark-Compact-algorithm"><a href="#Mark-Compact-algorithm" class="headerlink" title="Mark-Compact algorithm"></a>Mark-Compact algorithm</h3><p>The algorithm is divided into two stages: first mark all the objects to be recycled, and after the mark is done, instead of cleaning up the recyclable objects directly, all the surviving objects are compressed into one end of memory so that they are compactly arranged together, and then the memory outside the end boundary is recycled.</p><p>The mark-cleaning algorithm has no memory fragmentation, but it is inefficient. We see that the main difference between the mark-cleaning algorithm and the mark-removal algorithm is object movement. Object movement not only burdens the system, but also requires the entire user thread to be suspended in order to do so, and all references to the object need to be updated (direct pointers need to be adjusted).</p></div><hr><div><div class="post-metas my-3"><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Java/" class="category-chain-item">Java</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/jvm/">#jvm</a></div></div><div class="license-box my-3"><div class="license-title"><div>Object References And GC Algorithms In Java</div><div>https://okayhu.github.io/blog/posts/2022/jvm-object-gc/</div></div><div class="license-meta"><div class="license-meta-item"><div>Author</div><div>dyhu</div></div><div class="license-meta-item license-meta-date"><div>Posted on</div><div>July 18, 2022</div></div><div class="license-meta-item"><div>Licensed under</div><div><a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/"><span class="hint--top hint--rounded" aria-label="BY - Attribution"><i class="iconfont icon-by"></i> </span></a><a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/"><span class="hint--top hint--rounded" aria-label="SA - Share-alike"><i class="iconfont icon-sa"></i></span></a></div></div></div><div class="license-icon iconfont"></div></div><div class="post-prevnext my-3"><article class="post-prev col-6"><a href="/blog/posts/2022/spring-jpa-custom-repository/" title="Spring Data JPA Custom Repository Example"><i class="iconfont icon-arrowleft"></i> <span class="hidden-mobile">Spring Data JPA Custom Repository Example</span> <span class="visible-mobile">Previous</span></a></article><article class="post-next col-6"><a href="/blog/posts/2022/mapstrcut-style/" title="Useful Tips For MapStruct"><span class="hidden-mobile">Useful Tips For MapStruct</span> <span class="visible-mobile">Next</span> <i class="iconfont icon-arrowright"></i></a></article></div></div><article id="comments" lazyload><div class="disqus" style="width:100%"><div id="disqus_thread"></div><script type="text/javascript">var disqus_config=function(){this.page.url="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/",this.page.identifier="/blog/posts/2022/jvm-object-gc/"};Fluid.utils.loadComments("#disqus_thread",(function(){var t=document,e=t.createElement("script");e.src="//dyhu-blog.disqus.com/embed.js",e.setAttribute("data-timestamp",new Date),(t.head||t.body).appendChild(e)}))</script><noscript>Please enable JavaScript to view the comments</noscript></div></article></article></div></div></div><div class="side-col d-none d-lg-block col-lg-2"><aside class="sidebar" style="margin-left:-1rem"><div id="toc"><p class="toc-header"><i class="iconfont icon-list"></i> <span>Table of Contents</span></p><div class="toc-body" id="toc-body"></div></div></aside></div></div></div><a id="scroll-top-button" aria-label="TOP" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">Search</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">Keyword</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div></main><footer><div class="footer-inner"><div class="footer-content">Copyright © 2022 dyhu - <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></div></footer><script src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js"></script><link rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css"><script>NProgress.configure({showSpinner:!1,trickleSpeed:100}),NProgress.start(),window.addEventListener("load",(function(){NProgress.done()}))</script><script src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script><script src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js"></script><script src="/blog/js/events.js"></script><script src="/blog/js/plugins.js"></script><script src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js"></script><script>!function(t,e){var i=Fluid.plugins.typing,n=e.getElementById("subtitle");n&&i&&i(n.getAttribute("data-typed-text"))}(window,document)</script><script src="/blog/js/img-lazyload.js"></script><script>Fluid.utils.createScript("https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js",(function(){var t=jQuery("#toc");if(0!==t.length&&window.tocbot){var i=jQuery("#board-ctn").offset().top;window.tocbot.init(Object.assign({tocSelector:"#toc-body",contentSelector:".markdown-body",linkClass:"tocbot-link",activeLinkClass:"tocbot-active-link",listClass:"tocbot-list",isCollapsedClass:"tocbot-is-collapsed",collapsibleClass:"tocbot-is-collapsible",scrollSmooth:!0,includeTitleTags:!0,headingsOffset:-i},CONFIG.toc)),t.find(".toc-list-item").length>0&&t.css("visibility","visible"),Fluid.events.registerRefreshCallback((function(){if("tocbot"in window){tocbot.refresh();var t=jQuery("#toc");if(0===t.length||!tocbot)return;t.find(".toc-list-item").length>0&&t.css("visibility","visible")}}))}}))</script><script src="https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js"></script><script>Fluid.plugins.codeWidget()</script><script>Fluid.utils.createScript("https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js",(function(){window.anchors.options={placement:CONFIG.anchorjs.placement,visible:CONFIG.anchorjs.visible},CONFIG.anchorjs.icon&&(window.anchors.options.icon=CONFIG.anchorjs.icon);var n=(CONFIG.anchorjs.element||"h1,h2,h3,h4,h5,h6").split(","),o=[];for(var s of n)o.push(".markdown-body > "+s.trim());"left"===CONFIG.anchorjs.placement&&(window.anchors.options.class="anchorjs-link-left"),window.anchors.add(o.join(", ")),Fluid.events.registerRefreshCallback((function(){if("anchors"in window){anchors.removeAll();var n=(CONFIG.anchorjs.element||"h1,h2,h3,h4,h5,h6").split(","),o=[];for(var s of n)o.push(".markdown-body > "+s.trim());"left"===CONFIG.anchorjs.placement&&(anchors.options.class="anchorjs-link-left"),anchors.add(o.join(", "))}}))}))</script><script>Fluid.utils.createScript("https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js",(function(){Fluid.plugins.fancyBox()}))</script><script>Fluid.plugins.imageCaption()</script><script src="/blog/js/local-search.js"></script><script src="/blog/js/boot.js"></script><noscript><div class="noscript-warning">Blog works best with JavaScript enabled</div></noscript></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"okayhu.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="Object references Strong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Object References And GC Algorithms In Java">
+<meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/index.html">
+<meta property="og:site_name" content="dyhu&#39;s blog">
+<meta property="og:description" content="Object references Strong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-07-18T14:08:11.000Z">
+<meta property="article:modified_time" content="2023-01-11T10:03:23.323Z">
+<meta property="article:author" content="dyhu">
+<meta property="article:tag" content="jvm">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://okayhu.github.io/blog/posts/2022/jvm-object-gc/","path":"posts/2022/jvm-object-gc/","title":"Object References And GC Algorithms In Java"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Object References And GC Algorithms In Java | dyhu's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/blog/atom.xml" title="dyhu's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">dyhu's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Object-references"><span class="nav-number">1.</span> <span class="nav-text">Object references</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-garbage"><span class="nav-number">2.</span> <span class="nav-text">What is garbage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference-counter-method"><span class="nav-number">3.</span> <span class="nav-text">Reference counter method</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Reachability-Analysis-Algorithm"><span class="nav-number">3.1.</span> <span class="nav-text">Reachability Analysis Algorithm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Garbage-collection-algorithms"><span class="nav-number">4.</span> <span class="nav-text">Garbage collection algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Copying-algorithm"><span class="nav-number">4.1.</span> <span class="nav-text">Copying algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Sweep-algorithm"><span class="nav-number">4.2.</span> <span class="nav-text">Mark-Sweep algorithm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mark-Compact-algorithm"><span class="nav-number">4.3.</span> <span class="nav-text">Mark-Compact algorithm</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="dyhu"
+      src="https://uposs.justokay.cn/images/avatar.png">
+  <p class="site-author-name" itemprop="name">dyhu</p>
+  <div class="site-description" itemprop="description">Keep yourself and be kind to others</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/okayhu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;okayhu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:okayhu66@gmail.com" title="EMail → mailto:okayhu66@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>EMail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    Related Posts
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/blog/posts/2022/jvm-memory-structure/" rel="bookmark">
+        <time class="popular-posts-time">2022-06-22</time>
+        <br>
+      Memory Structure In Java
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Object References And GC Algorithms In Java | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Object References And GC Algorithms In Java
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-18 22:08:11" itemprop="dateCreated datePublished" datetime="2022-07-18T22:08:11+08:00">2022-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Object-references"><a href="#Object-references" class="headerlink" title="Object references"></a>Object references</h2><p><strong>Strong reference</strong>: We usually new an object is a strong reference, for example <code>Object obj = new Object()</code>. The JVM would rather throw an OutOfMemory error than reclaim such an object, even in the case of insufficient memory.</p>
+<p><strong>Soft reference</strong>: If an object has only a soft reference, there is enough memory space and GC will not reclaim it, or if there is not enough memory, it will be reclaimed before a memory overflow occurs.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SoftReference&lt;String&gt; softRef = <span class="keyword">new</span> <span class="title class_">SoftReference</span>&lt;String&gt;(str);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Weak references</strong>: Objects with weak references have a shorter life cycle. When GC performs garbage collection, once an object with only weak references is found, its memory will be reclaimed regardless of whether the current memory space is sufficient.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WeakReference&lt;String&gt; weakRef = <span class="keyword">new</span> <span class="title class_">WeakReference</span>&lt;String&gt;(str);</span><br></pre></td></tr></table></figure>
+
+<p><strong>Phantom References</strong>. If an object holds only a phantom reference, it can be reclaimed by GC at any time, just as if it did not have any reference.</p>
+<p>Phantom references are mainly used to track the activity of objects that are GC’d. Phantom references must be used in conjunction with a reference queue (<code>ReferenceQueue</code>). When the GC is ready to reclaim an object, if it finds it to be a phantom reference, it will add the phantom reference to the reference queue associated with it before reclaiming the object’s memory.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ReferenceQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ReferenceQueue</span>();</span><br><span class="line"><span class="type">PhantomReference</span> <span class="variable">phantomRef</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PhantomReference</span>(str, queue);</span><br></pre></td></tr></table></figure>
+
+<h2 id="What-is-garbage"><a href="#What-is-garbage" class="headerlink" title="What is garbage"></a>What is garbage</h2><p>An object that doesn’t have any references.</p>
+<h2 id="Reference-counter-method"><a href="#Reference-counter-method" class="headerlink" title="Reference counter method"></a>Reference counter method</h2><p>Create a reference counter for each object, +1 when there is a reference to the object, -1 when the reference is released, when the counter is 0 then it can be recycled.</p>
+<div class="note info"><p>The reference counter does not solve the problem of circular applications.</p>
+</div>
+
+<h3 id="Reachability-Analysis-Algorithm"><a href="#Reachability-Analysis-Algorithm" class="headerlink" title="Reachability Analysis Algorithm"></a>Reachability Analysis Algorithm</h3><p>Starting from GC Roots and searching down the path called <code>Reference Chain</code>. When an object is not connected to any reference chain to GC Roots, it is proved that the object is recyclable.</p>
+<p>The objects that are GC Roots include the following (emphasis on the first 4).</p>
+<ul>
+<li><strong>Objects referenced in the virtual machine stack (local variable table in the stack frame); parameters, local variables, temporary variables, etc. used in the method stack of each thread call.</strong></li>
+<li><strong>Objects referenced by static properties of classes in the method area, static variables of reference types of java classes</strong>.</li>
+<li><strong>Objects referenced by constants in the method area. For example: references in the pool of string constants</strong>.</li>
+<li><strong>Objects referenced by JNI (e.g. Native methods) in the local method stack</strong>.</li>
+<li>Internal references of the JVM (class objects, exception objects NullPointException, OutofMemoryError, system class loader).</li>
+<li>All objects held by synchronized locks (synchronized keyword).</li>
+<li>JMXBean inside the JVM, callbacks registered in JVMTI, local code cache, etc.</li>
+<li>Temporary objects in JVM implementations, objects referenced across generations.</li>
+</ul>
+<p>The above recycling are objects, the class (Class) recycling conditions are very demanding, must also meet the following conditions (just can, does not mean necessarily, because there are some parameters can be controlled)</p>
+<ul>
+<li>All instances of the class have been recycled, i.e. there are no instances of the class in the heap.</li>
+<li>The ClassLoader that loaded the class has been recycled.</li>
+<li>The java.lang.Class object corresponding to this class is not referenced anywhere, and the methods of this class cannot be accessed anywhere by reflection.</li>
+</ul>
+<p><code>-Xnoclassgc</code>: Disables garbage collection for the class.</p>
+<p>The recycling of deprecated constants and static variables is actually similar to the conditions for Class recycling.</p>
+<p><strong>Finalize</strong></p>
+<p>The finalize() method in the Object class is similar to the C++ destructor and is used to close external resources and so on. But try-finally and other methods can do better, and the method is expensive to run, uncertain, and does not guarantee the order of calls for each object, so it is better not to use finalize().</p>
+<div class="note info"><p>Executing the finalize() method on an object when it is ready to be recycled only means that <strong>it is possible</strong> to save yourself by having the object referenced again in that method.</p>
+</div>
+
+<h2 id="Garbage-collection-algorithms"><a href="#Garbage-collection-algorithms" class="headerlink" title="Garbage collection algorithms"></a>Garbage collection algorithms</h2><h3 id="Copying-algorithm"><a href="#Copying-algorithm" class="headerlink" title="Copying algorithm"></a>Copying algorithm</h3><p>It divides the available memory into two equal-sized chunks by capacity and uses only one of them at a time. When this block is used up, the remaining objects are copied to the other block, and the used memory space is cleaned up at once.</p>
+<p>The copy recovery algorithm is suitable for new generations. Since most of the objects are born and die, fewer objects are copied over, so it is more efficient.</p>
+<h3 id="Mark-Sweep-algorithm"><a href="#Mark-Sweep-algorithm" class="headerlink" title="Mark-Sweep algorithm"></a>Mark-Sweep algorithm</h3><p>The algorithm is divided into two phases: mark and sweep. First scan out all the objects and mark the objects to be recycled, after the mark is completed, scan and recycle all the marked objects, so it needs to scan twice. When recycling, if there are more objects to be recycled, the more marking and clearing work needs to be done, which is less efficient than replication recycling, so the marking and clearing algorithm is suitable for old age.</p>
+<p>Too much space fragmentation may lead to the inability to find enough contiguous memory when a larger object needs to be allocated later in the program runtime and another garbage collection action has to be triggered earlier.</p>
+<h3 id="Mark-Compact-algorithm"><a href="#Mark-Compact-algorithm" class="headerlink" title="Mark-Compact algorithm"></a>Mark-Compact algorithm</h3><p>The algorithm is divided into two stages: first mark all the objects to be recycled, and after the mark is done, instead of cleaning up the recyclable objects directly, all the surviving objects are compressed into one end of memory so that they are compactly arranged together, and then the memory outside the end boundary is recycled.</p>
+<p>The mark-cleaning algorithm has no memory fragmentation, but it is inefficient. We see that the main difference between the mark-cleaning algorithm and the mark-removal algorithm is object movement. Object movement not only burdens the system, but also requires the entire user thread to be suspended in order to do so, and all references to the object need to be updated (direct pointers need to be adjusted).</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/jvm/" rel="tag"># jvm</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/posts/2022/spring-jpa-custom-repository/" rel="prev" title="Spring Data JPA Custom Repository Example">
+                  <i class="fa fa-chevron-left"></i> Spring Data JPA Custom Repository Example
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/posts/2022/mapstrcut-style/" rel="next" title="Useful Tips For MapStruct">
+                  Useful Tips For MapStruct <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dyhu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

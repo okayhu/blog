@@ -1,2 +1,1256 @@
-<!DOCTYPE html><html lang="en" data-default-color-scheme="auto"><head><meta charset="UTF-8"><link rel="apple-touch-icon" sizes="76x76" href="https://uposs.justokay.cn/images/favicon.ico"><link rel="icon" href="https://uposs.justokay.cn/images/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,shrink-to-fit=no"><meta http-equiv="x-ua-compatible" content="ie=edge"><meta name="theme-color" content="#2f4154"><meta name="author" content="dyhu"><meta name="keywords" content=""><meta property="og:type" content="website"><meta property="og:title" content="dyhu&#39;s blog"><meta property="og:url" content="https://okayhu.github.io/blog/index.html"><meta property="og:site_name" content="dyhu&#39;s blog"><meta property="og:locale" content="en_US"><meta property="article:author" content="dyhu"><meta name="twitter:card" content="summary_large_image"><title>dyhu&#39;s blog</title><link rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css"><link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css"><link rel="stylesheet" href="/blog/css/main.css"><link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css"><link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css"><link rel="stylesheet" href="/blog/css/custom.css"><script id="fluid-configs">var Fluid=window.Fluid||{};Fluid.ctx=Object.assign({},Fluid.ctx);var CONFIG={hostname:"okayhu.github.io",root:"/blog/",version:"1.9.4",typing:{enable:!0,typeSpeed:70,cursorChar:"_",loop:!1,scope:[]},anchorjs:{enable:!0,element:"h1,h2,h3,h4,h5,h6",placement:"left",visible:"hover",icon:""},progressbar:{enable:!0,height_px:3,color:"#29d",options:{showSpinner:!1,trickleSpeed:100}},code_language:{enable:!0,default:"TEXT"},copy_btn:!0,image_caption:{enable:!0},image_zoom:{enable:!0,img_url_replace:["",""]},toc:{enable:!0,placement:"right",headingSelector:"h1,h2,h3,h4,h5,h6",collapseDepth:0},lazyload:{enable:!0,loading_img:"https://uposs.justokay.cn/images/loading.gif",onlypost:!1,offset_factor:2},web_analytics:{enable:!1,follow_dnt:!0,baidu:null,google:"G-NZR9Y6CNBN",gtag:null,tencent:{sid:null,cid:null},woyaola:null,cnzz:null,leancloud:{app_id:null,app_key:null,server_url:null,path:"window.location.pathname",ignore_local:!1}},search_path:"/blog/local-search.xml"};if(CONFIG.web_analytics.follow_dnt){var dntVal=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack;Fluid.ctx.dnt=dntVal&&(dntVal.startsWith("1")||dntVal.startsWith("yes")||dntVal.startsWith("on"))}</script><script src="/blog/js/utils.js"></script><script src="/blog/js/color-schema.js"></script><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="dyhu's blog" type="application/atom+xml">
-</head><body><header><div class="header-inner" style="height:60vh"><nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar"><div class="container"><a class="navbar-brand" href="/blog/"><strong>dyhu&#39;s blog</strong> </a><button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><div class="animated-icon"><span></span><span></span><span></span></div></button><div class="collapse navbar-collapse" id="navbarSupportedContent"><ul class="navbar-nav ml-auto text-center"><li class="nav-item"><a class="nav-link" href="/blog/"><i class="iconfont icon-home-fill"></i> <span>Home</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/archives/"><i class="iconfont icon-archive-fill"></i> <span>Archives</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/categories/"><i class="iconfont icon-category-fill"></i> <span>Categories</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/tags/"><i class="iconfont icon-tags-fill"></i> <span>Tags</span></a></li><li class="nav-item"><a class="nav-link" href="/blog/about/"><i class="iconfont icon-user-fill"></i> <span>About</span></a></li><li class="nav-item" id="search-btn"><a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search"><i class="iconfont icon-search"></i></a></li><li class="nav-item" id="color-toggle-btn"><a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle"><i class="iconfont icon-dark" id="color-toggle-icon"></i></a></li></ul></div></div></nav><div id="banner" class="banner" false style="background:url(https://uposs.justokay.cn/images/default.png) no-repeat center center;background-size:cover"><div class="full-bg-img"><div class="mask flex-center" style="background-color:rgba(0,0,0,.3)"><div class="banner-text text-center fade-in-up"><div class="h2"><span id="subtitle" data-typed-text="Keep yourself and be kind to others"></span></div></div></div></div></div></div></header><main><div class="container nopadding-x-md"><div id="board"><div class="container"><div class="row"><div class="col-12 col-md-10 m-auto"><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/spring-mvc-binding-object/" target="_self"><img src="https://uposs.justokay.cn/images/spring/spring-mvc.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="How To Customize Parameter Names When  Binding Spring MVC Command Objects"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/spring-mvc-binding-object/" target="_self">How To Customize Parameter Names When Binding Spring MVC Command Objects</a></h1><a class="index-excerpt" href="/blog/posts/2022/spring-mvc-binding-object/" target="_self"><div>QuestionSpring provides @RequestParam to bind Query parameters, and can bind parameters with different names. @GetMapping(&quot;/page&quot;) pulic Page page(@RequestParam(&quot;current_page&quot;) Int</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-12-30 18:56" pubdate>2022-12-30</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/spring/" class="category-chain-item">spring</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/spring/">#spring</a> <a href="/blog/tags/springmvc/">#springmvc</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/idea-settings/" target="_self"><img src="https://uposs.justokay.cn/images/idea/idea.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Important Settings For IntelliJ IDEA"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/idea-settings/" target="_self">Important Settings For IntelliJ IDEA</a></h1><a class="index-excerpt" href="/blog/posts/2022/idea-settings/" target="_self"><div>IDEA 2022.3 Cancel update checkSettings ⇒ Appearance &amp; Behavior ⇒ System Settings ⇒ Updates Uncheck Check IDE update for:. Do not open projects automatically at startupSettings ⇒ Appearance &amp</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-12-17 20:25" pubdate>2022-12-17</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/IntelliJ-IDEA/" class="category-chain-item">IntelliJ IDEA</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/idea/">#idea</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/idea-database-groovy/" target="_self"><img src="https://uposs.justokay.cn/images/idea/idea.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="How To Generate Database Entities With Groovy Scripts Sn IntelliJ IDEA"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/idea-database-groovy/" target="_self">How To Generate Database Entities With Groovy Scripts Sn IntelliJ IDEA</a></h1><a class="index-excerpt" href="/blog/posts/2022/idea-database-groovy/" target="_self"><div>Connecting to DatabasesIntelliJ IDEA has most of the features of DataGrip built-in for managing databases, which can be found in the sidebar, Connect to Database. Locating Groovy script directoriesIn</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-11-12 22:14" pubdate>2022-11-12</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/IntelliJ-IDEA/" class="category-chain-item">IntelliJ IDEA</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/idea/">#idea</a> <a href="/blog/tags/groovy/">#groovy</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/spring-jpa-custom-repository/" target="_self"><img src="https://uposs.justokay.cn/images/spring/spring-date-jpa.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Spring Data JPA Custom Repository Example"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/spring-jpa-custom-repository/" target="_self">Spring Data JPA Custom Repository Example</a></h1><a class="index-excerpt" href="/blog/posts/2022/spring-jpa-custom-repository/" target="_self"><div>Spring-Data-JPA provides many common Repository interfaces, such as CrudRepository, PagingAndSortingRepository, JpaRepository and so on. In practical development we often have some custom methods, so</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-08-26 22:16" pubdate>2022-08-26</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Spring/" class="category-chain-item">Spring</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/spring/">#spring</a> <a href="/blog/tags/jpa/">#jpa</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/jvm-object-gc/" target="_self"><img src="https://uposs.justokay.cn/images/jvm/jvm.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Object References And GC Algorithms In Java"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/jvm-object-gc/" target="_self">Object References And GC Algorithms In Java</a></h1><a class="index-excerpt" href="/blog/posts/2022/jvm-object-gc/" target="_self"><div>Object referencesStrong reference: We usually new an object is a strong reference, for example Object obj = new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, e</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-07-18 22:08" pubdate>2022-07-18</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Java/" class="category-chain-item">Java</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/jvm/">#jvm</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/mapstrcut-style/" target="_self"><img src="https://uposs.justokay.cn/images/tool/mapstruct.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Useful Tips For MapStruct"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/mapstrcut-style/" target="_self">Useful Tips For MapStruct</a></h1><a class="index-excerpt" href="/blog/posts/2022/mapstrcut-style/" target="_self"><div>MapStruct is a powerful and convenient pojo conversion tool in our project development process.Although MapStruct is good, there are some problems about its use. Do not change to the source objecte.g.</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-07-14 22:03" pubdate>2022-07-14</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Tool/" class="category-chain-item">Tool</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/tool/">#tool</a> <a href="/blog/tags/mapstruct/">#mapstruct</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/jvm-object-memory/" target="_self"><img src="https://uposs.justokay.cn/images/jvm/jvm.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Object Creation Process And Memory Layout In Java"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/jvm-object-memory/" target="_self">Object Creation Process And Memory Layout In Java</a></h1><a class="index-excerpt" href="/blog/posts/2022/jvm-object-memory/" target="_self"><div>Object creation process Checking loadingFirst check that the parameters of this instruction locate a symbolic reference to a class in the constant pool (symbolic reference: a symbolic reference descri</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-07-04 15:34" pubdate>2022-07-04</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Java/" class="category-chain-item">Java</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/jvm/">#jvm</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/docker-firewalld/" target="_self"><img src="https://uposs.justokay.cn/images/devops/docker.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Securing Docker with Firewalld"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/docker-firewalld/" target="_self">Securing Docker with Firewalld</a></h1><a class="index-excerpt" href="/blog/posts/2022/docker-firewalld/" target="_self"><div>Docker firewall uses the underlying iptables, firewalld does not work by default. If you want to use firewalld, you need to make the following adjustments. Rebuild DOCKER-USER chainEven if DOCKER-USER</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-06-30 19:47" pubdate>2022-06-30</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Devops/" class="category-chain-item">Devops</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/docker/">#docker</a> <a href="/blog/tags/firewalld/">#firewalld</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/linux-ssh-port-update/" target="_self"><img src="https://uposs.justokay.cn/images/devops/linux.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Modify The Linux Server SSH Port"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/linux-ssh-port-update/" target="_self">Modify The Linux Server SSH Port</a></h1><a class="index-excerpt" href="/blog/posts/2022/linux-ssh-port-update/" target="_self"><div>Environment: Centos 7 Back up the ssh configuration filecp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak Modify the default portvi etc/ssh/sshd_config Change #Port 22 to Por</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-06-27 09:54" pubdate>2022-06-27</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Devops/" class="category-chain-item">Devops</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/linux/">#linux</a> <a href="/blog/tags/ssh/">#ssh</a></div></div></article></div><div class="row mx-auto index-card"><div class="col-12 col-md-4 m-auto index-img"><a href="/blog/posts/2022/jvm-memory-structure/" target="_self"><img src="https://uposs.justokay.cn/images/jvm/jvm.png" srcset="https://uposs.justokay.cn/images/loading.gif" lazyload alt="Memory Structure In Java"></a></div><article class="col-12 col-md-8 mx-auto index-info"><h1 class="index-header"><a href="/blog/posts/2022/jvm-memory-structure/" target="_self">Memory Structure In Java</a></h1><a class="index-excerpt" href="/blog/posts/2022/jvm-memory-structure/" target="_self"><div>OverviewJava Virtual Machine (JVM) is an abstract computer, based on a stack architecture, with its own instruction set and memory management. It loads class files, parses, interprets and executes byt</div></a><div class="index-btm post-metas"><div class="post-meta mr-3"><i class="iconfont icon-date"></i> <time datetime="2022-06-22 21:47" pubdate>2022-06-22</time></div><div class="post-meta mr-3 d-flex align-items-center"><i class="iconfont icon-category"></i> <span class="category-chains"><span class="category-chain"><a href="/blog/categories/Java/" class="category-chain-item">Java</a></span></span></div><div class="post-meta"><i class="iconfont icon-tags"></i> <a href="/blog/tags/jvm/">#jvm</a></div></div></article></div><nav aria-label="navigation"><span class="pagination" id="pagination"><span class="page-number current">1</span><a class="page-number" href="/blog/page/2/#board">2</a><a class="extend next" rel="next" href="/blog/page/2/#board"><i class="iconfont icon-arrowright"></i></a></span></nav></div></div></div></div></div><a id="scroll-top-button" aria-label="TOP" href="#" role="button"><i class="iconfont icon-arrowup" aria-hidden="true"></i></a><div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable modal-lg" role="document"><div class="modal-content"><div class="modal-header text-center"><h4 class="modal-title w-100 font-weight-bold">Search</h4><button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body mx-3"><div class="md-form mb-5"><input type="text" id="local-search-input" class="form-control validate"> <label data-error="x" data-success="v" for="local-search-input">Keyword</label></div><div class="list-group" id="local-search-result"></div></div></div></div></div></main><footer><div class="footer-inner"><div class="footer-content">Copyright © 2022 dyhu - <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a><i class="iconfont icon-love"></i><a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a></div></div></footer><script src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js"></script><link rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css"><script>NProgress.configure({showSpinner:!1,trickleSpeed:100}),NProgress.start(),window.addEventListener("load",(function(){NProgress.done()}))</script><script src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js"></script><script src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js"></script><script src="/blog/js/events.js"></script><script src="/blog/js/plugins.js"></script><script src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js"></script><script>!function(t,e){var i=Fluid.plugins.typing,n=e.getElementById("subtitle");n&&i&&i(n.getAttribute("data-typed-text"))}(window,document)</script><script src="/blog/js/img-lazyload.js"></script><script src="/blog/js/local-search.js"></script><script src="/blog/js/boot.js"></script><noscript><div class="noscript-warning">Blog works best with JavaScript enabled</div></noscript></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"okayhu.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="Keep yourself and be kind to others">
+<meta property="og:type" content="website">
+<meta property="og:title" content="dyhu&#39;s blog">
+<meta property="og:url" content="https://okayhu.github.io/blog/index.html">
+<meta property="og:site_name" content="dyhu&#39;s blog">
+<meta property="og:description" content="Keep yourself and be kind to others">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="dyhu">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://okayhu.github.io/blog/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>dyhu's blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/blog/atom.xml" title="dyhu's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">dyhu's blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="dyhu"
+      src="https://uposs.justokay.cn/images/avatar.png">
+  <p class="site-author-name" itemprop="name">dyhu</p>
+  <div class="site-description" itemprop="description">Keep yourself and be kind to others</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/okayhu" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;okayhu" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:okayhu66@gmail.com" title="EMail → mailto:okayhu66@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>EMail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/spring-mvc-binding-object/" class="post-title-link" itemprop="url">How To Customize Parameter Names When  Binding Spring MVC Command Objects</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-12-30 18:56:05" itemprop="dateCreated datePublished" datetime="2022-12-30T18:56:05+08:00">2022-12-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Question
+Spring provides @RequestParam to bind Query parameters, and can bind parameters with different names.
+
+1
+2
+3
+4
+5
+
+
+@GetMapping("/page")
+pulic Page page(@RequestParam("current_page") Integer pageNum,
+                @RequestParam("page_size") Integer pageSize) {
+    ...
+}
+
+
+However, when usi
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/spring-mvc-binding-object/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/idea-settings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/idea-settings/" class="post-title-link" itemprop="url">Important Settings For IntelliJ IDEA</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-12-17 20:25:15" itemprop="dateCreated datePublished" datetime="2022-12-17T20:25:15+08:00">2022-12-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/IntelliJ-IDEA/" itemprop="url" rel="index"><span itemprop="name">IntelliJ IDEA</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          IDEA 2022.3
+
+Cancel update check
+Settings ⇒ Appearance & Behavior ⇒ System Settings ⇒ Updates
+
+Uncheck Check IDE update for:.
+
+Do not open projects automatically at startup
+Settings ⇒ Appearance & Behavior ⇒ System Settings
+
+Uncheck the Reopen projects on startup in Project.
+
+Proxy Settings
+Settings
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/idea-settings/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/idea-database-groovy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/idea-database-groovy/" class="post-title-link" itemprop="url">How To Generate Database Entities With Groovy Scripts Sn IntelliJ IDEA</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-11-12 22:14:07" itemprop="dateCreated datePublished" datetime="2022-11-12T22:14:07+08:00">2022-11-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/IntelliJ-IDEA/" itemprop="url" rel="index"><span itemprop="name">IntelliJ IDEA</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Connecting to Databases
+IntelliJ IDEA has most of the features of DataGrip built-in for managing databases, which can be found in the sidebar, Connect to Database.
+
+
+
+Locating Groovy script directories
+IntelliJ IDEA already has several built-in scripts for generating model classes, we can create our
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/idea-database-groovy/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/spring-jpa-custom-repository/" class="post-title-link" itemprop="url">Spring Data JPA Custom Repository Example</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-08-26 22:16:41" itemprop="dateCreated datePublished" datetime="2022-08-26T22:16:41+08:00">2022-08-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Spring-Data-JPA provides many common Repository interfaces, such as CrudRepository, PagingAndSortingRepository, JpaRepository and so on. In practical development we often have some custom methods, so how should we extend the Repository interface?
+
+Base class
+First define a BaseRepository that inheri
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/spring-jpa-custom-repository/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/jvm-object-gc/" class="post-title-link" itemprop="url">Object References And GC Algorithms In Java</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-18 22:08:11" itemprop="dateCreated datePublished" datetime="2022-07-18T22:08:11+08:00">2022-07-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Object references
+Strong reference: We usually new an object is a strong reference, for example Object obj = new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, even in the case of insufficient memory.
+
+Soft reference: If an object has only a soft reference, th
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/jvm-object-gc/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/mapstrcut-style/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/mapstrcut-style/" class="post-title-link" itemprop="url">Useful Tips For MapStruct</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-14 22:03:31" itemprop="dateCreated datePublished" datetime="2022-07-14T22:03:31+08:00">2022-07-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Tool/" itemprop="url" rel="index"><span itemprop="name">Tool</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          MapStruct is a powerful and convenient pojo conversion tool in our project development process.
+Although MapStruct is good, there are some problems about its use.
+
+Do not change to the source object
+e.g. Convert UserDTO to UserVO
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/mapstrcut-style/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/jvm-object-memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/jvm-object-memory/" class="post-title-link" itemprop="url">Object Creation Process And Memory Layout In Java</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-07-04 15:34:20" itemprop="dateCreated datePublished" datetime="2022-07-04T15:34:20+08:00">2022-07-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Object creation process
+
+
+Checking loading
+First check that the parameters of this instruction locate a symbolic reference to a class in the constant pool (symbolic reference: a symbolic reference describes the referenced target by a set of symbols) and that the class has been loaded, parsed and ini
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/jvm-object-memory/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/docker-firewalld/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/docker-firewalld/" class="post-title-link" itemprop="url">Securing Docker with Firewalld</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-30 19:47:12" itemprop="dateCreated datePublished" datetime="2022-06-30T19:47:12+08:00">2022-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Devops/" itemprop="url" rel="index"><span itemprop="name">Devops</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Docker firewall uses the underlying iptables, firewalld does not work by default.
+
+If you want to use firewalld, you need to make the following adjustments.
+
+Rebuild DOCKER-USER chain
+Even if DOCKER-USER already exists, you need to delete and rebuild
+
+1
+2
+3
+
+
+firewall-cmd --permanent --direct --remo
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/docker-firewalld/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/linux-ssh-port-update/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/linux-ssh-port-update/" class="post-title-link" itemprop="url">Modify The Linux Server SSH Port</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-27 09:54:58" itemprop="dateCreated datePublished" datetime="2022-06-27T09:54:58+08:00">2022-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Devops/" itemprop="url" rel="index"><span itemprop="name">Devops</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Environment: Centos 7
+
+Back up the ssh configuration file
+1
+
+
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+
+
+Modify the default port
+1
+
+
+vi etc/ssh/sshd_config
+
+
+Change #Port 22 to Port 2233, so that the ssh port is changed to 2233
+
+Restart sshd service
+1
+
+
+systemctl restart sshd
+
+
+Release the n
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/linux-ssh-port-update/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://okayhu.github.io/blog/posts/2022/jvm-memory-structure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://uposs.justokay.cn/images/avatar.png">
+      <meta itemprop="name" content="dyhu">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="description" content="Keep yourself and be kind to others">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | dyhu's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/blog/posts/2022/jvm-memory-structure/" class="post-title-link" itemprop="url">Memory Structure In Java</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2022-06-22 21:47:45" itemprop="dateCreated datePublished" datetime="2022-06-22T21:47:45+08:00">2022-06-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-01-11 18:03:23" itemprop="dateModified" datetime="2023-01-11T18:03:23+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          Overview
+Java Virtual Machine (JVM) is an abstract computer, based on a stack architecture, with its own instruction set and memory management. It loads class files, parses, interprets and executes bytecode. The basic structure is as follows.
+
+
+
+Java virtual machine divides the memory it manages int
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/blog/posts/2022/jvm-memory-structure/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2022 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">dyhu</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
