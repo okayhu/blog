@@ -5,7 +5,7 @@
 # Site
 title: dyhu's blog
 subtitle: ""
-description: ""
+description: "Keep yourself and be kind to others"
 keywords:
 author: dyhu
 language: en
@@ -98,14 +98,9 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: fluid
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ""
-
-# Plugins
-all_minifier: true
-image_minifier:
-  enable: false
