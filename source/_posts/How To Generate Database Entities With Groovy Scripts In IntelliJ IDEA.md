@@ -1,7 +1,7 @@
 ---
-title: How To Generate Database Entities With Groovy Scripts Sn IntelliJ IDEA
+title: How To Generate Database Entities With Groovy Scripts In IntelliJ IDEA
 sub_title: idea-database-groovy
-index_img: https://uposs.justokay.cn/images/idea/idea.png
+cover: https://uposs.justokay.cn/images/idea/idea.png
 date: 2022-11-12 22:14:07
 categories: IntelliJ IDEA
 tags: [idea, groovy]
@@ -11,7 +11,7 @@ tags: [idea, groovy]
 
 IntelliJ IDEA has most of the features of DataGrip built-in for managing databases, which can be found in the sidebar, Connect to Database.
 
-![](https://uposs.justokay.cn/images/idea/idea-database-groovy-01.png)
+![idea-database-groovy-01](https://uposs.justokay.cn/images/idea/idea-database-groovy-01.png)
 
 ### Locating Groovy script directories
 
@@ -19,11 +19,11 @@ IntelliJ IDEA already has several built-in scripts for generating model classes,
 
 Right-click on any table and select Script Extensions - go to Scripts directory.
 
-![](https://uposs.justokay.cn/images/idea/idea-database-groovy-02.png)
+![idea-database-groovy-02](https://uposs.justokay.cn/images/idea/idea-database-groovy-02.png)
 
 Click on `Go To Scripts Directory` and you will see the built-in scripts, double click on them to edit or add them.
 
-![](https://uposs.justokay.cn/images/idea/idea-database-groovy-03.png)
+![idea-database-groovy-03](https://uposs.justokay.cn/images/idea/idea-database-groovy-03.png)
 
 ### Writing Groovy script files
 

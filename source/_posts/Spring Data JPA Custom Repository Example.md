@@ -1,7 +1,7 @@
 ---
 title: Spring Data JPA Custom Repository Example
 sub_title: spring-jpa-custom-repository
-index_img: https://uposs.justokay.cn/images/spring/spring-date-jpa.png
+cover: https://uposs.justokay.cn/images/spring/spring-date-jpa.png
 date: 2022-08-26 22:16:41
 categories: Spring
 tags: [spring, jpa]
@@ -114,7 +114,7 @@ class BaseRepositoryTests {
 
     @Test
     void deleteByIdIn_test() {
-		userRepository.deleteByIdIn(Arrays.asList(1L, 2L));
+        userRepository.deleteByIdIn(Arrays.asList(1L, 2L));
     }
 }
 ```

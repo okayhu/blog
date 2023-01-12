@@ -1,13 +1,13 @@
 ---
 title: Installing Nginx with Docker
 sub_title: nginx-docker-install
-index_img: https://uposs.justokay.cn/images/devops/nginx_docker.png
+cover: https://uposs.justokay.cn/images/devops/nginx_docker.png
 date: 2022-06-21 21:28:22
 categories: Devops
 tags: [nginx, docker]
 ---
 
-{% note success %}
+{% note info  %}
 Environment: Centos 7
 {% endnote %}
 

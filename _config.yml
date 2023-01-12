@@ -30,6 +30,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - robots.txt
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -98,9 +99,19 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
+# theme: icarus
 theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ""
+
+excerpt:
+  depth: 4
+
+search:
+  path: search.xml
+  field: post
+  content: true
+  format: html

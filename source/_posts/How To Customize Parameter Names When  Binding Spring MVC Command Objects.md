@@ -1,7 +1,7 @@
 ---
 title: How To Customize Parameter Names When  Binding Spring MVC Command Objects
 sub_title: spring-mvc-binding-object
-index_img: https://uposs.justokay.cn/images/spring/spring-mvc.png
+cover: https://uposs.justokay.cn/images/spring/spring-mvc.png
 date: 2022-12-30 18:56:05
 categories: spring
 tags: [spring, springmvc]
@@ -170,10 +170,10 @@ public class WebConfiguration implements WebMvcConfigurer {
 
 ```java
 public class PageQuery {
-    
+
     @RequestParamName("current_page")
     private Integer pageNum;
-    
+
     @RequestParamName("page_size")
     private Integer pageSize;
 }

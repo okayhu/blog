@@ -1,7 +1,7 @@
 ---
 title: Securing Docker with Firewalld
 sub_title: docker-firewalld
-index_img: https://uposs.justokay.cn/images/devops/docker.png
+cover: https://uposs.justokay.cn/images/devops/docker.png
 date: 2022-6-30 19:47:12
 categories: Devops
 tags: [docker, firewalld]
@@ -39,17 +39,19 @@ firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -j RETURN
 # Allow the specified ip traffic to pass, replace 1.1.1.1 with the ip you need to pass
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -s 1.1.1.1/32 -j ACCEPT
 
-# Allow the specified ip to access the specified port 
+# Allow the specified ip to access the specified port
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 0 -p tcp -m multiport --dports 80,443 -s 1.1.1.1/32 -j ACCEPT
 
 # Reject other traffic
 firewall-cmd --permanent --direct --add-rule ipv4 filter DOCKER-USER 10 -j REJECT --reject-with icmp-host-unreachable -m comment --comment "reject all other traffic"
 ```
 
-{% note warn %}
+{% note warning  %}
+
 - `REJECT` rule should be executed at the end
 - Do not write multiple IP addresses for the same rule
 - If you restart firewalld while Docker is running, then firewalld will remove the DOCKER-USER
+
 {% endnote %}
 
 ### Reload the configuration and verify

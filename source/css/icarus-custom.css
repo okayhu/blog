@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Noto Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Noto Sans"), url("https://uposs.justokay.cn/font/NotoSans.ttf"),
+    url("../font/NotoSans.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Source Serif Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Source Serif Pro"),
+    url("https://uposs.justokay.cn/font/SourceSerifPro.ttf"),
+    url("../font/SourceSerifPro.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "mononoki";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("mononoki"), url("https://uposs.justokay.cn/font/mononoki.ttf"),
+    url("../font/mononoki.ttf") format("truetype");
+}
+
+html,
+body {
+  font-family: Noto Sans, "Source Serif Pro", sans-serif !important;
+  /* font-size: 18px !important; */
+}

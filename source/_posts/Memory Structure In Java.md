@@ -1,7 +1,7 @@
 ---
 title: Memory Structure In Java
 sub_title: jvm-memory-structure
-index_img: https://uposs.justokay.cn/images/jvm/jvm.png
+cover: https://uposs.justokay.cn/images/jvm/jvm.png
 date: 2022-06-22 21:47:45
 categories: Java
 tags: jvm
@@ -11,17 +11,17 @@ tags: jvm
 
 Java Virtual Machine (JVM) is an abstract computer, based on a stack architecture, with its own instruction set and memory management. It loads class files, parses, interprets and executes bytecode. The basic structure is as follows.
 
-![](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-01.png)
+![jvm-memory-structure-01](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-01.png)
 
 Java virtual machine divides the memory it manages into regions during the execution of a Java program. As shown in the figure.
 
-![](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-02.png)
+![jvm-memory-structure-02](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-02.png)
 
 The JVM memory structure is divided into three main blocks: heap, stack, and method areas. The heap is the largest area in the JVM and consists of the young and old generations, **which in turn are divided into two parts, the Eden and Survivor areas, which in turn are divided into the From and To areas**, and by default the young generations are allocated in a ratio of **8:1:1**.
 
 A diagram shows how the memory size of each region can be controlled by the following parameters.
 
-![](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-03.png)
+![jvm-memory-structure-03](https://uposs.justokay.cn/images/jvm/jvm-memory-structure-03.png)
 
 - `Xms`: sets the minimum space size of the heap.
 - `Xmx`: sets the maximum space size of the heap.

@@ -1,7 +1,7 @@
 ---
 title: Object References And GC Algorithms In Java
 sub_title: jvm-object-gc
-index_img: https://uposs.justokay.cn/images/jvm/jvm.png
+cover: https://uposs.justokay.cn/images/jvm/jvm.png
 date: 2022-07-18 22:08:11
 categories: Java
 tags: jvm
@@ -69,7 +69,7 @@ The above recycling are objects, the class (Class) recycling conditions are very
 
 The recycling of deprecated constants and static variables is actually similar to the conditions for Class recycling.
 
-**Finalize**
+### Finalize
 
 The finalize() method in the Object class is similar to the C++ destructor and is used to close external resources and so on. But try-finally and other methods can do better, and the method is expensive to run, uncertain, and does not guarantee the order of calls for each object, so it is better not to use finalize().
 

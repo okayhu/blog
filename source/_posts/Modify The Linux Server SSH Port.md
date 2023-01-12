@@ -1,12 +1,13 @@
 ---
 title: Modify The Linux Server SSH Port
 sub_title: linux-ssh-port-update
-index_img: https://uposs.justokay.cn/images/devops/linux.png
+cover: https://uposs.justokay.cn/images/devops/linux.png
 date: 2022-6-27 09:54:58
 categories: Devops
 tags: [linux, ssh]
 ---
-{% note success %}
+
+{% note info %}
 Environment: Centos 7
 {% endnote %}
 

@@ -1,7 +1,7 @@
 ---
 title: Useful Tips For MapStruct
 sub_title: mapstrcut-style
-index_img: https://uposs.justokay.cn/images/tool/mapstruct.png
+cover: https://uposs.justokay.cn/images/tool/mapstruct.png
 date: 2022-07-14 22:03:31
 categories: Tool
 tags: [tool, mapstruct]

@@ -1,7 +1,7 @@
 ---
 title: Object Creation Process And Memory Layout In Java
 sub_title: jvm-object-memory
-index_img: https://uposs.justokay.cn/images/jvm/jvm.png
+cover: https://uposs.justokay.cn/images/jvm/jvm.png
 date: 2022-07-04 15:34:20
 categories: Java
 tags: jvm
@@ -9,7 +9,7 @@ tags: jvm
 
 ## Object creation process
 
-![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-01.png)
+![jvm-object-memory-01](https://uposs.justokay.cn/images/jvm/jvm-object-memory-01.png)
 
 ### Checking loading
 
@@ -34,7 +34,7 @@ The JVM also has to consider concurrency safety when allocating memory, and ther
 - `TLAB (Thread Local Allocation Buffer)`.
 - Overview: The memory allocation action is divided into different spaces according to threads, i.e., each thread is pre-allocated a small piece of private memory in the Java heap, i.e., the Local Thread Allocation Buffer (TLAB).
   - Step: When the JVM initializes a thread, it also requests a piece of memory of a specified size for the current thread only, so that each thread has a separate Buffer, and if it needs to allocate memory, it will allocate it on its own Buffer. area when the Buffer is running low.
-  - Parameters: `JVM options: -XX:+UseTLAB ` Allows the use of thread local allocation blocks (TLAB) in the young generation space, enabled by default.
+  - Parameters: `JVM options: -XX:+UseTLAB` Allows the use of thread local allocation blocks (TLAB) in the young generation space, enabled by default.
 
 ### Memory space initialization
 
@@ -58,11 +58,11 @@ In general the allocation rules are not 100% fixed, the details depend on which 
 - **Large objects go directly to the old age (large objects are those that require a lot of contiguous memory space)**. This is done to avoid a large number of memory copies occurring between the Eden zone and the two Survivor zones (the new generation uses a replication algorithm to collect memory).
 - **Long-term surviving objects go to the old generation**. The virtual machine defines an age counter for each object, if the object has survived 1 Minor GC, the object enters the Survivor zone and sets the object age to 1. The age of the object increases by 1 for each Minor GC it survives in the Survivor zone, and when it increases to a certain age (**the concurrent garbage collector defaults to 15, the CMS is 6**), it will be promoted to the old age. This can be adjusted with `-XX:MaxTenuringThreshold`.
 - **Dynamically determine the age of an object**. In order to better adapt to the memory situation of different programs, the VM does not always require the age of an object to reach `MaxTenuringThreshold` before it can be promoted to an older age. If the sum of all objects of the same age in Survivor space is greater than half the size of Survivor space, objects with an age greater than or equal to that age can be directly aged, without waiting for the age required in `MaxTenuringThreshold`.
-- **Space Allocation Guarantee**. Before each Minor GC, the VM checks if the maximum available contiguous space in the old age is greater than the total space of all objects in the new age. If this condition is not true, the VM will check if the `HandlePromotionFailure` setting allows the guarantee to fail. If `HandlePromotionFailure=true`, then it will continue to check if the maximum available contiguous space in the old age is greater than the average size of objects promoted to the old age over time, and if it is, then a Minor GC will be attempted, but this Minor GC is still risky; if it is less than or ` HandlePromotionFailure=false`, then a Full GC is performed instead.
+- **Space Allocation Guarantee**. Before each Minor GC, the VM checks if the maximum available contiguous space in the old age is greater than the total space of all objects in the new age. If this condition is not true, the VM will check if the `HandlePromotionFailure` setting allows the guarantee to fail. If `HandlePromotionFailure=true`, then it will continue to check if the maximum available contiguous space in the old age is greater than the average size of objects promoted to the old age over time, and if it is, then a Minor GC will be attempted, but this Minor GC is still risky; if it is less than or `HandlePromotionFailure=false`, then a Full GC is performed instead.
 
 ## Memory layout of objects
 
-![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-02.png)
+![jvm-object-memory-02](https://uposs.justokay.cn/images/jvm/jvm-object-memory-02.png)
 
 In the HotSpot VM, the layout of objects stored in memory can be divided into 3 areas: Object Header, Instance Data, and Alignment Padding.
 
@@ -70,11 +70,11 @@ In the HotSpot VM, the layout of objects stored in memory can be divided into 3 
 
 The object header is divided into two parts in the HotSpot virtual machine, one called the Mark Word and the other a type pointer. If the object is an array, there is a piece of data in the object header that is used to record the length of the array.
 
-| length | content | description |
-| :------: | :--------------------: | :----------------------------------------------------: |
-| 32/64bit | Mark Word | stores the hashcode, bias lock pattern, lock information and GC age of the object.
-| 32/64bit | Class Metadata Address | A pointer to the object's class metadata.
-| 32/64bit | Array Length | The length of the array (not necessarily available)
+|  length  |        content         |                                    description                                     |
+| :------: | :--------------------: | :--------------------------------------------------------------------------------: |
+| 32/64bit |       Mark Word        | stores the hashcode, bias lock pattern, lock information and GC age of the object. |
+| 32/64bit | Class Metadata Address |                     A pointer to the object's class metadata.                      |
+| 32/64bit |      Array Length      |                The length of the array (not necessarily available)                 |
 
 ### Instance Data
 
@@ -92,7 +92,7 @@ Java programs need to access specific objects in the heap via references on the 
 
 points to an object and represents the starting address of an object in memory. If direct pointer access is used, what is stored in the reference is directly the object address, and then the layout inside the Java heap object must take into account how to place information about accessing the type data.
 
-![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-03.png)
+![jvm-object-memory-03](https://uposs.justokay.cn/images/jvm/jvm-object-memory-03.png)
 
 Advantages: fast, saves time overhead of one pointer location. Since object access is very frequent in Java, this type of overhead can add up to a significant implementation cost. this is the approach used in HotSpot.
 
@@ -100,6 +100,6 @@ Advantages: fast, saves time overhead of one pointer location. Since object acce
 
 A handle can be understood as a pointer to a pointer that maintains a pointer to an object. The handle does not point directly to the object, but to the object's pointer (the handle does not change and points to a fixed memory address), which in turn points to the object's real memory address. If you use direct handle access, a chunk of memory is divided in the Java heap to serve as a pool of handles, and the reference stores the object's handle address, which contains information about the specific address of each of the object's instance data and object type data.
 
-![](https://uposs.justokay.cn/images/jvm/jvm-object-memory-04.png)
+![jvm-object-memory-04](https://uposs.justokay.cn/images/jvm/jvm-object-memory-04.png)
 
 Advantage: the reference stores a stable handle address, and when the object is moved (it is very common to move objects during garbage collection), only the instance data pointer in the handle is changed, and the reference itself does not need to be modified.
