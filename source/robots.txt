@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /categories/
+Disallow: /archives/
+
+Sitemap: https://okayhu.github.io/blog/sitemap.xml
