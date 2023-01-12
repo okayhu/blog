@@ -20,19 +20,19 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"okayhu.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
-    <meta name="description" content="Object creation process Checking loadingFirst check that the parameters of this instruction locate a symbolic reference to a class in the constant pool (symbolic reference: a symbolic reference descri">
+    <meta name="description" content="Object creation process">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Object Creation Process And Memory Layout In Java">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/jvm-object-memory/index.html">
-<meta property="og:site_name" content="dyhu&#39;s blog">
-<meta property="og:description" content="Object creation process Checking loadingFirst check that the parameters of this instruction locate a symbolic reference to a class in the constant pool (symbolic reference: a symbolic reference descri">
+<meta property="og:site_name" content="DYHU&#39;S BLOG">
+<meta property="og:description" content="Object creation process">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm-object-memory-01.png">
 <meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm-object-memory-02.png">
 <meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm-object-memory-03.png">
 <meta property="og:image" content="https://uposs.justokay.cn/images/jvm/jvm-object-memory-04.png">
 <meta property="article:published_time" content="2022-07-04T07:34:20.000Z">
-<meta property="article:modified_time" content="2023-01-12T08:33:10.114Z">
+<meta property="article:modified_time" content="2023-01-12T10:04:02.625Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://okayhu.github.io/blog/posts/2022/jvm-object-memory/","path":"posts/2022/jvm-object-memory/","title":"Object Creation Process And Memory Layout In Java"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Object Creation Process And Memory Layout In Java | dyhu's blog</title>
+<title>Object Creation Process And Memory Layout In Java | DYHU'S BLOG</title>
   
 
 
@@ -68,7 +68,7 @@
     gtag('js', new Date());
 
     gtag('config', 'G-FFSPHD4588');
-    </script><!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="dyhu's blog" type="application/atom+xml">
+    </script><!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="DYHU'S BLOG" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -89,7 +89,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">dyhu's blog</p>
+      <p class="site-title">DYHU'S BLOG</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -227,12 +227,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dyhu's blog">
+      <meta itemprop="name" content="DYHU'S BLOG">
       <meta itemprop="description" content="Keep yourself and be kind to others">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Object Creation Process And Memory Layout In Java | dyhu's blog">
+      <meta itemprop="name" content="Object Creation Process And Memory Layout In Java | DYHU'S BLOG">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -255,7 +255,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-01-12 16:33:10" itemprop="dateModified" datetime="2023-01-12T16:33:10+08:00">2023-01-12</time>
+      <time title="Modified: 2023-01-12 18:04:02" itemprop="dateModified" datetime="2023-01-12T18:04:02+08:00">2023-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
