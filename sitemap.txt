@@ -1,9 +1,8 @@
 https://okayhu.github.io/blog/google0d6166798972af88.html
-https://okayhu.github.io/blog/posts/2022/jvm-object-gc/
-https://okayhu.github.io/blog/posts/2022/docker-firewalld/
 https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/
 https://okayhu.github.io/blog/posts/2022/mapstrcut-style/
 https://okayhu.github.io/blog/about/index.html
+https://okayhu.github.io/blog/categories/index.html
 https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/
 https://okayhu.github.io/blog/posts/2022/idea-database-groovy/
 https://okayhu.github.io/blog/posts/2022/idea-settings/
@@ -11,6 +10,9 @@ https://okayhu.github.io/blog/posts/2022/nginx-docker-install/
 https://okayhu.github.io/blog/posts/2022/jvm-memory-structure/
 https://okayhu.github.io/blog/posts/2022/linux-ssh-port-update/
 https://okayhu.github.io/blog/posts/2022/jvm-object-memory/
+https://okayhu.github.io/blog/posts/2022/jvm-object-gc/
+https://okayhu.github.io/blog/posts/2022/docker-firewalld/
+https://okayhu.github.io/blog/404/index.html
 https://okayhu.github.io/blog
 https://okayhu.github.io/blog/tags/spring/
 https://okayhu.github.io/blog/tags/springmvc/
