@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: dyhu's blog
+title: DYHU'S BLOG
 subtitle: ""
 description: "Keep yourself and be kind to others"
 keywords:
@@ -108,7 +108,7 @@ deploy:
   type: ""
 
 excerpt:
-  depth: 4
+  depth: 2
 
 search:
   path: search.xml

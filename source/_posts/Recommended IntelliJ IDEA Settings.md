@@ -1,11 +1,15 @@
 ---
-title: Important Settings For IntelliJ IDEA
+title: Recommended IntelliJ IDEA Settings
 sub_title: idea-settings
 cover: https://uposs.justokay.cn/images/idea/idea.png
 date: 2022-12-17 20:25:15
 categories: IntelliJ IDEA
 tags: idea
 ---
+
+These are my must-have settings tweaks for IntelliJ IDEA, mixed with some useful tips. However, I recommend that you go through all the preferences in the Settings Dialog yourself. You will become more familiar with IntelliJ IDEA.
+
+<!-- more -->
 
 {% note info  %}
 IntelliJ IDEA version: 2022.3
@@ -23,19 +27,19 @@ Settings ⇒ Appearance & Behavior ⇒ System Settings
 
 Uncheck the `Reopen projects on startup` in Project.
 
-### Proxy Settings
+### Proxy settings
 
 Settings ⇒ Appearance & Behavior ⇒ System Settings ⇒ Http Proxy
 
 ![idea-http-proxy](https://uposs.justokay.cn/images/idea/idea-http-proxy.png)
 
-### Tab Multi-Row display
+### Tab multi-row display
 
 Settings ⇒ Editor ⇒ General ⇒ Editor Tabs
 
 Uncheck `Show tabs in one row`.
 
-### Increase Tab display
+### Increase tab display
 
 Tabs display up to 10 by default.
 
@@ -43,7 +47,7 @@ Settings ⇒ Editor ⇒ General ⇒ Editor Tabs
 
 Modify the `Tab limit` in the Closing Policy.
 
-### Modify Tab's closing policy
+### Modify tab's closing policy
 
 By default, closing the Tab will open the Tab on the left, which can optionally be changed to open the most recent Tab.
 
@@ -63,7 +67,7 @@ Settings ⇒ Editor ⇒ Code style
 
 Set `Line separator` in General to `Unix and macOS (\n)`.
 
-### Set the file encoding format to UTF -8
+### Set the file encoding format to UTF-8
 
 Settings ⇒ Editor ⇒ File Encodings
 
@@ -82,7 +86,7 @@ Settings ⇒ Editor ⇒ General ⇒ Appearance
 
 Check `Show method separators`。
 
-### Comment Indent
+### Optimised code comment indentation
 
 By default, all comments that use the `ctrl +/` shortcut start at the beginning of the line, without indentation.
 

@@ -1,5 +1,5 @@
 ---
-title: How To Generate Database Entities With Groovy Scripts In IntelliJ IDEA
+title: How to Generate Entities from the Existing Database in Intellij IDEA
 sub_title: idea-database-groovy
 cover: https://uposs.justokay.cn/images/idea/idea.png
 date: 2022-11-12 22:14:07
@@ -7,7 +7,11 @@ categories: IntelliJ IDEA
 tags: [idea, groovy]
 ---
 
-### Connecting to Databases
+Entity class for a database table can be generated from tools plugged into your IDE. I share here how to use Groovy to generate entity classes in IntelliJ IDEA. Let’s get started!
+
+<!-- more -->
+
+### Connecting to databases
 
 IntelliJ IDEA has most of the features of DataGrip built-in for managing databases, which can be found in the sidebar, Connect to Database.
 
@@ -16,7 +20,6 @@ IntelliJ IDEA has most of the features of DataGrip built-in for managing databas
 ### Locating Groovy script directories
 
 IntelliJ IDEA already has several built-in scripts for generating model classes, we can create our own scripts according to our needs.
-
 Right-click on any table and select Script Extensions - go to Scripts directory.
 
 ![idea-database-groovy-02](https://uposs.justokay.cn/images/idea/idea-database-groovy-02.png)
@@ -176,3 +179,8 @@ static def isNotEmpty(content) {
     return content != null && content.toString().trim().length() > 0
 }
 ```
+
+---
+
+**References**
+[Datagrip-Generate code](https://www.jetbrains.com/help/datagrip/generating-code.html)

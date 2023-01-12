@@ -1,5 +1,5 @@
 ---
-title: How To Customize Parameter Names When  Binding Spring MVC Command Objects
+title: How to Customize Parameter Names When Binding Spring MVC Command Objects
 sub_title: spring-mvc-binding-object
 cover: https://uposs.justokay.cn/images/spring/spring-mvc.png
 date: 2022-12-30 18:56:05

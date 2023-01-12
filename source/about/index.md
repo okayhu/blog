@@ -1,8 +1,8 @@
 ---
-title: 关于我
+title: About Me
 layout: about
 date: 2022-12-12 20:51:45
-comment: 'disqus'
+comment: "disqus"
 ---
 
 **Hello, welcome to my blog!**
