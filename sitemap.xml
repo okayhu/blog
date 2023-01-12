@@ -11,51 +11,6 @@
   </url>
   
   <url>
-    <loc>https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/</loc>
-    
-    <lastmod>2023-01-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://okayhu.github.io/blog/posts/2022/mapstrcut-style/</loc>
-    
-    <lastmod>2023-01-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://okayhu.github.io/blog/about/index.html</loc>
-    
-    <lastmod>2023-01-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://okayhu.github.io/blog/categories/index.html</loc>
-    
-    <lastmod>2023-01-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/</loc>
-    
-    <lastmod>2023-01-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://okayhu.github.io/blog/posts/2022/idea-database-groovy/</loc>
     
     <lastmod>2023-01-12</lastmod>
@@ -120,6 +75,51 @@
   
   <url>
     <loc>https://okayhu.github.io/blog/posts/2022/docker-firewalld/</loc>
+    
+    <lastmod>2023-01-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://okayhu.github.io/blog/posts/2022/spring-jpa-custom-repository/</loc>
+    
+    <lastmod>2023-01-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://okayhu.github.io/blog/posts/2022/mapstrcut-style/</loc>
+    
+    <lastmod>2023-01-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://okayhu.github.io/blog/about/index.html</loc>
+    
+    <lastmod>2023-01-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://okayhu.github.io/blog/categories/index.html</loc>
+    
+    <lastmod>2023-01-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://okayhu.github.io/blog/posts/2022/spring-mvc-binding-object/</loc>
     
     <lastmod>2023-01-12</lastmod>
     
