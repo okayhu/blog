@@ -7,12 +7,13 @@ const js = hexo.extend.helper.get("js").bind(hexo);
 
 hexo.extend.injector.register(
   "head_end",
-  `<script async src="https://www.googletagmanager.com/gtag/js?id=G-FFSPHD4588"></script>
-    <script>
+  `<!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFSPHD4588"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-FFSPHD4588');
-    </script>`
+  </script>`
 );
