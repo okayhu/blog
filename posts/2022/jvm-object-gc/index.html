@@ -16,19 +16,18 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"okayhu.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"okayhu.github.io","root":"/blog/","images":"/blog/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":false,"lazyload":true,"nav":null,"activeClass":"disqus"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
 
     <meta name="description" content="Object referencesStrong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, e">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Object References And GC Algorithms In Java">
 <meta property="og:url" content="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/index.html">
-<meta property="og:site_name" content="DYHU&#39;S BLOG">
+<meta property="og:site_name" content="dyhu&#39;s Blog">
 <meta property="og:description" content="Object referencesStrong reference: We usually new an object is a strong reference, for example Object obj &#x3D; new Object(). The JVM would rather throw an OutOfMemory error than reclaim such an object, e">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2022-07-18T14:08:11.000Z">
-<meta property="article:modified_time" content="2023-01-12T10:04:02.625Z">
+<meta property="article:modified_time" content="2023-01-12T14:34:54.969Z">
 <meta property="article:author" content="dyhu">
 <meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
@@ -41,7 +40,7 @@
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"https://okayhu.github.io/blog/posts/2022/jvm-object-gc/","path":"posts/2022/jvm-object-gc/","title":"Object References And GC Algorithms In Java"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Object References And GC Algorithms In Java | DYHU'S BLOG</title>
+<title>Object References And GC Algorithms In Java | dyhu's Blog</title>
   
 
 
@@ -56,17 +55,18 @@
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
   </noscript>
-<!-- hexo injector head_end start --><script async src="https://www.googletagmanager.com/gtag/js?id=G-FFSPHD4588"></script>
-    <script>
+<!-- hexo injector head_end start --><!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FFSPHD4588"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', 'G-FFSPHD4588');
-    </script><!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="DYHU'S BLOG" type="application/atom+xml">
+  </script><!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="dyhu's Blog" type="application/atom+xml">
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+<body itemscope itemtype="http://schema.org/WebPage">
   <div class="headband"></div>
 
   <main class="main">
@@ -84,7 +84,7 @@
 
     <a href="/blog/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">DYHU'S BLOG</p>
+      <p class="site-title">dyhu's Blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -99,9 +99,9 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>Sitemap</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section">Home</a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section">Archives<span class="badge">11</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section">Categories<span class="badge">6</span></a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section">About</a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section">Sitemap</a></li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        <a role="button" class="popup-trigger">Search
         </a>
       </li>
   </ul>
@@ -188,9 +188,10 @@
         <a href="mailto:okayhu66@gmail.com" title="Email → mailto:okayhu66@gmail.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>Email</a>
       </span>
   </div>
-<div class="cc-license animated" itemprop="license">
-  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank" class="exturl cc-opacity" title=""><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
-</div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="https://cdnjs.cloudflare.com/ajax/libs/creativecommons-vocabulary/2020.11.3/assets/license_badges/big/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
         </div>
       </div>
     </div>
@@ -239,12 +240,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="DYHU'S BLOG">
+      <meta itemprop="name" content="dyhu's Blog">
       <meta itemprop="description" content="Keep yourself and be kind to others">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Object References And GC Algorithms In Java | DYHU'S BLOG">
+      <meta itemprop="name" content="Object References And GC Algorithms In Java | dyhu's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -267,7 +268,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">Edited on</span>
-      <time title="Modified: 2023-01-12 18:04:02" itemprop="dateModified" datetime="2023-01-12T18:04:02+08:00">2023-01-12</time>
+      <time title="Modified: 2023-01-12 22:34:54" itemprop="dateModified" datetime="2023-01-12T22:34:54+08:00">2023-01-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -279,20 +280,6 @@
         </span>
     </span>
 
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/blog/posts/2022/jvm-object-gc/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="posts/2022/jvm-object-gc/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
   
     <span class="post-meta-break"></span>
     <span class="post-meta-item" title="Word count in article">
@@ -372,6 +359,23 @@
     
 
     <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>dyhu
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="https://okayhu.github.io/blog/posts/2022/jvm-object-gc/" title="Object References And GC Algorithms In Java">https://okayhu.github.io/blog/posts/2022/jvm-object-gc/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
           <div class="post-tags">
               <a href="/blog/tags/jvm/" rel="tag"><i class="fa fa-tag"></i> jvm</a>
           </div>
@@ -455,7 +459,7 @@
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/next-theme-pjax/0.6.0/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
-<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/next-boot.js"></script><script src="/blog/js/pjax.js"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/next-boot.js"></script><script src="/blog/js/pjax.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
 <script src="/blog/js/third-party/search/local-search.js"></script>
@@ -469,7 +473,7 @@
 
 
 
-<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"dyhu-blog","count":true,"i18n":{"disqus":"disqus"}}</script>
+<script class="next-config" data-name="disqus" type="application/json">{"enable":true,"shortname":"dyhu-blog","count":false,"i18n":{"disqus":"disqus"}}</script>
 <script src="/blog/js/third-party/comments/disqus.js"></script>
 
 </body>
